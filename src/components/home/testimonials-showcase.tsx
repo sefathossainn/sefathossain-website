@@ -53,7 +53,7 @@ export function TestimonialsShowcase({
 
   React.useEffect(() => {
     if (!autoplay || !many || paused) return;
-    const ms = Math.max(2, interval) * 1000;
+    const ms = 3000;
     const t = setInterval(() => setIndex((n) => n + 1), ms);
     return () => clearInterval(t);
   }, [autoplay, many, paused, interval, items.length]);
