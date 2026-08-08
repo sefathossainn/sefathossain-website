@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   sefathossain.com — Design system
+   Dark-mode native. Deep green near-black. No light theme.
+   Tokens are the single source of truth; components consume them only.
+   ========================================================================== */
+
+@theme {
+  /* — Color system (Brand Guide §03) ————————————————————————————— */
+  --color-obsidian: #060c09; /* primary page background — dark canvas */
+  --color-forest: #0b1811; /* section surfaces */
+  --color-pine: #10241a; /* cards, raised panels, hover */
+  --color-evergreen: #17402b; /* borders, structural lines, muted fills */
+  --color-emerald: #1e7a4e; /* PRIMARY brand green — links, key accents */
+  --color-signal: #27a165; /* CTAs only, "secure / active" highlights */
+  --color-mist: #e9f0eb; /* primary text */
+  --color-sage: #a7b8ad; /* secondary text, captions */
+  --color-slate: #5f7268; /* tertiary / faint text */
+  --color-line: #223a2e; /* hairline dividers */
+
+  /* Signal, softened — for glows / washes so the accent never blows out */
+  --color-signal-glow: #27a16533;
+
+  /* — Typography (Brand Guide §04) ———————————————————————————————— */
+  --font-display: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace,
+    monospace;
+
+  /* — Motion (Visual & Motion Direction) —————————————————————————— */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1); /* reveal & settle */
+  --ease-out-soft: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* — Structure ——————————————————————————————————————————————————— */
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  /* Heading size multiplier — retuned from /admin → Appearance. */
+  --heading-scale: 1;
+
+  /* Fluid display scale — clamps so headings feel cinematic on large screens
+     without breaking on phones. Multiplied by --heading-scale for CMS control. */
+  --text-hero: calc(var(--heading-scale) * clamp(2.75rem, 1.4rem + 6vw, 6rem));
+  --text-hero--line-height: 0.98;
+  --text-display: calc(var(--heading-scale) * clamp(2rem, 1.2rem + 3.4vw, 3.75rem));
+  --text-display--line-height: 1.04;
+  --text-title: calc(var(--heading-scale) * clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem));
+  --text-title--line-height: 1.1;
+}
+
+/* ============================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    /* Lenis owns smooth scroll — never set scroll-behavior here. */
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-obsidian);
+    color: var(--color-mist);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+    color: var(--color-mist);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-emerald) 45%, transparent);
+    color: var(--color-mist);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Deep-green scrollbar (desktop) */
+  @supports selector(::-webkit-scrollbar) {
+    ::-webkit-scrollbar {
+      width: 11px;
+      height: 11px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-obsidian);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-evergreen);
+      border: 3px solid var(--color-obsidian);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-emerald);
+    }
+  }
+}
+
+/* ============================================================================
+   Lenis smooth-scroll (required stylesheet)
+   ========================================================================== */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ============================================================================
+   Brand primitives
+   ========================================================================== */
+
+@layer components {
+  /* Mono kicker / section label — JetBrains Mono, uppercase, wide tracking */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-sage);
+    font-weight: 500;
+  }
+
+  /* The single emerald hairline that sits under kickers */
+  .kicker-emerald {
+    color: var(--color-emerald);
+  }
+
+  /* Page section rhythm */
+  .section {
+    padding-block: clamp(4rem, 2rem + 8vw, 9rem);
+  }
+
+  /* Content container — generous margins, exact max width */
+  .container-brand {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 76rem;
+    padding-inline: clamp(1.25rem, 0.5rem + 3vw, 3rem);
+  }
+
+  /* Raised panel / card surface */
+  .panel {
+    background-color: var(--color-forest);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Hairline divider */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-line) 12%,
+      var(--color-line) 88%,
+      transparent
+    );
+    border: 0;
+  }
+
+  /* Rich text (CMS HTML: case studies, blog posts) */
+  .prose-brand {
+    color: var(--color-sage);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-brand > * + * {
+    margin-top: 1.25em;
+  }
+  .prose-brand h2 {
+    font-family: var(--font-display);
+    color: var(--color-mist);
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    margin-top: 2.25em;
+    margin-bottom: 0.2em;
+  }
+  .prose-brand h3 {
+    font-family: var(--font-display);
+    color: var(--color-mist);
+    font-size: 1.2rem;
+    margin-top: 1.8em;
+  }
+  .prose-brand p {
+    color: var(--color-sage);
+  }
+  .prose-brand strong {
+    color: var(--color-mist);
+    font-weight: 600;
+  }
+  .prose-brand a {
+    color: var(--color-emerald);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-brand ul {
+    list-style: none;
+    padding-left: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .prose-brand ul > li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--color-sage);
+  }
+  /* Emerald tick marker — precise, security-sweep feel */
+  .prose-brand ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-left: 1.5px solid var(--color-emerald);
+    border-bottom: 1.5px solid var(--color-emerald);
+    transform: rotate(-45deg);
+    opacity: 0.9;
+  }
+  .prose-brand blockquote {
+    border-left: 2px solid var(--color-emerald);
+    padding-left: 1.25rem;
+    color: var(--color-mist);
+    font-style: normal;
+  }
+}
+
+/* ============================================================================
+   Utilities
+   ========================================================================== */
+
+@layer utilities {
+  /* text-hero / text-display / text-title are auto-generated from the
+     `--text-*` theme tokens (size + line-height). */
+
+  /* The single low-key emerald glow — the hero's light source */
+  .glow-core {
+    background: radial-gradient(
+      60% 60% at 50% 45%,
+      color-mix(in srgb, var(--color-signal) 22%, transparent),
+      transparent 70%
+    );
+  }
+
+  /* Atmospheric fog at edges */
+  .fog-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+
+  /* Subtle film grain overlay (applied to a fixed element in layout) */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+}
+
+/* ============================================================================
+   Reduced motion — honored everywhere (guardrail §9.3)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
