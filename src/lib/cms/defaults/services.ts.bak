@@ -22,7 +22,7 @@ export const defaultServices: Service[] = [
       "Hardened and protected from the start — malware removed, attacks prevented.",
     items: [
       "Malware removal and hacked-site recovery — calm, thorough, and complete.",
-      "Security hardening — closing the doors before anyone finds them. Explore WordPress Security Hardening: /services/wordpress-security-hardening",
+      "Security hardening — closing the doors before anyone finds them.",
       "Firewall setup, login protection, and automated backups.",
       "Blacklist removal — getting your site clean and trusted again.",
     ],
