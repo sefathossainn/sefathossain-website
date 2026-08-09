@@ -25,6 +25,7 @@ export default async function ContactPage() {
     getSiteSettings(),
   ]);
   const calendarUrl = settings.calendar_url;
+  const whatsappNumber = settings.whatsapp_number;
   const photo = settings.profile_photo;
   const cvUrl = process.env.NEXT_PUBLIC_CV_URL;
 
@@ -85,6 +86,18 @@ export default async function ContactPage() {
                     Booking link coming soon — send a message and we&rsquo;ll
                     find a time.
                   </p>
+                )}
+
+                {whatsappNumber && (
+                  <Link
+                    href={`https://wa.me/${whatsappNumber.replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="panel flex items-center justify-between px-5 py-4 transition-colors hover:border-evergreen"
+                  >
+                    WhatsApp me
+                    →
+                  </Link>
                 )}
 
                 <Link

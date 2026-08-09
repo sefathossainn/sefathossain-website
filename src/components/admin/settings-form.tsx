@@ -15,6 +15,7 @@ type Settings = {
   favicon_url?: string | null;
   calendar_url?: string | null;
   lead_email?: string | null;
+  whatsapp_number?: string | null;
   seo_defaults?: { title?: string; description?: string } | null;
   social?: Record<string, string> | null;
 };
@@ -36,6 +37,7 @@ export function SettingsForm({
   const [favicon, setFavicon] = React.useState(settings.favicon_url ?? "");
   const [calendar, setCalendar] = React.useState(settings.calendar_url ?? "");
   const [leadEmail, setLeadEmail] = React.useState(settings.lead_email ?? "");
+  const [whatsappNumber, setWhatsappNumber] = React.useState(settings.whatsapp_number ?? "");
   const [seoTitle, setSeoTitle] = React.useState(
     settings.seo_defaults?.title ?? "",
   );
@@ -64,6 +66,7 @@ export function SettingsForm({
       favicon_url: favicon || null,
       calendar_url: calendar || null,
       lead_email: leadEmail || null,
+    whatsapp_number: whatsappNumber || null,
       seo_defaults: { title: seoTitle, description: seoDesc },
       social: Object.fromEntries(
         Object.entries(social).filter(([, v]) => v),
@@ -189,7 +192,20 @@ export function SettingsForm({
             />
           </Field>
 
-          <Field label="Form submissions email" htmlFor="leadEmail">
+          <Field label="WhatsApp Number" htmlFor="whatsappNumber">
+  <Input
+    id="whatsappNumber"
+    type="text"
+    placeholder="+8801XXXXXXXXX"
+    value={whatsappNumber}
+    onChange={(e) => setWhatsappNumber(e.target.value)}
+  />
+  <p className="mt-1 text-xs text-slate">
+    WhatsApp number shown on the contact page and used for direct WhatsApp contact.
+  </p>
+</Field>
+
+<Field label="Form submissions email" htmlFor="leadEmail">
             <Input
               id="leadEmail"
               type="email"

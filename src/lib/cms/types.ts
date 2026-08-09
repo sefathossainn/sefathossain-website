@@ -113,6 +113,7 @@ export type SiteSettings = {
   theme?: import("@/lib/theme").ThemeSettings | null;
   /** Where contact/audit form submissions are emailed (needs RESEND_API_KEY). */
   lead_email?: string | null;
+  whatsapp_number?: string | null;
   nav?: unknown;
   footer?: unknown;
   social?: Record<string, string>;
