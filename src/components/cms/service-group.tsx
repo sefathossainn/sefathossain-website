@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import type { Service } from "@/lib/cms/types";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -7,11 +8,16 @@ export function ServiceGroup({
   index,
   service,
   highlight,
+  learnMoreHref,
+  learnMoreLabel = "Learn more",
 }: {
   index: number;
   service: Service;
   /** Grow / care-plan gets the raised, retainer emphasis. */
   highlight?: boolean;
+  /** Optional internal link to a dedicated service page (e.g. malware removal). */
+  learnMoreHref?: string;
+  learnMoreLabel?: string;
 }) {
   return (
     <Reveal
@@ -34,6 +40,17 @@ export function ServiceGroup({
             {service.description}
           </p>
         )}
+        {learnMoreHref && (
+          <Link
+            href={learnMoreHref}
+            className="group/link mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-emerald transition-colors hover:text-signal"
+          >
+            {learnMoreLabel}
+            <span aria-hidden className="transition-transform group-hover/link:translate-x-0.5">
+              &rarr;
+            </span>
+          </Link>
+        )}
       </div>
 
       <ul className="grid gap-4 self-center">
@@ -43,16 +60,7 @@ export function ServiceGroup({
               aria-hidden
               className="mt-[0.5em] h-[0.55rem] w-[0.55rem] shrink-0 rotate-[-45deg] border-b-[1.5px] border-l-[1.5px] border-emerald"
             />
-            {service.group_name === "Secure" && service.title === "Website Security" && i === 0 ? (
-          <Link
-            href="/services/wordpress-malware-removal"
-            className="leading-relaxed transition hover:text-emerald"
-          >
-            {item}
-          </Link>
-        ) : (
-          <span className="leading-relaxed">{item}</span>
-        )}
+            <span className="leading-relaxed">{item}</span>
           </li>
         ))}
       </ul>
