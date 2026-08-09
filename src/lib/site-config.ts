@@ -12,7 +12,7 @@ export const siteConfig = {
   tagline: "Websites, built to be trusted.",
   description:
     "I build and protect high-performance WordPress, Elementor, and Shopify websites — secure from day one and looked after long after launch.",
-  email: "hello@sefathossain.com",
+  email: "contact@sefathossain.com",
   /** Booking / calendar embed (Calendly or similar) — set in CMS. */
   calendarUrl: "",
   credit: {
