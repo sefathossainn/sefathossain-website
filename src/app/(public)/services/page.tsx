@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/layout/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
-import { ServiceGroup } from "@/components/cms/service-group";
+import { ServiceGroup, type ServiceLink } from "@/components/cms/service-group";
 import { FaqAccordion } from "@/components/cms/faq-accordion";
 import { CtaBand } from "@/components/cms/cta-band";
 
@@ -16,6 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const content = await getPageContent("services");
   return pageMetadata({ content, path: "/services" });
 }
+
+const SECURITY_SERVICE_LINKS: ServiceLink[] = [
+  { href: "/services/wordpress-malware-removal", label: "Explore WordPress Malware Removal" },
+  { href: "/services/hacked-wordpress-recovery", label: "Explore Hacked WordPress Recovery" },
+  { href: "/services/wordpress-security-hardening", label: "Explore WordPress Security Hardening" },
+  { href: "/services/google-blacklist-removal", label: "Explore Google Blacklist Removal" },
+  { href: "/services/cloudflare-security", label: "Explore Cloudflare Security" },
+  { href: "/services/wordpress-security-audit", label: "Explore WordPress Security Audit" },
+];
 
 export default async function ServicesPage() {
   const [content, groups, faqs] = await Promise.all([
@@ -49,14 +58,7 @@ export default async function ServicesPage() {
                   index={i + 1}
                   service={service}
                   highlight={isGrow}
-                  learnMoreHref={
-                    isMalwareRemovalService ? "/services/wordpress-malware-removal" : undefined
-                  }
-                  learnMoreLabel="Explore WordPress Malware Removal"
-                  secondaryHref={
-                    isMalwareRemovalService ? "/services/hacked-wordpress-recovery" : undefined
-                  }
-                  secondaryLabel="Explore Hacked WordPress Recovery"
+                  links={isMalwareRemovalService ? SECURITY_SERVICE_LINKS : undefined}
                 />
               );
             });

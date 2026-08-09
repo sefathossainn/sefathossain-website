@@ -3,26 +3,21 @@ import Link from "next/link";
 import type { Service } from "@/lib/cms/types";
 import { Reveal } from "@/components/ui/reveal";
 
+export type ServiceLink = { href: string; label: string };
+
 /** One Build/Secure/Grow group: label, title, description, ticked item list. */
 export function ServiceGroup({
   index,
   service,
   highlight,
-  learnMoreHref,
-  learnMoreLabel = "Learn more",
-  secondaryHref,
-  secondaryLabel = "Learn more",
+  links,
 }: {
   index: number;
   service: Service;
   /** Grow / care-plan gets the raised, retainer emphasis. */
   highlight?: boolean;
-  /** Optional internal link to a dedicated service page (e.g. malware removal). */
-  learnMoreHref?: string;
-  learnMoreLabel?: string;
-  /** Optional second internal link (e.g. hacked-site recovery), shown alongside the first. */
-  secondaryHref?: string;
-  secondaryLabel?: string;
+  /** Optional internal links to dedicated service pages related to this card. */
+  links?: ServiceLink[];
 }) {
   return (
     <Reveal
@@ -45,30 +40,20 @@ export function ServiceGroup({
             {service.description}
           </p>
         )}
-        {(learnMoreHref || secondaryHref) && (
+        {links && links.length > 0 && (
           <div className="mt-5 flex flex-col items-start gap-2.5">
-            {learnMoreHref && (
+            {links.map((link) => (
               <Link
-                href={learnMoreHref}
+                key={link.href}
+                href={link.href}
                 className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-emerald transition-colors hover:text-signal"
               >
-                {learnMoreLabel}
+                {link.label}
                 <span aria-hidden className="transition-transform group-hover/link:translate-x-0.5">
                   &rarr;
                 </span>
               </Link>
-            )}
-            {secondaryHref && (
-              <Link
-                href={secondaryHref}
-                className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-emerald transition-colors hover:text-signal"
-              >
-                {secondaryLabel}
-                <span aria-hidden className="transition-transform group-hover/link:translate-x-0.5">
-                  &rarr;
-                </span>
-              </Link>
-            )}
+            ))}
           </div>
         )}
       </div>
