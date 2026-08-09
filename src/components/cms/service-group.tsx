@@ -10,6 +10,8 @@ export function ServiceGroup({
   highlight,
   learnMoreHref,
   learnMoreLabel = "Learn more",
+  secondaryHref,
+  secondaryLabel = "Learn more",
 }: {
   index: number;
   service: Service;
@@ -18,6 +20,9 @@ export function ServiceGroup({
   /** Optional internal link to a dedicated service page (e.g. malware removal). */
   learnMoreHref?: string;
   learnMoreLabel?: string;
+  /** Optional second internal link (e.g. hacked-site recovery), shown alongside the first. */
+  secondaryHref?: string;
+  secondaryLabel?: string;
 }) {
   return (
     <Reveal
@@ -40,16 +45,31 @@ export function ServiceGroup({
             {service.description}
           </p>
         )}
-        {learnMoreHref && (
-          <Link
-            href={learnMoreHref}
-            className="group/link mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-emerald transition-colors hover:text-signal"
-          >
-            {learnMoreLabel}
-            <span aria-hidden className="transition-transform group-hover/link:translate-x-0.5">
-              &rarr;
-            </span>
-          </Link>
+        {(learnMoreHref || secondaryHref) && (
+          <div className="mt-5 flex flex-col items-start gap-2.5">
+            {learnMoreHref && (
+              <Link
+                href={learnMoreHref}
+                className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-emerald transition-colors hover:text-signal"
+              >
+                {learnMoreLabel}
+                <span aria-hidden className="transition-transform group-hover/link:translate-x-0.5">
+                  &rarr;
+                </span>
+              </Link>
+            )}
+            {secondaryHref && (
+              <Link
+                href={secondaryHref}
+                className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-emerald transition-colors hover:text-signal"
+              >
+                {secondaryLabel}
+                <span aria-hidden className="transition-transform group-hover/link:translate-x-0.5">
+                  &rarr;
+                </span>
+              </Link>
+            )}
+          </div>
         )}
       </div>
 
