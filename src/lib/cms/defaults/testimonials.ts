@@ -9,7 +9,7 @@ export const signatureQuote = {
   quote:
     "I don't just build websites — I build secure digital experiences that businesses can trust and grow with.",
   author: "Sefat Hossain",
-  role: "WordPress Security & Web Development",
+  role: "WordPress Security Expert",
 };
 
 /**

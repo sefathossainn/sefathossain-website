@@ -9,7 +9,7 @@ export const siteConfig = {
   wordmark: "Sefat Hossain",
   domain: "sefathossain.com",
   url: "https://sefathossain.com",
-  tagline: "Websites, built to be trusted.",
+  tagline: "WordPress Security Expert",
   description:
     "I build and protect high-performance WordPress, Elementor, and Shopify websites — secure from day one and looked after long after launch.",
   email: "contact@sefathossain.com",
@@ -58,9 +58,9 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
 ];
 
 export const socialLinks: NavItem[] = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/" },
-  { label: "GitHub", href: "https://github.com/" },
-  { label: "Upwork", href: "https://www.upwork.com/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/sefathossainn/" },
+  { label: "GitHub", href: "https://github.com/sefathossainn" },
+  { label: "Upwork", href: "https://www.upwork.com/freelancers/sefathossain" },
 ];
 
 /** Primary CTA used across the site. */
@@ -72,8 +72,8 @@ export const primaryCta = {
 /** The person — used for photo trust signals across the site. */
 export const profile = {
   name: "Sefat Hossain",
-  role: "WordPress Security & Web Development Specialist",
-  shortRole: "WordPress Security & Web Development",
+  role: "WordPress Security Expert",
+  shortRole: "WordPress Security Expert",
   alt: "Sefat Hossain, WordPress security specialist",
   initials: "SH",
   /**

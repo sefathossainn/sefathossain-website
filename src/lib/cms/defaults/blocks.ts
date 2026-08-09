@@ -24,7 +24,7 @@ export const defaultBlocks: Record<PageSlug, Record<string, BlockValue>> = {
     "hero.cta_primary": { text: "Get your free security audit" },
     "hero.cta_secondary": { text: "View my work" },
     "hero.person_name": { text: "Sefat Hossain" },
-    "hero.person_role": { text: "WordPress Security & Web Development" },
+    "hero.person_role": { text: "WordPress Security Expert" },
 
     "trust.text": {
       text: "Trusted by business owners, agencies, startups, and e-commerce stores who treat their website as more than a brochure.",
@@ -147,7 +147,7 @@ export const defaultBlocks: Record<PageSlug, Record<string, BlockValue>> = {
   // ── ABOUT ─────────────────────────────────────────────────────────────────
   about: {
     "meta.title": {
-      text: "About Sefat Hossain — WordPress Security & Web Development Specialist",
+      text: "About Sefat Hossain — WordPress Security Expert",
     },
     "meta.description": {
       text: "I help businesses build, secure, and grow their websites — with a focus on WordPress security, Elementor, and Shopify. Here's how I work and what I believe.",

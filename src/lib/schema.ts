@@ -8,7 +8,7 @@ export function personSchema() {
     "@type": "Person",
     name: siteConfig.name,
     url: siteConfig.url,
-    jobTitle: "WordPress Security & Web Development Specialist",
+    jobTitle: "WordPress Security Expert",
     description: siteConfig.description,
     sameAs: socialLinks.map((s) => s.href),
   };

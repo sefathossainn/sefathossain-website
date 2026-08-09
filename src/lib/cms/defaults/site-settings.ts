@@ -11,7 +11,7 @@ export const defaultSiteSettings: SiteSettings = {
   // Real supplied portrait — served from /public. Swappable in /admin.
   profile_photo: "/images/sefat-photo.png",
   brand_name: siteConfig.wordmark,
-  brand_title: "WordPress Security & Web Development",
+  brand_title: "WordPress Security Expert",
   favicon_url: null, // falls back to profile_photo
   nav: primaryNav,
   footer: { credit: siteConfig.credit },

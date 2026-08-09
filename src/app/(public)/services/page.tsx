@@ -50,7 +50,8 @@ export default async function ServicesPage() {
             const isGrow = g.group === "Grow";
             return g.services.map((service) => {
               const isMalwareRemovalService =
-                service.title === "Website Security & Malware Removal";
+          service.title === "Website Security" ||
+          service.title === "Website Security & Malware Removal";
 
               return (
                 <ServiceGroup
