@@ -40,16 +40,18 @@ export default async function ServicesPage() {
           {groups.map((g, i) => {
             const isGrow = g.group === "Grow";
             return g.services.map((service) => {
-              const isMalwareRemovalService = service.title === "Website Security";
+              const learnMoreHref =
+                service.title === "Website Security"
+                  ? "/services/wordpress-malware-removal"
+                  : undefined;
+
               return (
                 <ServiceGroup
                   key={service.id ?? service.group_name}
                   index={i + 1}
                   service={service}
                   highlight={isGrow}
-                  learnMoreHref={
-                    isMalwareRemovalService ? "/services/wordpress-malware-removal" : undefined
-                  }
+                  learnMoreHref={learnMoreHref}
                   learnMoreLabel="Explore WordPress Malware Removal"
                 />
               );
