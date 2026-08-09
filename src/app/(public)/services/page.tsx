@@ -41,7 +41,7 @@ export default async function ServicesPage() {
             const isGrow = g.group === "Grow";
             return g.services.map((service) => {
               const learnMoreHref =
-                service.title === "Website Security"
+                service.title === "Website Security & Malware Removal"
                   ? "/services/wordpress-malware-removal"
                   : undefined;
 
