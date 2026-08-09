@@ -16,7 +16,7 @@ export const siteConfig = {
   /** Booking / calendar embed (Calendly or similar) — set in CMS. */
   calendarUrl: "",
   credit: {
-    label: "Site by Mohammad Emmon",
+    label: "Designed and Developed by Mohammad Emmon",
     href: "https://mohammademmon.com",
   },
 } as const;
