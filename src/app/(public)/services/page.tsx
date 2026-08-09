@@ -39,17 +39,18 @@ export default async function ServicesPage() {
         <div className="grid gap-2">
           {groups.map((g, i) => {
             const isGrow = g.group === "Grow";
-            const isSecure = g.group === "Secure";
             return g.services.map((service) => {
-              const isSecurity = isSecure || /security/i.test(service.title);
+              const isMalwareRemovalService = service.title === "Website Security";
               return (
                 <ServiceGroup
                   key={service.id ?? service.group_name}
                   index={i + 1}
                   service={service}
                   highlight={isGrow}
-                  learnMoreHref={isSecurity ? "/services/wordpress-malware-removal" : undefined}
-                  learnMoreLabel="See our malware removal service"
+                  learnMoreHref={
+                    isMalwareRemovalService ? "/services/wordpress-malware-removal" : undefined
+                  }
+                  learnMoreLabel="Explore WordPress Malware Removal"
                 />
               );
             });
