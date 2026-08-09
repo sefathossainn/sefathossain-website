@@ -95,8 +95,8 @@ export default async function ContactPage() {
                     rel="noreferrer"
                     className="panel flex items-center justify-between px-5 py-4 transition-colors hover:border-evergreen"
                   >
-                    WhatsApp me
-                    →
+                    <span className="text-mist">WhatsApp me</span>
+                <span aria-hidden className="text-emerald">→</span>
                   </Link>
                 )}
 
