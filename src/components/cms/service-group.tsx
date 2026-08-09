@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Service } from "@/lib/cms/types";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -42,7 +43,16 @@ export function ServiceGroup({
               aria-hidden
               className="mt-[0.5em] h-[0.55rem] w-[0.55rem] shrink-0 rotate-[-45deg] border-b-[1.5px] border-l-[1.5px] border-emerald"
             />
-            <span className="leading-relaxed">{item}</span>
+            {item.startsWith("Malware removal and hacked-site recovery") ? (
+          <Link
+            href="/services/wordpress-malware-removal"
+            className="leading-relaxed transition hover:text-emerald"
+          >
+            {item}
+          </Link>
+        ) : (
+          <span className="leading-relaxed">{item}</span>
+        )}
           </li>
         ))}
       </ul>
