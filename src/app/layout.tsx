@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
 import { siteConfig } from "@/lib/site-config";
 import { getSiteSettings } from "@/lib/cms/queries";
 import { buildThemeCss } from "@/lib/theme";
@@ -12,13 +11,11 @@ const display = Space_Grotesk({
   weight: ["500", "600", "700"],
   display: "swap",
 });
-
 const sans = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });
-
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
@@ -31,7 +28,6 @@ export async function generateMetadata(): Promise<Metadata> {
   // Favicon = a dedicated favicon if set, else the profile photo, else the
   // bundled .ico — all CMS-swappable from /admin → Site Settings.
   const favicon = settings.favicon_url || settings.profile_photo || "/favicon.ico";
-
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
@@ -69,26 +65,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  // Global theme overrides (colors + type scale) from /admin → Appearance,
-  // injected as sanitized CSS that wins over the Tailwind defaults.
-  const settings = await getSiteSettings();
-  const themeCss = buildThemeCss(settings.theme);
-
-  return (
-    <html
-      lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full bg-obsidian text-mist">
-        {themeCss && (
-          <style id="cms-theme" dangerouslySetInnerHTML={{ __html: themeCss }} />
-        )}
-        {children}
-      </body>
-    </html>
-  );
-}
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://sefathossain.com/#person",
+  name: "Sefat Hossain",
+  jobTitle: "WordPress Security Expert & Malware Removal Specialist",
+  description:
+    "WordPress Security Expert specializing in WordPress malware investigation, hacked website recovery, database cleanup, and server security hardening.",
+  url: "https://sefathossain.com",
+  image: "https://avatars.githubusercontent.com/u/241861940?v=4",
+  email: "admin@sefathossain.com",
+  sameAs: [
+    "https://www.wikidata.org/wiki/Q141262999",
+    "https://www.linkedin.com/in/sefathossainn/",
+    "https://github.com/sefathossainn",
+    "https://medium.com/@sefathossainn",
