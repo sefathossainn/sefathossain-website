@@ -5,91 +5,90 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { serviceSchema, faqPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Cloudflare Security Setup for WordPress | Sefat Hossain",
+  title: "Pharma Hack Removal (WordPress) | Sefat Hossain",
   description:
-    "Strengthen your WordPress website with Cloudflare security configuration, DNS protection, firewall rules, bot protection, rate limiting, and traffic filtering.",
+    "Google showing pharmacy spam — Viagra, Cialis — in your WordPress site's titles and pages? I remove the pharma hack, clean the cloaked spam, close the entry point, and help restore your search listings.",
   alternates: {
-    canonical: "/services/cloudflare-security",
+    canonical: "/services/pharma-hack-removal",
   },
 };
 
-const protectionAreas = [
-  "Cloudflare DNS and proxy configuration",
-  "SSL and secure traffic configuration",
-  "Firewall and WAF rule configuration",
-  "Bot and unwanted traffic protection",
-  "Rate limiting for appropriate endpoints",
-  "Login and administrative area protection",
-  "Country, IP, and traffic filtering where appropriate",
-  "Security-focused Cloudflare configuration review",
+const symptoms = [
+  "Your Google titles or descriptions mention Viagra, Cialis, or online pharmacies",
+  "Pharmacy spam pages indexed under your domain that you never created",
+  "Spam that appears to Googlebot but not to you (cloaking)",
+  "A sudden ranking drop or a “this site may be hacked” label in results",
+  "Injected content in the database or hidden files in your WordPress install",
+  "The spam returns days after you thought you had removed it",
 ];
 
-const commonProblems = [
-  "Large amounts of unwanted bot traffic",
-  "Repeated login or application requests",
-  "Suspicious traffic from specific IPs or regions",
-  "Abuse of publicly accessible endpoints",
-  "Incorrect DNS or proxy configuration",
-  "Security rules blocking legitimate visitors",
+const included = [
+  "Detection of cloaked pharma spam shown only to search engines",
+  "Removal of injected spam content from files and the database",
+  "Cleanup of malicious files, conditional scripts, and rogue cron jobs",
+  "Backdoor and rogue-admin detection so the spam can't regenerate",
+  "Reviewing wp_options, wp_posts, and core files for injected payloads",
+  "Identifying and closing the vulnerability that allowed the injection",
+  "Guidance on the Search Console review to clean up your listings",
 ];
 
 const process = [
   {
-    title: "1. Assess",
-    body: "I review the current Cloudflare configuration, DNS setup, traffic patterns, website requirements, and existing security rules.",
+    title: "1. See what Google sees",
+    body: "Pharma hacks usually cloak — showing spam to search engines while looking normal to you. I inspect the site the way Googlebot sees it, so the hidden spam is actually found instead of missed.",
   },
   {
-    title: "2. Configure",
-    body: "Security controls are configured according to the website's traffic, application behavior, and legitimate visitor requirements.",
+    title: "2. Find the payload",
+    body: "I locate the injected content and the script generating it across files and the database, rather than editing individual spam pages that regenerate.",
   },
   {
-    title: "3. Test",
-    body: "Rules are tested carefully to reduce unwanted traffic without unnecessarily blocking real users, search engines, or important services.",
+    title: "3. Remove & clean",
+    body: "The malicious code, cloaking scripts, injected database entries, and any backdoors are removed, and compromised core files are replaced with clean versions.",
   },
   {
-    title: "4. Monitor & Refine",
-    body: "Cloudflare settings can be reviewed and adjusted as traffic patterns, attacks, or website requirements change.",
+    title: "4. Recover & harden",
+    body: "Once clean, I help with the Search Console review so your titles and listings recover, then close the entry point so the pharma spam doesn't return.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does Cloudflare security setup include?",
+    question: "What is a pharma hack?",
     answer:
-      "Depending on the website, it can include DNS and proxy configuration, SSL settings, firewall and WAF rules, bot protection, rate limiting, traffic filtering, and protection for sensitive areas such as WordPress login endpoints.",
+      "A pharma hack is a WordPress SEO-spam infection that injects pharmacy advertising — often for Viagra, Cialis, and similar — into your pages, titles, and search listings. It typically uses cloaking, showing the spam to search engines while the page looks normal to you, which is why it can run undetected for a long time.",
   },
   {
-    question: "Can Cloudflare stop all bots?",
+    question: "Why can't I see the spam on my own site?",
     answer:
-      "No security service can guarantee that every unwanted request will be blocked. Cloudflare can significantly improve traffic filtering and help distinguish or challenge suspicious traffic while allowing legitimate visitors through.",
+      "Because pharma hacks cloak. The malicious code checks whether the visitor is a search engine crawler and only serves the spam to it. When you view your site normally, you see the legitimate page — but Google sees pharmacy spam, which is what shows in your search results.",
   },
   {
-    question: "Can Cloudflare block legitimate visitors?",
+    question: "The spam keeps coming back — why?",
     answer:
-      "Poorly configured rules can. That is why security rules should be tested against real website traffic and adjusted carefully rather than blocking broad groups of visitors without considering legitimate use cases.",
+      "Because the entry point or a hidden backdoor was left in place. Pharma hacks often install a generator that recreates the spam automatically. Removing the visible spam without removing the source and closing the vulnerability just resets it.",
   },
   {
-    question: "Do I need to move my website to Cloudflare hosting?",
+    question: "Will my search rankings recover?",
     answer:
-      "No. Cloudflare can sit in front of an existing hosting provider as a security and performance layer. The website can continue to run on its current hosting infrastructure.",
+      "Usually, once the site is genuinely clean and the spam listings are handled in Search Console. Recovery depends on how long the hack ran and how much Google indexed, but removing the infection and requesting a review is what starts it.",
   },
   {
-    question: "Can Cloudflare protect WordPress login pages?",
+    question: "How did this happen to my site?",
     answer:
-      "Yes. Appropriate firewall, rate-limiting, and access-control strategies can help reduce abusive requests against WordPress login and administrative endpoints. The exact configuration should match the site's needs.",
+      "Most pharma hacks get in through an outdated plugin or theme, a weak password, or a pre-existing backdoor. Identifying the specific entry point is part of the cleanup, because closing it is what stops reinfection.",
   },
 ];
 
-export default function CloudflareSecurityPage() {
+export default function PharmaHackRemovalPage() {
   return (
     <main>
       <JsonLd
         data={[
           serviceSchema({
-            name: "Cloudflare Security Setup for WordPress",
+            name: "Pharma Hack Removal",
             description: metadata.description as string,
-            path: "/services/cloudflare-security",
-            serviceType: "Cloudflare security configuration",
+            path: "/services/pharma-hack-removal",
+            serviceType: "WordPress pharma hack / SEO spam removal",
           }),
           faqPageSchema(faqs),
         ]}
@@ -100,14 +99,14 @@ export default function CloudflareSecurityPage() {
           <p className="kicker text-emerald">WORDPRESS SECURITY SERVICE</p>
 
           <h1 className="mt-6 max-w-4xl font-display text-4xl font-semibold leading-tight text-mist md:text-6xl">
-            Cloudflare Security Setup for WordPress
+            Pharma Hack Removal
           </h1>
 
           <p className="mt-7 max-w-3xl text-lg leading-relaxed text-sage md:text-xl">
-            Configure Cloudflare as a stronger security layer in front of your
-            WordPress website. I help configure traffic protection, firewall
-            rules, bot controls, DNS, SSL, and other security settings around
-            your website&apos;s actual needs.
+            If Google is showing pharmacy spam in your WordPress site&apos;s
+            titles and pages — even though the site looks fine to you — you have
+            a pharma hack. I find the cloaked spam Google sees, remove it, close
+            the entry point, and help your real listings recover.
           </p>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -115,7 +114,7 @@ export default function CloudflareSecurityPage() {
               href="/security-audit"
               className="inline-flex items-center justify-center rounded-full bg-emerald px-6 py-3.5 font-medium text-obsidian transition hover:opacity-90"
             >
-              Get a Security Assessment
+              Get a Free Assessment
             </Link>
 
             <Link
@@ -131,26 +130,24 @@ export default function CloudflareSecurityPage() {
       <section className="bg-obsidian px-6 py-20 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-6xl gap-14 md:grid-cols-2">
           <div>
-            <p className="kicker text-emerald">CLOUDFLARE PROTECTION</p>
-
+            <p className="kicker text-emerald">SIGNS OF A PHARMA HACK</p>
             <h2 className="mt-5 font-display text-3xl font-semibold text-mist md:text-4xl">
-              Put a security layer between your website and unwanted traffic.
+              Spam Google sees, but you don&apos;t
             </h2>
-
             <p className="mt-6 leading-relaxed text-sage">
-              Cloudflare can help filter and challenge suspicious traffic
-              before it reaches your WordPress server. The goal is not simply
-              to turn on every available security option, but to configure the
-              right controls without disrupting legitimate users.
+              A pharma hack hides behind cloaking — it serves pharmacy spam to
+              search engines while your pages look normal to you. That&apos;s why
+              the damage usually shows up first in your Google results, not on
+              the site itself.
             </p>
           </div>
 
           <div className="rounded-[var(--radius-xl)] border border-line bg-forest/40 p-7 md:p-9">
             <ul className="grid gap-5">
-              {commonProblems.map((problem) => (
-                <li key={problem} className="flex gap-3 text-mist/90">
+              {symptoms.map((symptom) => (
+                <li key={symptom} className="flex gap-3 text-mist/90">
                   <span className="mt-2 h-2 w-2 shrink-0 rotate-45 bg-emerald" />
-                  <span className="leading-relaxed">{problem}</span>
+                  <span className="leading-relaxed">{symptom}</span>
                 </li>
               ))}
             </ul>
@@ -160,20 +157,19 @@ export default function CloudflareSecurityPage() {
 
       <section className="border-y border-line bg-pine/50 px-6 py-20 md:px-10 md:py-24">
         <div className="mx-auto max-w-6xl">
-          <p className="kicker text-emerald">SECURITY CONFIGURATION</p>
-
+          <p className="kicker text-emerald">THE SERVICE</p>
           <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold text-mist md:text-4xl">
-            What the Cloudflare security setup can cover
+            What pharma hack removal includes
           </h2>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            {protectionAreas.map((area) => (
+            {included.map((item) => (
               <div
-                key={area}
+                key={item}
                 className="rounded-2xl border border-line bg-forest/40 p-5 text-mist/90"
               >
                 <span className="mr-3 text-emerald">◆</span>
-                {area}
+                {item}
               </div>
             ))}
           </div>
@@ -183,9 +179,8 @@ export default function CloudflareSecurityPage() {
       <section className="bg-obsidian px-6 py-20 md:px-10 md:py-24">
         <div className="mx-auto max-w-6xl">
           <p className="kicker text-emerald">HOW IT WORKS</p>
-
           <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold text-mist md:text-4xl">
-            A practical Cloudflare security configuration process
+            A structured approach to clearing pharma spam
           </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -197,7 +192,6 @@ export default function CloudflareSecurityPage() {
                 <h3 className="font-display text-xl font-semibold text-mist">
                   {step.title}
                 </h3>
-
                 <p className="mt-4 leading-relaxed text-sage">{step.body}</p>
               </div>
             ))}
@@ -208,9 +202,8 @@ export default function CloudflareSecurityPage() {
       <section className="border-y border-line bg-pine/50 px-6 py-20 md:px-10 md:py-24">
         <div className="mx-auto max-w-4xl">
           <p className="kicker text-emerald">FAQ</p>
-
           <h2 className="mt-5 font-display text-3xl font-semibold text-mist md:text-4xl">
-            Cloudflare Security FAQs
+            Pharma Hack FAQs
           </h2>
 
           <div className="mt-10 divide-y divide-line border-y border-line">
@@ -219,7 +212,6 @@ export default function CloudflareSecurityPage() {
                 <h3 className="font-display text-lg font-semibold text-mist">
                   {faq.question}
                 </h3>
-
                 <p className="mt-3 leading-relaxed text-sage">{faq.answer}</p>
               </div>
             ))}
@@ -230,15 +222,13 @@ export default function CloudflareSecurityPage() {
       <section className="bg-obsidian px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-4xl text-center">
           <p className="kicker text-emerald">NEED HELP?</p>
-
           <h2 className="mt-5 font-display text-3xl font-semibold text-mist md:text-5xl">
-            Need stronger protection against unwanted traffic?
+            Pharmacy spam showing up in your Google results?
           </h2>
-
           <p className="mx-auto mt-6 max-w-2xl leading-relaxed text-sage">
-            A properly configured Cloudflare security layer can help reduce
-            abusive traffic while keeping legitimate visitors connected to
-            your website.
+            Because pharma hacks cloak, they often run for months before
+            they&apos;re caught. The sooner the hidden spam is found and removed,
+            the sooner your listings recover.
           </p>
 
           <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
@@ -246,14 +236,14 @@ export default function CloudflareSecurityPage() {
               href="/security-audit"
               className="inline-flex items-center justify-center rounded-full bg-emerald px-7 py-3.5 font-medium text-obsidian transition hover:opacity-90"
             >
-              Get a Security Assessment
+              Get a Free Assessment
             </Link>
 
             <Link
-              href="/services"
+              href="/services/wordpress-malware-removal"
               className="inline-flex items-center justify-center rounded-full border border-line px-7 py-3.5 font-medium text-mist transition hover:border-emerald hover:text-emerald"
             >
-              View All Services
+              WordPress Malware Removal
             </Link>
           </div>
         </div>

@@ -9,6 +9,8 @@ import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/cms/faq-accordion";
 import { CtaBand } from "@/components/cms/cta-band";
+import { JsonLd } from "@/components/seo/json-ld";
+import { serviceSchema, faqPageSchema } from "@/lib/schema";
 import type { Faq } from "@/lib/cms/types";
 
 export const revalidate = 300;
@@ -117,6 +119,19 @@ const faqs: Faq[] = [
 export default function HackedWordPressRecoveryPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Hacked WordPress Website Recovery",
+            description:
+              "Recover a hacked WordPress website with a structured investigation, malicious access removal, malware cleanup, security hardening, and post-recovery verification.",
+            path: PATH,
+            serviceType: "Hacked WordPress website recovery",
+          }),
+          faqPageSchema(faqs),
+        ]}
+      />
+
       <PageHero
         kicker="WORDPRESS SECURITY SERVICE"
         title="Hacked WordPress Website Recovery"
@@ -204,9 +219,9 @@ export default function HackedWordPressRecoveryPage() {
           </h2>
           <p className="mt-6 leading-relaxed text-sage">
             Removing malicious files and restoring the visible site addresses the symptoms —
-            but it doesn't address how the compromise happened in the first place. Without
+            but it doesn&apos;t address how the compromise happened in the first place. Without
             identifying and closing that original weakness, a recovered site remains just as
-            exposed as it was before. That's why hardening — tightening access, updating what
+            exposed as it was before. That&apos;s why hardening — tightening access, updating what
             needs updating, and removing the specific opening that was used — is treated as
             part of the recovery itself, not an optional add-on afterward.
           </p>

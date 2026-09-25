@@ -84,6 +84,8 @@ export type BlogPost = {
   tags?: string[];
   status?: "draft" | "published";
   published_at?: string;
+  /** Last edit time (DB-managed); drives the Article `dateModified` JSON-LD. */
+  updated_at?: string;
   reading_minutes?: number;
   seo?: Seo | null;
 };

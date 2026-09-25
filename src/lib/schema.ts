@@ -22,7 +22,7 @@ export function professionalServiceSchema() {
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
-    areaServed: "Worldwide",
+    areaServed: { "@type": "Country", name: "United States" },
     serviceType: [
       "WordPress security",
       "Malware removal",
@@ -31,6 +31,54 @@ export function professionalServiceSchema() {
       "Performance optimization",
     ],
     provider: { "@type": "Person", name: siteConfig.name },
+  };
+}
+
+/**
+ * Service schema for an individual service page. `areaServed` targets the
+ * United States for US-focused search/GEO; pass an `offers` object for pages
+ * that publish pricing.
+ */
+export function serviceSchema({
+  name,
+  description,
+  path,
+  serviceType,
+  offers,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  serviceType?: string;
+  offers?: object;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    url: absoluteUrl(path),
+    ...(serviceType ? { serviceType } : {}),
+    areaServed: { "@type": "Country", name: "United States" },
+    provider: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    ...(offers ? { offers } : {}),
+  };
+}
+
+/** FAQPage schema built from a page's question/answer pairs. */
+export function faqPageSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
   };
 }
 

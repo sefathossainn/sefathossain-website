@@ -74,7 +74,12 @@ export default async function BlogPostPage({
     description: post.excerpt,
     image: post.featured_image ? [post.featured_image] : undefined,
     datePublished: post.published_at,
-    author: { "@type": "Person", name: post.author },
+    dateModified: post.updated_at ?? post.published_at,
+    author: {
+      "@type": "Person",
+      name: post.author || siteConfig.name,
+      url: siteConfig.url,
+    },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

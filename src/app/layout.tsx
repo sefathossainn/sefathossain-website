@@ -4,6 +4,11 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteSettings } from "@/lib/cms/queries";
 import { buildThemeCss } from "@/lib/theme";
+import {
+  GOOGLE_SITE_VERIFICATION,
+  BING_SITE_VERIFICATION,
+} from "@/lib/env";
+import { Analytics } from "@/components/seo/analytics";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -62,6 +67,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description: siteConfig.description,
     },
     robots: { index: true, follow: true },
+    verification: {
+      ...(GOOGLE_SITE_VERIFICATION
+        ? { google: GOOGLE_SITE_VERIFICATION }
+        : {}),
+      ...(BING_SITE_VERIFICATION
+        ? { other: { "msvalidate.01": BING_SITE_VERIFICATION } }
+        : {}),
+    },
   };
 }
 
@@ -76,8 +89,40 @@ const personSchema = {
   url: "https://sefathossain.com",
   image: "https://avatars.githubusercontent.com/u/241861940?v=4",
   email: "admin@sefathossain.com",
+  areaServed: { "@type": "Country", name: "United States" },
   sameAs: [
     "https://www.wikidata.org/wiki/Q141262999",
     "https://www.linkedin.com/in/sefathossainn/",
     "https://github.com/sefathossainn",
     "https://medium.com/@sefathossainn",
+  ],
+};
+
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  // Global theme overrides (colors + type scale) from /admin → Appearance,
+  // injected as sanitized CSS that wins over the Tailwind defaults.
+  const settings = await getSiteSettings();
+  const themeCss = buildThemeCss(settings.theme);
+
+  return (
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-full bg-obsidian text-mist">
+        {themeCss && (
+          <style id="cms-theme" dangerouslySetInnerHTML={{ __html: themeCss }} />
+        )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}
