@@ -10,6 +10,12 @@ type RevealProps = {
   y?: number;
   className?: string;
   as?: "div" | "li" | "span" | "section";
+  /**
+   * Above-the-fold / LCP-critical content. Keeps the element fully painted on
+   * first render (opacity stays 1, so it counts toward LCP immediately) and
+   * plays only a subtle upward settle on mount — no fade-in, no in-view gate.
+   */
+  eager?: boolean;
 } & Omit<HTMLMotionProps<"div">, "children">;
 
 /**
@@ -22,6 +28,7 @@ export function Reveal({
   y = 22,
   className,
   as = "div",
+  eager = false,
   ...rest
 }: RevealProps) {
   const reduced = useReducedMotion();
@@ -30,6 +37,21 @@ export function Reveal({
   if (reduced) {
     const Tag = as;
     return <Tag className={className}>{children}</Tag>;
+  }
+
+  if (eager) {
+    // LCP-safe: visible from first paint; only a transform settle animates.
+    return (
+      <MotionTag
+        className={className}
+        initial={{ opacity: 1, y }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay }}
+        {...rest}
+      >
+        {children}
+      </MotionTag>
+    );
   }
 
   return (
