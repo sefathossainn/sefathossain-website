@@ -118,7 +118,7 @@ export function HomeHero({
               </p>
             </Reveal>
 
-            <Reveal delay={0.4}>
+            <Reveal delay={0.4} eager>
               <h1 className="text-hero font-display font-semibold" style={content.style("hero.headline")}>
                 <AccentHeadline text={content.text("hero.headline")} />
               </h1>
@@ -147,6 +147,7 @@ export function HomeHero({
             <Reveal
               y={34}
               delay={0.15}
+              eager
               className="order-1 md:order-2 md:self-stretch"
             >
               <div className="relative mx-auto h-[56svh] w-full max-w-sm md:h-[92svh] md:max-w-none md:-mr-[3vw]">
