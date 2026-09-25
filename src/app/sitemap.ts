@@ -94,6 +94,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: absoluteUrl("/services/woocommerce-malware-removal"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/services/emergency-wordpress-malware-removal"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: absoluteUrl("/services/hacked-wordpress-recovery"),
       lastModified: now,
       changeFrequency: "monthly",
