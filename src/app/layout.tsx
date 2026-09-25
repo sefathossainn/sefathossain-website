@@ -4,6 +4,11 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteSettings } from "@/lib/cms/queries";
 import { buildThemeCss } from "@/lib/theme";
+import {
+  GOOGLE_SITE_VERIFICATION,
+  BING_SITE_VERIFICATION,
+} from "@/lib/env";
+import { Analytics } from "@/components/seo/analytics";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -62,6 +67,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description: siteConfig.description,
     },
     robots: { index: true, follow: true },
+    verification: {
+      ...(GOOGLE_SITE_VERIFICATION
+        ? { google: GOOGLE_SITE_VERIFICATION }
+        : {}),
+      ...(BING_SITE_VERIFICATION
+        ? { other: { "msvalidate.01": BING_SITE_VERIFICATION } }
+        : {}),
+    },
   };
 }
 
@@ -108,6 +121,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );
