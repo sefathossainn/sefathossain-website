@@ -77,6 +77,9 @@ export default async function BlogPostPage({
     dateModified: post.updated_at ?? post.published_at,
     author: {
       "@type": "Person",
+      // Ties the article author to the site-wide Person entity declared in the
+      // root layout, so search/AI engines resolve it to one known author.
+      "@id": `${siteConfig.url}/#person`,
       name: post.author || siteConfig.name,
       url: siteConfig.url,
     },
