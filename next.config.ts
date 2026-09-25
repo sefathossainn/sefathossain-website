@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   // Next's root inference (affects output tracing + env resolution).
   turbopack: { root: path.resolve() },
   images: {
+    // Serve AVIF (then WebP) where the browser supports it — smaller hero and
+    // content images, so LCP improves with no visual change.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       // Seed assets (Section 12) served from CloudFront
       { protocol: "https", hostname: "d8j0ntlcm91z4.cloudfront.net" },

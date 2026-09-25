@@ -14,6 +14,7 @@ import { RichText } from "@/components/ui/rich-text";
 import { Reveal } from "@/components/ui/reveal";
 import { BlogCard } from "@/components/cms/blog-card";
 import { CtaBand } from "@/components/cms/cta-band";
+import { AuthorBio } from "@/components/cms/author-bio";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/schema";
 
@@ -163,6 +164,8 @@ export default async function BlogPostPage({
               ← Back to blog
             </Link>
           </div>
+
+          <AuthorBio name={post.author} />
         </div>
       </Section>
 

@@ -198,4 +198,78 @@ export const defaultPosts: BlogPost[] = [
 <h2>If two or more of these ring true</h2>
 <p>Treat it as a likely compromise. Take a full backup before touching anything, avoid deleting files at random, and run a thorough scan across core, themes, plugins, and the database. If you'd rather have a second pair of eyes, a free security audit will tell you exactly where you stand.</p>`,
   },
+  {
+    slug: "wordpress-security-checklist",
+    title: "A practical WordPress security checklist",
+    author: "Sefat Hossain",
+    category: "Security",
+    tags: ["WordPress", "Security", "Hardening"],
+    status: "published",
+    published_at: "2026-08-26T09:00:00.000Z",
+    reading_minutes: 7,
+    featured_image: seedAssets.blogDefault,
+    excerpt:
+      "Most WordPress hacks exploit a short list of avoidable weaknesses. Here's a practical, plain-language checklist to close them before an attacker finds them.",
+    seo: {
+      title: "A practical WordPress security checklist",
+      description:
+        "A plain-language WordPress security checklist — the practical steps that close the weaknesses attackers actually exploit, from updates to logins to backups.",
+      focus_keyword: "wordpress security checklist",
+    },
+    body: `<p>Most WordPress sites don't get hacked by some sophisticated, targeted attack. They get hacked through a short list of avoidable weaknesses — an outdated plugin, a weak password, no backups. Close those, and you've handled the overwhelming majority of the risk. Here's the checklist.</p>
+<h2>1. Keep everything updated</h2>
+<p>Core, themes, and plugins. Outdated software with known vulnerabilities is the single most common way in. If a plugin is abandoned and no longer updated, replace it — an unmaintained plugin is a liability waiting to be exploited.</p>
+<h2>2. Remove what you don't use</h2>
+<p>Every installed plugin and theme is attack surface, even when deactivated. Delete the ones you're not using. Fewer moving parts means fewer doors.</p>
+<h2>3. Use strong, unique passwords — and 2FA</h2>
+<p>Weak or reused admin passwords are a gift to attackers running automated login attempts. Use strong, unique passwords for WordPress, hosting, and database, and turn on two-factor authentication for admin accounts.</p>
+<h2>4. Limit login attempts</h2>
+<p>Brute-force attacks hammer your login page with guesses. Limiting failed attempts and adding basic login protection stops most of them cold.</p>
+<h2>5. Audit your users</h2>
+<p>Only give admin access to people who genuinely need it, and remove accounts that are no longer used. Every admin account is a potential entry point.</p>
+<h2>6. Install a firewall</h2>
+<p>A web application firewall filters malicious traffic before it reaches your site. It's one of the highest-value layers you can add, catching common attacks automatically.</p>
+<h2>7. Back up — and test the backup</h2>
+<p>Automated, off-site backups mean a compromise or a mistake is a recovery, not a catastrophe. A backup you've never tested restoring isn't really a backup — check that it works.</p>
+<h2>8. Never use nulled themes or plugins</h2>
+<p>Pirated “nulled” themes and plugins are one of the most reliable ways to get malware onto your site — the cracked software often has it bundled in. The cost saved is never worth it.</p>
+<h2>9. Use HTTPS everywhere</h2>
+<p>An SSL certificate encrypts traffic between your visitors and your site. It's standard, usually free, and expected by both browsers and search engines.</p>
+<h2>10. Monitor for changes</h2>
+<p>Scheduled malware scanning and file-change monitoring catch problems early — while they're small — instead of when a customer or Google tells you.</p>
+<h2>Start where the risk is highest</h2>
+<p>If you do nothing else today: update everything, set strong passwords with 2FA, and confirm you have working backups. Those three close most of the risk. If you'd like a second pair of eyes on where your site actually stands, a free security audit is a low-stakes way to find out.</p>`,
+  },
+  {
+    slug: "why-nulled-themes-and-plugins-get-you-hacked",
+    title: "Why nulled themes and plugins get you hacked",
+    author: "Sefat Hossain",
+    category: "Security",
+    tags: ["WordPress", "Malware", "Nulled"],
+    status: "published",
+    published_at: "2026-08-19T09:00:00.000Z",
+    reading_minutes: 5,
+    featured_image: seedAssets.blogDefault,
+    excerpt:
+      "That “free” premium theme could be the most expensive thing on your site. Here's why nulled WordPress software is one of the most common ways sites get infected.",
+    seo: {
+      title: "Why nulled WordPress themes and plugins get you hacked",
+      description:
+        "Nulled (pirated) WordPress themes and plugins are a leading cause of infections. Here's how the malware gets in — and why the “free” version costs far more.",
+      focus_keyword: "nulled wordpress themes",
+    },
+    body: `<p>It's tempting. A premium theme or plugin costs money; a “nulled” — pirated — copy is free. But nulled WordPress software is one of the most common ways sites get infected, and the savings almost never survive contact with reality.</p>
+<h2>The malware is usually already inside</h2>
+<p>When someone cracks a premium theme or plugin to distribute it for free, they're not doing it out of generosity. The cracked version very often has malware bundled directly into the code — backdoors, spam injectors, or self-replicating infections like wp-vcd — waiting to activate the moment you install it.</p>
+<h2>It hides where you won't look</h2>
+<p>The malicious code is buried in files you'd never inspect. Your site works, the theme looks right, and meanwhile there's a backdoor giving an attacker access, or a script quietly injecting spam and redirects that only Google and your visitors see.</p>
+<h2>It keeps coming back</h2>
+<p>Because the infection is baked into the theme or plugin itself, cleaning the visible symptoms doesn't fix it — reinstalling or updating the nulled software just reinfects the site. This is exactly how wp-vcd and similar infections persist: the source is the very software you installed.</p>
+<h2>You get no updates — including security fixes</h2>
+<p>Legitimate themes and plugins get security patches. Nulled copies don't. So even if a nulled plugin started clean, you're frozen on a version that will never receive the fix for the next vulnerability found in it.</p>
+<h2>The real cost</h2>
+<p>A cleanup, lost customer trust, a Google blacklist, a suspended hosting account — any one of these costs far more than the license you skipped. The “free” theme is routinely the most expensive thing on the site.</p>
+<h2>What to do instead</h2>
+<p>Buy from the official developer or a reputable marketplace, use well-reviewed free plugins from the WordPress repository, and if you already installed nulled software, treat the site as potentially compromised — replace the software with a legitimate version and have it checked. If you're not sure what's lurking, a free security audit will tell you where you stand.</p>`,
+  },
 ];

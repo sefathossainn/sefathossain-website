@@ -25,6 +25,8 @@ const SECURITY_SERVICE_LINKS: ServiceLink[] = [
   { href: "/services/pharma-hack-removal", label: "Pharma Hack Removal" },
   { href: "/services/wp-vcd-malware-removal", label: "wp-vcd Malware Removal" },
   { href: "/services/website-suspended-by-host-recovery", label: "Website Suspended by Host — Recovery" },
+  { href: "/services/woocommerce-malware-removal", label: "WooCommerce Malware Removal" },
+  { href: "/services/emergency-wordpress-malware-removal", label: "Emergency WordPress Malware Removal" },
   { href: "/services/hacked-wordpress-recovery", label: "Explore Hacked WordPress Recovery" },
   { href: "/services/wordpress-security-hardening", label: "Explore WordPress Security Hardening" },
   { href: "/services/google-blacklist-removal", label: "Explore Google Blacklist Removal" },
