@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { JsonLd } from "@/components/seo/json-ld";
+import { serviceSchema, faqPageSchema } from "@/lib/schema";
+
 export const metadata: Metadata = {
   title: "Cloudflare Security Setup for WordPress | Sefat Hossain",
   description:
@@ -80,6 +83,18 @@ const faqs = [
 export default function CloudflareSecurityPage() {
   return (
     <main>
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "Cloudflare Security Setup for WordPress",
+            description: metadata.description as string,
+            path: "/services/cloudflare-security",
+            serviceType: "Cloudflare security configuration",
+          }),
+          faqPageSchema(faqs),
+        ]}
+      />
+
       <section className="border-b border-line bg-obsidian px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-6xl">
           <p className="kicker text-emerald">WORDPRESS SECURITY SERVICE</p>
@@ -92,7 +107,7 @@ export default function CloudflareSecurityPage() {
             Configure Cloudflare as a stronger security layer in front of your
             WordPress website. I help configure traffic protection, firewall
             rules, bot controls, DNS, SSL, and other security settings around
-            your website's actual needs.
+            your website&apos;s actual needs.
           </p>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">

@@ -76,8 +76,39 @@ const personSchema = {
   url: "https://sefathossain.com",
   image: "https://avatars.githubusercontent.com/u/241861940?v=4",
   email: "admin@sefathossain.com",
+  areaServed: { "@type": "Country", name: "United States" },
   sameAs: [
     "https://www.wikidata.org/wiki/Q141262999",
     "https://www.linkedin.com/in/sefathossainn/",
     "https://github.com/sefathossainn",
     "https://medium.com/@sefathossainn",
+  ],
+};
+
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  // Global theme overrides (colors + type scale) from /admin → Appearance,
+  // injected as sanitized CSS that wins over the Tailwind defaults.
+  const settings = await getSiteSettings();
+  const themeCss = buildThemeCss(settings.theme);
+
+  return (
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-full bg-obsidian text-mist">
+        {themeCss && (
+          <style id="cms-theme" dangerouslySetInnerHTML={{ __html: themeCss }} />
+        )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        {children}
+      </body>
+    </html>
+  );
+}

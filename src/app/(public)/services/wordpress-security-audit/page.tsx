@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { JsonLd } from "@/components/seo/json-ld";
+import { serviceSchema, faqPageSchema } from "@/lib/schema";
+
 export const metadata: Metadata = {
   title: "WordPress Security Audit | Sefat Hossain",
   description:
@@ -84,6 +87,18 @@ const faqs = [
 export default function WordPressSecurityAuditPage() {
   return (
     <main>
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "WordPress Security Audit",
+            description: metadata.description as string,
+            path: "/services/wordpress-security-audit",
+            serviceType: "WordPress security audit",
+          }),
+          faqPageSchema(faqs),
+        ]}
+      />
+
       <section className="border-b border-line bg-obsidian px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-6xl">
           <p className="kicker text-emerald">WORDPRESS SECURITY SERVICE</p>

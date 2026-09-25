@@ -19,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const SECURITY_SERVICE_LINKS: ServiceLink[] = [
   { href: "/services/wordpress-malware-removal", label: "Explore WordPress Malware Removal" },
+  { href: "/services/wordpress-malware-removal-cost", label: "WordPress Malware Removal Cost" },
   { href: "/services/hacked-wordpress-recovery", label: "Explore Hacked WordPress Recovery" },
   { href: "/services/wordpress-security-hardening", label: "Explore WordPress Security Hardening" },
   { href: "/services/google-blacklist-removal", label: "Explore Google Blacklist Removal" },

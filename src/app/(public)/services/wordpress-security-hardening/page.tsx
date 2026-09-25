@@ -9,6 +9,8 @@ import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/cms/faq-accordion";
 import { CtaBand } from "@/components/cms/cta-band";
+import { JsonLd } from "@/components/seo/json-ld";
+import { serviceSchema, faqPageSchema } from "@/lib/schema";
 import type { Faq } from "@/lib/cms/types";
 
 export const revalidate = 300;
@@ -120,6 +122,19 @@ const faqs: Faq[] = [
 export default function WordPressSecurityHardeningPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          serviceSchema({
+            name: "WordPress Security Hardening",
+            description:
+              "Strengthen your WordPress website with security hardening, access protection, firewall configuration, secure settings, backups, and measures designed to reduce common attack risks.",
+            path: PATH,
+            serviceType: "WordPress security hardening",
+          }),
+          faqPageSchema(faqs),
+        ]}
+      />
+
       <PageHero
         kicker="WORDPRESS SECURITY SERVICE"
         title="WordPress Security Hardening"
@@ -143,7 +158,7 @@ export default function WordPressSecurityHardeningPage() {
             What WordPress security hardening means
           </h2>
           <p className="mt-6 leading-relaxed text-sage">
-            Hardening isn't one single fix — it's the process of reducing unnecessary exposure
+            Hardening isn&apos;t one single fix — it&apos;s the process of reducing unnecessary exposure
             across a WordPress site before an attacker has the chance to find and use it. That
             means looking at access, configuration, software versions, and monitoring together,
             and strengthening whichever of those is weakest, rather than assuming one plugin or
@@ -224,10 +239,10 @@ export default function WordPressSecurityHardeningPage() {
           </h2>
           <p className="mt-6 leading-relaxed text-sage">
             Cleaning an infected website and preventing another compromise are two different
-            tasks. Removing malicious files gets rid of what's currently there, but if the
+            tasks. Removing malicious files gets rid of what&apos;s currently there, but if the
             original weakness that allowed access in the first place is never addressed, the
             same door is still open. Hardening is what closes it — which is why a recovered
-            site and a hardened site aren't automatically the same thing.
+            site and a hardened site aren&apos;t automatically the same thing.
           </p>
         </Reveal>
       </Section>
