@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "seed": "node --env-file=.env.local --import tsx scripts/seed.ts",
-    "seed:blog": "node --import tsx scripts/seed-blog.ts"
+    "seed:blog": "node --import tsx scripts/seed-blog.ts",
+    "seed:blog-usa": "node --import tsx scripts/seed-blog-usa.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
