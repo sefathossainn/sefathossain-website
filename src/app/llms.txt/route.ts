@@ -2,6 +2,7 @@ import { getBlogPosts } from "@/lib/cms/queries";
 import { absoluteUrl } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 import { SERVICE_PAGES } from "@/lib/services-nav";
+import { serviceAreas } from "@/lib/service-areas";
 
 export const revalidate = 3600;
 
@@ -21,6 +22,14 @@ export async function GET() {
     "## Services",
     ...SERVICE_PAGES.map(
       (s) => `- [${s.name}](${absoluteUrl(s.path)}): ${s.desc}`,
+    ),
+    "",
+    "## Service Areas (United States)",
+    ...serviceAreas.map(
+      (a) =>
+        `- [WordPress Malware Removal in ${a.city}, ${a.stateAbbr}](${absoluteUrl(
+          `/service-areas/${a.slug}`,
+        )}): ${a.blurb}`,
     ),
     "",
     "## Guides",

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getCaseStudies, getBlogPosts } from "@/lib/cms/queries";
+import { serviceAreas } from "@/lib/service-areas";
 import { absoluteUrl } from "@/lib/utils";
 
 export const revalidate = 3600;
@@ -135,6 +136,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+
+    // Service-area landing pages (USA cities)
+    {
+      url: absoluteUrl("/service-areas"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    ...serviceAreas.map((a) => ({
+      url: absoluteUrl(`/service-areas/${a.slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
 
     // Free security audit landing page
     {
