@@ -19,6 +19,9 @@ export function professionalServiceSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    // Same @id as reviewSchema's node so the two merge into one business entity
+    // (rating attaches to the canonical business instead of a second one).
+    "@id": `${siteConfig.url}/#business`,
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
