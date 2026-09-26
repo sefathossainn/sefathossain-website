@@ -3,19 +3,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { getBlogPosts, getBlogPost } from "@/lib/cms/queries";
+import { getBlogPosts, getBlogPost, getSiteSettings } from "@/lib/cms/queries";
 import { absoluteUrl, formatDate } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
 import { siteConfig } from "@/lib/site-config";
+import { withToc } from "@/lib/toc";
 
 import { Section } from "@/components/ui/section";
 import { Kicker } from "@/components/ui/kicker";
 import { RichText } from "@/components/ui/rich-text";
 import { Reveal } from "@/components/ui/reveal";
+import { ProfilePhoto } from "@/components/brand/profile-photo";
 import { BlogCard } from "@/components/cms/blog-card";
 import { CtaBand } from "@/components/cms/cta-band";
 import { AuthorBio } from "@/components/cms/author-bio";
 import { JsonLd } from "@/components/seo/json-ld";
+import { QuickAnswer } from "@/components/seo/quick-answer";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { TableOfContents } from "@/components/blog/table-of-contents";
+import { ShareButtons } from "@/components/blog/share-buttons";
 import { breadcrumbSchema } from "@/lib/schema";
 
 // Short window so a scheduled post's own URL becomes reachable near its time.
@@ -62,12 +68,26 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [post, all] = await Promise.all([getBlogPost(slug), getBlogPosts()]);
+  const [post, all, settings] = await Promise.all([
+    getBlogPost(slug),
+    getBlogPosts(),
+    getSiteSettings(),
+  ]);
   if (!post) notFound();
+
+  const { html, toc } = withToc(post.body);
+  const url = absoluteUrl(`/blog/${post.slug}`);
 
   const related = all
     .filter((p) => p.slug !== post.slug && p.category === post.category)
     .slice(0, 3);
+  const keepReading = (related.length ? related : all.filter((p) => p.slug !== post.slug)).slice(0, 3);
+
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    ...(post.category ? [{ name: post.category, path: "/blog" }] : []),
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -79,8 +99,6 @@ export default async function BlogPostPage({
     dateModified: post.updated_at ?? post.published_at,
     author: {
       "@type": "Person",
-      // Ties the article author to the site-wide Person entity declared in the
-      // root layout, so search/AI engines resolve it to one known author.
       "@id": `${siteConfig.url}/#person`,
       name: post.author || siteConfig.name,
       url: siteConfig.url,
@@ -90,7 +108,7 @@ export default async function BlogPostPage({
       name: siteConfig.name,
       url: siteConfig.url,
     },
-    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    mainEntityOfPage: url,
   };
 
   return (
@@ -108,39 +126,57 @@ export default async function BlogPostPage({
       />
 
       {/* Header */}
-      <header className="pt-32 md:pt-40">
-        <div className="container-brand">
-          <Reveal className="mx-auto max-w-3xl">
-            <Link
-              href="/blog"
-              className="kicker mb-8 inline-flex items-center gap-2 text-slate transition-colors hover:text-mist"
-            >
-              <span aria-hidden>←</span> All articles
-            </Link>
-            <div className="kicker flex flex-wrap items-center gap-3 text-slate">
-              {post.category && (
-                <span className="text-emerald">{post.category}</span>
-              )}
-              <span>{formatDate(post.published_at)}</span>
-              {post.reading_minutes ? (
-                <span>{post.reading_minutes} min read</span>
-              ) : null}
-            </div>
-            <h1 className="mt-5 font-display text-[clamp(2rem,1.3rem+2.8vw,3.4rem)] font-semibold leading-[1.08] tracking-tight text-mist">
+      <header className="relative overflow-hidden pt-32 md:pt-40">
+        <div
+          aria-hidden
+          className="glow-core pointer-events-none absolute -top-24 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 opacity-50"
+        />
+        <div className="container-brand relative">
+          <Reveal className="mx-auto max-w-4xl">
+            <Breadcrumbs items={crumbs} className="mb-6" />
+            <h1 className="font-display text-[clamp(2.1rem,1.3rem+3vw,3.6rem)] font-semibold leading-[1.06] tracking-tight text-mist">
               {post.title}
             </h1>
-            {post.excerpt && (
-              <p className="mt-5 text-lg leading-relaxed text-sage">
-                {post.excerpt}
-              </p>
-            )}
+
+            <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate">
+              <span>{formatDate(post.published_at)}</span>
+              {post.updated_at &&
+                post.updated_at.slice(0, 10) !==
+                  (post.published_at ?? "").slice(0, 10) && (
+                  <>
+                    <span aria-hidden>·</span>
+                    <span className="text-emerald">
+                      Updated {formatDate(post.updated_at)}
+                    </span>
+                  </>
+                )}
+              {post.reading_minutes ? (
+                <>
+                  <span aria-hidden>·</span>
+                  <span>{post.reading_minutes} min read</span>
+                </>
+              ) : null}
+              <span aria-hidden>·</span>
+              <span className="flex items-center gap-2 text-mist">
+                <ProfilePhoto
+                  src={settings.profile_photo}
+                  className="h-6 w-6"
+                  sizes="24px"
+                />
+                By {post.author}
+              </span>
+            </div>
+
+            <div className="mt-7">
+              <ShareButtons url={url} title={post.title} />
+            </div>
           </Reveal>
         </div>
       </header>
 
       {/* Featured image */}
       {post.featured_image && (
-        <div className="container-brand mt-12">
+        <div className="container-brand mt-9">
           <Reveal className="relative mx-auto aspect-[16/9] max-w-4xl overflow-hidden rounded-[var(--radius-xl)] border border-line">
             <Image
               src={post.featured_image}
@@ -154,28 +190,65 @@ export default async function BlogPostPage({
         </div>
       )}
 
-      {/* Body */}
-      <Section className="!pt-14">
-        <div className="mx-auto max-w-3xl">
-          <RichText html={post.body} />
+      {/* Body — sticky TOC + article */}
+      <Section className="!pt-12">
+        <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
+          {toc.length > 1 ? (
+            <aside className="hidden lg:block">
+              <div className="sticky top-28">
+                <TableOfContents items={toc} />
+              </div>
+            </aside>
+          ) : (
+            <div className="hidden lg:block" aria-hidden />
+          )}
 
-          <div className="mt-14 flex items-center justify-between border-t border-line/70 pt-8">
-            <p className="kicker text-slate">Written by {post.author}</p>
-            <Link href="/blog" className="text-sm text-emerald">
-              ← Back to blog
-            </Link>
+          <div className="min-w-0">
+            {post.excerpt && <QuickAnswer>{post.excerpt}</QuickAnswer>}
+
+            <RichText
+              html={html}
+              className="mt-10 [&_h2]:scroll-mt-28 [&_h3]:scroll-mt-28"
+            />
+
+            {/* In-content CTA */}
+            <div className="mt-14 rounded-[var(--radius-xl)] border border-emerald/30 bg-emerald/[0.06] p-7 md:p-8">
+              <p className="kicker text-emerald">Free security check</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-mist">
+                Worried your site is infected?
+              </h2>
+              <p className="mt-3 leading-relaxed text-sage">
+                Get a free security assessment — I&apos;ll tell you if your
+                WordPress site is compromised and exactly what it needs. No
+                obligation.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/security-audit"
+                  className="inline-flex items-center justify-center rounded-full bg-emerald px-6 py-3 font-medium text-obsidian transition hover:opacity-90"
+                >
+                  Get a Free Assessment
+                </Link>
+                <Link
+                  href="/tools/is-my-wordpress-site-hacked"
+                  className="inline-flex items-center justify-center rounded-full border border-line px-6 py-3 font-medium text-mist transition hover:border-emerald hover:text-emerald"
+                >
+                  Try the free checker
+                </Link>
+              </div>
+            </div>
+
+            <AuthorBio name={post.author} />
           </div>
-
-          <AuthorBio name={post.author} />
         </div>
       </Section>
 
-      {/* Related */}
-      {related.length > 0 && (
+      {/* Keep reading */}
+      {keepReading.length > 0 && (
         <Section surface>
           <Kicker className="mb-8">Keep reading</Kicker>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((p) => (
+            {keepReading.map((p) => (
               <BlogCard key={p.slug} post={p} />
             ))}
           </div>
