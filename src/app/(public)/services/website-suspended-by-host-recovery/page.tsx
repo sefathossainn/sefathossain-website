@@ -2,7 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { JsonLd } from "@/components/seo/json-ld";
-import { serviceSchema, faqPageSchema } from "@/lib/schema";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
+import { RelatedServices } from "@/components/seo/related-services";
+import { serviceSchema, faqPageSchema, breadcrumbSchema, howToSchema } from "@/lib/schema";
+
+const PATH = "/services/website-suspended-by-host-recovery";
+const CRUMBS = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "Website Suspended by Host — Recovery", path: PATH },
+];
 
 export const metadata: Metadata = {
   title: "Website Suspended by Host — Malware Recovery | Sefat Hossain",
@@ -91,11 +100,19 @@ export default function WebsiteSuspendedByHostRecoveryPage() {
             serviceType: "Suspended website malware cleanup and reactivation",
           }),
           faqPageSchema(faqs),
+          breadcrumbSchema(CRUMBS),
+          howToSchema({
+            name: "How suspended-website recovery works",
+            description: metadata.description as string,
+            steps: process,
+            path: PATH,
+          }),
         ]}
       />
 
       <section className="border-b border-line bg-obsidian px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-6xl">
+          <Breadcrumbs items={CRUMBS} className="mb-6" />
           <p className="kicker text-emerald">WORDPRESS SECURITY SERVICE</p>
 
           <h1 className="mt-6 max-w-4xl font-display text-4xl font-semibold leading-tight text-mist md:text-6xl">
@@ -219,6 +236,8 @@ export default function WebsiteSuspendedByHostRecoveryPage() {
           </div>
         </div>
       </section>
+
+      <RelatedServices currentPath={PATH} />
 
       <section className="bg-obsidian px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-4xl text-center">

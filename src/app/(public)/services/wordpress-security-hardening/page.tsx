@@ -10,12 +10,18 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/cms/faq-accordion";
 import { CtaBand } from "@/components/cms/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { serviceSchema, faqPageSchema } from "@/lib/schema";
+import { RelatedServices } from "@/components/seo/related-services";
+import { serviceSchema, faqPageSchema, breadcrumbSchema, howToSchema } from "@/lib/schema";
 import type { Faq } from "@/lib/cms/types";
 
 export const revalidate = 300;
 
 const PATH = "/services/wordpress-security-hardening";
+const CRUMBS = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "WordPress Security Hardening", path: PATH },
+];
 
 export function generateMetadata(): Metadata {
   const title = "WordPress Security Hardening | Sefat Hossain";
@@ -132,6 +138,14 @@ export default function WordPressSecurityHardeningPage() {
             serviceType: "WordPress security hardening",
           }),
           faqPageSchema(faqs),
+          breadcrumbSchema(CRUMBS),
+          howToSchema({
+            name: "How WordPress security hardening works",
+            description:
+              "Strengthen your WordPress website with security hardening, access protection, firewall configuration, secure settings, backups, and measures designed to reduce common attack risks.",
+            steps: processSteps,
+            path: PATH,
+          }),
         ]}
       />
 
@@ -256,6 +270,8 @@ export default function WordPressSecurityHardeningPage() {
       </Section>
 
       {/* Final CTA */}
+      <RelatedServices currentPath={PATH} />
+
       <CtaBand
         title="Strengthen your WordPress website before the next attack."
         primary={{ label: "Get a Security Assessment", href: "/security-audit" }}
