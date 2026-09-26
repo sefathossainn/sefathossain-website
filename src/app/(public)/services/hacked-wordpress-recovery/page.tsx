@@ -10,12 +10,18 @@ import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/cms/faq-accordion";
 import { CtaBand } from "@/components/cms/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { serviceSchema, faqPageSchema } from "@/lib/schema";
+import { RelatedServices } from "@/components/seo/related-services";
+import { serviceSchema, faqPageSchema, breadcrumbSchema, howToSchema } from "@/lib/schema";
 import type { Faq } from "@/lib/cms/types";
 
 export const revalidate = 300;
 
 const PATH = "/services/hacked-wordpress-recovery";
+const CRUMBS = [
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "Hacked WordPress Website Recovery", path: PATH },
+];
 
 export function generateMetadata(): Metadata {
   const title = "Hacked WordPress Website Recovery | Sefat Hossain";
@@ -129,6 +135,14 @@ export default function HackedWordPressRecoveryPage() {
             serviceType: "Hacked WordPress website recovery",
           }),
           faqPageSchema(faqs),
+          breadcrumbSchema(CRUMBS),
+          howToSchema({
+            name: "How hacked WordPress website recovery works",
+            description:
+              "Recover a hacked WordPress website with a structured investigation, malicious access removal, malware cleanup, security hardening, and post-recovery verification.",
+            steps: processSteps,
+            path: PATH,
+          }),
         ]}
       />
 
@@ -237,6 +251,8 @@ export default function HackedWordPressRecoveryPage() {
       </Section>
 
       {/* Final CTA */}
+      <RelatedServices currentPath={PATH} />
+
       <CtaBand
         title="Your WordPress website was hacked. Let's get it secure again."
         primary={{ label: "Get a Security Assessment", href: "/security-audit" }}

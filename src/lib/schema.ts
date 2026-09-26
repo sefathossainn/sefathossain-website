@@ -69,6 +69,36 @@ export function serviceSchema({
   };
 }
 
+/**
+ * HowTo schema from a page's process steps — makes the "how it works" section
+ * eligible for rich results and easy for AI engines to extract as a procedure.
+ */
+export function howToSchema({
+  name,
+  description,
+  steps,
+  path,
+}: {
+  name: string;
+  description: string;
+  steps: { title: string; body: string }[];
+  path?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    ...(path ? { url: absoluteUrl(path) } : {}),
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.title.replace(/^\d+\.\s*/, ""),
+      text: s.body,
+    })),
+  };
+}
+
 /** FAQPage schema built from a page's question/answer pairs. */
 export function faqPageSchema(faqs: { question: string; answer: string }[]) {
   return {
