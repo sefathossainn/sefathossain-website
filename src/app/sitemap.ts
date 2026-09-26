@@ -144,6 +144,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
 
+    // Free tools (linkable assets)
+    {
+      url: absoluteUrl("/tools/is-my-wordpress-site-hacked"),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
     {
       url: absoluteUrl("/privacy"),
       lastModified: now,
