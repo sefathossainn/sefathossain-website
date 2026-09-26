@@ -11,7 +11,8 @@ import { MediaPickerButton } from "@/components/admin/media-picker";
 import { SeoEditor } from "@/components/admin/seo-editor";
 
 type Metric = { label: string; value: string };
-type FieldValue = string | boolean | Metric[] | Seo;
+type QA = { question: string; answer: string };
+type FieldValue = string | boolean | Metric[] | QA[] | Seo;
 type Values = Record<string, FieldValue>;
 
 /** ISO string → value for a <input type="datetime-local"> (local time). */
@@ -39,6 +40,8 @@ function initialValue(field: FieldSpec, record: Record<string, unknown>): FieldV
         : "";
     case "metrics":
       return (Array.isArray(r[field.name]) ? r[field.name] : []) as Metric[];
+    case "qa":
+      return (Array.isArray(r[field.name]) ? r[field.name] : []) as QA[];
     case "datetime":
       return r[field.name] ? isoToLocalInput(String(r[field.name])) : "";
     default:
@@ -119,6 +122,14 @@ export function RecordForm({
           payload[f.name] = (raw as Metric[]).filter(
             (m) => m.label || m.value,
           );
+          break;
+        case "qa":
+          payload[f.name] = (raw as QA[])
+            .map((q) => ({
+              question: q.question.trim(),
+              answer: q.answer.trim(),
+            }))
+            .filter((q) => q.question && q.answer);
           break;
         case "datetime": {
           const s = String(raw).trim();
@@ -303,6 +314,61 @@ function renderField(
             className="justify-self-start text-sm text-emerald"
           >
             + Add metric
+          </button>
+        </div>
+      </Field>
+    );
+  }
+
+  if (f.type === "qa") {
+    const qas = (value as QA[]) ?? [];
+    return (
+      <Field label={f.label} htmlFor={f.name}>
+        <div className="grid gap-4">
+          {qas.map((q, i) => (
+            <div
+              key={i}
+              className="grid gap-2 rounded-lg border border-line/70 p-3"
+            >
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Question"
+                  value={q.question}
+                  onChange={(e) => {
+                    const next = [...qas];
+                    next[i] = { ...next[i], question: e.target.value };
+                    set(f.name, next);
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => set(f.name, qas.filter((_, j) => j !== i))}
+                  className="shrink-0 px-2 text-slate hover:text-[#e88c7d]"
+                  aria-label="Remove question"
+                >
+                  ✕
+                </button>
+              </div>
+              <Textarea
+                rows={3}
+                placeholder="Answer"
+                value={q.answer}
+                onChange={(e) => {
+                  const next = [...qas];
+                  next[i] = { ...next[i], answer: e.target.value };
+                  set(f.name, next);
+                }}
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              set(f.name, [...qas, { question: "", answer: "" }])
+            }
+            className="justify-self-start text-sm text-emerald"
+          >
+            + Add question
           </button>
         </div>
       </Field>

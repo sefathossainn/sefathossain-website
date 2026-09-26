@@ -11,6 +11,7 @@ export type FieldType =
   | "lines"
   | "image"
   | "metrics"
+  | "qa"
   | "datetime"
   | "seo";
 
@@ -200,6 +201,13 @@ export const collections: Record<string, Collection> = {
       },
       { name: "tags", label: "Tags (comma separated)", type: "tags", full: true },
       { name: "body", label: "Body (HTML)", type: "html", full: true },
+      {
+        name: "faqs",
+        label: "People also ask (follow-up questions)",
+        type: "qa",
+        full: true,
+        help: "Shown as an accordion at the foot of the post and added as FAQ structured data (helps win Google FAQ results). Leave empty to use the built-in questions.",
+      },
       seoField,
     ],
     seo: {

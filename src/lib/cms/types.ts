@@ -91,6 +91,8 @@ export type BlogPost = {
   quick_answer?: string | null;
   /** Skimmable checklist of the post's main points. */
   key_takeaways?: string[] | null;
+  /** "People also ask" follow-up Q&A shown at the foot of the post (+ FAQPage JSON-LD). */
+  faqs?: { question: string; answer: string }[] | null;
   seo?: Seo | null;
 };
 

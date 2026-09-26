@@ -22,8 +22,9 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import { ShareButtons } from "@/components/blog/share-buttons";
 import { QuickAnswerBlock, KeyTakeaways } from "@/components/blog/callouts";
-import { getKeyTakeaways } from "@/lib/cms/blog-extras";
-import { breadcrumbSchema } from "@/lib/schema";
+import { PeopleAlsoAsk } from "@/components/blog/people-also-ask";
+import { getKeyTakeaways, getBlogFaqs } from "@/lib/cms/blog-extras";
+import { breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
 // Short window so a scheduled post's own URL becomes reachable near its time.
 export const revalidate = 300;
@@ -83,6 +84,7 @@ export default async function BlogPostPage({
   const takeaways = post.key_takeaways?.length
     ? post.key_takeaways
     : getKeyTakeaways(post.slug);
+  const faqs = post.faqs?.length ? post.faqs : getBlogFaqs(post.slug);
 
   const related = all
     .filter((p) => p.slug !== post.slug && p.category === post.category)
@@ -130,6 +132,7 @@ export default async function BlogPostPage({
           { name: post.title, path: `/blog/${post.slug}` },
         ])}
       />
+      {faqs.length > 0 && <JsonLd data={faqPageSchema(faqs)} />}
 
       {/* Header */}
       <header className="relative overflow-hidden pt-32 md:pt-40">
@@ -257,6 +260,15 @@ export default async function BlogPostPage({
           </div>
         </div>
       </Section>
+
+      {/* People also ask */}
+      {faqs.length > 0 && (
+        <Section className="!pt-4">
+          <div className="mx-auto max-w-4xl">
+            <PeopleAlsoAsk items={faqs} />
+          </div>
+        </Section>
+      )}
 
       {/* Keep reading */}
       {keepReading.length > 0 && (
