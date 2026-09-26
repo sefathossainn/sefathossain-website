@@ -14,6 +14,14 @@ type Metric = { label: string; value: string };
 type FieldValue = string | boolean | Metric[] | Seo;
 type Values = Record<string, FieldValue>;
 
+/** ISO string → value for a <input type="datetime-local"> (local time). */
+function isoToLocalInput(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 function initialValue(field: FieldSpec, record: Record<string, unknown>): FieldValue {
   const r = record;
   switch (field.type) {
@@ -31,6 +39,8 @@ function initialValue(field: FieldSpec, record: Record<string, unknown>): FieldV
         : "";
     case "metrics":
       return (Array.isArray(r[field.name]) ? r[field.name] : []) as Metric[];
+    case "datetime":
+      return r[field.name] ? isoToLocalInput(String(r[field.name])) : "";
     default:
       return r[field.name] == null ? "" : String(r[field.name]);
   }
@@ -110,6 +120,13 @@ export function RecordForm({
             (m) => m.label || m.value,
           );
           break;
+        case "datetime": {
+          const s = String(raw).trim();
+          const d = s ? new Date(s) : null;
+          payload[f.name] =
+            d && !Number.isNaN(d.getTime()) ? d.toISOString() : null;
+          break;
+        }
         default:
           payload[f.name] = raw === "" ? null : raw;
       }
@@ -312,6 +329,19 @@ function renderField(
             className="mt-2 h-24 w-full rounded-lg border border-line object-cover"
           />
         )}
+      </Field>
+    );
+  }
+
+  if (f.type === "datetime") {
+    return (
+      <Field label={f.label} htmlFor={f.name}>
+        <Input
+          id={f.name}
+          type="datetime-local"
+          value={String(value)}
+          onChange={(e) => set(f.name, e.target.value)}
+        />
       </Field>
     );
   }

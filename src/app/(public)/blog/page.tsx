@@ -10,7 +10,8 @@ import { Kicker } from "@/components/ui/kicker";
 import { BlogCard } from "@/components/cms/blog-card";
 import { BlogList } from "@/components/cms/blog-list";
 
-export const revalidate = 3600;
+// Short window so scheduled posts go live close to their set time.
+export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getPageContent("blog");

@@ -55,9 +55,11 @@ export function Pill({
   const tone =
     s === "published"
       ? "text-signal border-signal/40 bg-signal/10"
-      : s === "new"
-        ? "text-mist border-emerald/40 bg-emerald/10"
-        : "text-sage border-line bg-pine/40";
+      : s === "scheduled"
+        ? "text-[#e0b341] border-[#e0b341]/40 bg-[#e0b341]/10"
+        : s === "new"
+          ? "text-mist border-emerald/40 bg-emerald/10"
+          : "text-sage border-line bg-pine/40";
   return (
     <span
       className={cn(

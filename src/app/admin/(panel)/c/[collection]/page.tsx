@@ -14,8 +14,14 @@ import {
   AdminLinkButton,
 } from "@/components/admin/ui";
 
-function cell(key: string, value: unknown) {
-  if (key === "status") return <Pill status={value as string} />;
+function cell(key: string, value: unknown, row: Record<string, unknown>) {
+  if (key === "status") {
+    // A published post with a future publish time is "scheduled".
+    const pub = row.published_at as string | undefined;
+    const scheduled =
+      value === "published" && pub && new Date(pub).getTime() > Date.now();
+    return <Pill status={scheduled ? "scheduled" : (value as string)} />;
+  }
   if (key === "featured") return value ? "★" : "—";
   if (key === "published_at" || key === "created_at")
     return formatDate(value as string);
@@ -69,7 +75,7 @@ export default async function CollectionListPage({
               <tr key={String(r.id)}>
                 {cfg.list.map((c) => (
                   <Td key={c.key} className={c.key === "title" || c.key === "question" || c.key === "author" ? "text-mist" : ""}>
-                    {cell(c.key, r[c.key])}
+                    {cell(c.key, r[c.key], r)}
                   </Td>
                 ))}
                 <Td className="text-right">

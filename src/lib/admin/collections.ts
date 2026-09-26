@@ -11,6 +11,7 @@ export type FieldType =
   | "lines"
   | "image"
   | "metrics"
+  | "datetime"
   | "seo";
 
 export type FieldSpec = {
@@ -177,9 +178,9 @@ export const collections: Record<string, Collection> = {
       status,
       {
         name: "published_at",
-        label: "Publish date (ISO)",
-        type: "text",
-        placeholder: "2026-07-01T09:00:00.000Z",
+        label: "Publish date & time",
+        type: "datetime",
+        help: "Set a FUTURE time and Status = published to schedule — the post goes live automatically at that time. Leave/set a past time to publish now.",
       },
       { name: "featured_image", label: "Featured image", type: "image", full: true },
       { name: "excerpt", label: "Excerpt", type: "textarea", full: true },
