@@ -48,12 +48,15 @@ export function serviceSchema({
   path,
   serviceType,
   offers,
+  areaServed,
 }: {
   name: string;
   description: string;
   path: string;
   serviceType?: string;
   offers?: object;
+  /** Override the served area (e.g. a city). Defaults to the United States. */
+  areaServed?: object;
 }) {
   return {
     "@context": "https://schema.org",
@@ -62,7 +65,7 @@ export function serviceSchema({
     description,
     url: absoluteUrl(path),
     ...(serviceType ? { serviceType } : {}),
-    areaServed: { "@type": "Country", name: "United States" },
+    areaServed: areaServed ?? { "@type": "Country", name: "United States" },
     provider: {
       "@type": "Person",
       name: siteConfig.name,
