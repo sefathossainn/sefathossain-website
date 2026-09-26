@@ -112,6 +112,61 @@ export function faqPageSchema(faqs: { question: string; answer: string }[]) {
   };
 }
 
+/**
+ * AggregateRating + Review schema from genuine client testimonials, attached to
+ * the business entity. Only reviews that carry a real rating are included;
+ * returns null when there are none, so nothing is ever fabricated.
+ *
+ * Note: search engines may not show star rich results for reviews a business
+ * hosts about itself ("self-serving"), but this is still valid structured data
+ * and strengthens the entity for AI engines.
+ */
+export function reviewSchema(
+  reviews: {
+    author: string;
+    quote: string;
+    rating?: number;
+    role?: string;
+    company?: string;
+  }[],
+) {
+  const rated = reviews.filter(
+    (r) => typeof r.rating === "number" && r.rating > 0 && r.quote && r.author,
+  );
+  if (!rated.length) return null;
+
+  const avg =
+    rated.reduce((sum, r) => sum + (r.rating as number), 0) / rated.length;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${siteConfig.url}/#business`,
+    name: siteConfig.name,
+    url: siteConfig.url,
+    image: absoluteUrl("/images/sefat-photo.png"),
+    areaServed: { "@type": "Country", name: "United States" },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: avg.toFixed(1),
+      reviewCount: rated.length,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    review: rated.map((r) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: r.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      author: { "@type": "Person", name: r.author },
+      ...(r.quote ? { reviewBody: r.quote } : {}),
+    })),
+  };
+}
+
 /** BreadcrumbList schema. */
 export function breadcrumbSchema(
   crumbs: { name: string; path: string }[],

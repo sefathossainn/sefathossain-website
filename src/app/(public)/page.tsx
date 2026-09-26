@@ -19,7 +19,11 @@ import { CaseStudyCard } from "@/components/cms/case-study-card";
 import { TestimonialsShowcase } from "@/components/home/testimonials-showcase";
 import { CtaBand } from "@/components/cms/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { personSchema, professionalServiceSchema } from "@/lib/schema";
+import {
+  personSchema,
+  professionalServiceSchema,
+  reviewSchema,
+} from "@/lib/schema";
 
 export const revalidate = 300;
 
@@ -36,10 +40,17 @@ export default async function HomePage() {
     getSiteSettings(),
   ]);
   const photo = settings.profile_photo;
+  const reviews = reviewSchema(testimonials);
 
   return (
     <>
-      <JsonLd data={[personSchema(), professionalServiceSchema()]} />
+      <JsonLd
+        data={[
+          personSchema(),
+          professionalServiceSchema(),
+          ...(reviews ? [reviews] : []),
+        ]}
+      />
       <HomeHero content={content} photo={photo} />
 
       {/* 02 · Trust strip */}

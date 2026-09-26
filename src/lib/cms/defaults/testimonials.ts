@@ -13,29 +13,57 @@ export const signatureQuote = {
 };
 
 /**
- * Demo testimonials for the CMS to show editing UX. Seeded as DRAFT so they
- * never render publicly — real Upwork/Fiverr/client quotes replace them in
- * /admin, then get published. Nothing here is presented as fact.
+ * Real, verbatim 5-star Upwork client reviews. Presented exactly as written by
+ * the clients (Upwork shows them without full names, so the author is the
+ * platform-verified label). Editable/extendable in /admin → Testimonials.
  */
 export const seedTestimonials: Testimonial[] = [
   {
     quote:
-      "Sample review — replace with a real client quote in the CMS. Kept calm through a stressful hack and explained every step in plain language.",
-    author: "Demo Client",
+      "Working with Sefat was awesome. He was so helpful, kind, and attentive to our matter. We had a major security breach at our WordPress site and Sefat cleared it up so quickly. Would definitely work with Sefat again!",
+    author: "Verified Upwork Client",
     role: "Business owner",
-    source: "direct",
+    company: "WordPress Security Expert Needed",
+    rating: 5,
+    source: "upwork",
     featured: true,
     sort_order: 1,
-    status: "draft",
+    status: "published",
   },
   {
     quote:
-      "Sample review — replace with a real Upwork/Fiverr review in the CMS. Fast, thorough, and still there months later when we needed a change.",
-    author: "Demo Client",
-    role: "Store owner",
+      "Hostgator took all my sites down and I needed someone right away to clean the malware and get back to business. Sefat was very responsive and got the job done right the first time…and fast! Highly recommend!",
+    author: "Verified Upwork Client",
+    role: "Business owner",
+    company: "Site Malware Cleanup Specialist Needed",
+    rating: 5,
     source: "upwork",
     featured: true,
     sort_order: 2,
-    status: "draft",
+    status: "published",
+  },
+  {
+    quote:
+      "Sefat went above and beyond to help me out on my malware issue. I will definitely use him again, for the next issue.",
+    author: "Verified Upwork Client",
+    role: "Business owner",
+    company: "Remove malware",
+    rating: 5,
+    source: "upwork",
+    featured: true,
+    sort_order: 3,
+    status: "published",
+  },
+  {
+    quote:
+      "Sefat was awesome and quick to resolve our WordPress problem. Will hire again in the future!",
+    author: "Verified Upwork Client",
+    role: "Business owner",
+    company: "Emergency WordPress Remediation",
+    rating: 5,
+    source: "upwork",
+    featured: true,
+    sort_order: 4,
+    status: "published",
   },
 ];
