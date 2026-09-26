@@ -22,6 +22,7 @@ export const ROLE_LABELS: Record<Role, string> = {
 
 export type Section =
   | "dashboard"
+  | "analytics"
   | "pages"
   | "case-studies"
   | "projects"
@@ -42,6 +43,7 @@ type Matrix = Partial<Record<Section, Action[]>>;
 
 const ALL_CONTENT: Matrix = {
   dashboard: ["view"],
+  analytics: ["view"],
   pages: ["view", "create", "edit", "delete"],
   "case-studies": ["view", "create", "edit", "delete", "publish"],
   projects: ["view", "create", "edit", "delete", "publish"],
