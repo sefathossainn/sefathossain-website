@@ -2,6 +2,7 @@ import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Atmosphere } from "@/components/layout/atmosphere";
+import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { getSiteSettings } from "@/lib/cms/queries";
 
 /** Public site chrome — momentum scroll, atmosphere, nav, footer credit. */
@@ -24,6 +25,7 @@ export default async function PublicLayout({
         <main className="relative z-[2] flex-1">{children}</main>
         <SiteFooter />
       </div>
+      <PageViewTracker />
     </SmoothScroll>
   );
 }

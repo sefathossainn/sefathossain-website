@@ -16,7 +16,10 @@ type Item = { label: string; href: string; section: Section };
 const GROUPS: { title: string; items: Item[] }[] = [
   {
     title: "Overview",
-    items: [{ label: "Dashboard", href: "/admin", section: "dashboard" }],
+    items: [
+      { label: "Dashboard", href: "/admin", section: "dashboard" },
+      { label: "Analytics", href: "/admin/analytics", section: "analytics" },
+    ],
   },
   {
     title: "Content",
