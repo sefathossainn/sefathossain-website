@@ -18,10 +18,11 @@ import { BlogCard } from "@/components/cms/blog-card";
 import { CtaBand } from "@/components/cms/cta-band";
 import { AuthorBio } from "@/components/cms/author-bio";
 import { JsonLd } from "@/components/seo/json-ld";
-import { QuickAnswer } from "@/components/seo/quick-answer";
 import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import { ShareButtons } from "@/components/blog/share-buttons";
+import { QuickAnswerBlock, KeyTakeaways } from "@/components/blog/callouts";
+import { getKeyTakeaways } from "@/lib/cms/blog-extras";
 import { breadcrumbSchema } from "@/lib/schema";
 
 // Short window so a scheduled post's own URL becomes reachable near its time.
@@ -77,6 +78,11 @@ export default async function BlogPostPage({
 
   const { html, toc } = withToc(post.body);
   const url = absoluteUrl(`/blog/${post.slug}`);
+
+  const quickAnswer = post.quick_answer || post.excerpt;
+  const takeaways = post.key_takeaways?.length
+    ? post.key_takeaways
+    : getKeyTakeaways(post.slug);
 
   const related = all
     .filter((p) => p.slug !== post.slug && p.category === post.category)
@@ -190,6 +196,15 @@ export default async function BlogPostPage({
         </div>
       )}
 
+      {/* Quick answer — prominent, snippet/AIO-friendly */}
+      {quickAnswer && (
+        <div className="container-brand mt-9">
+          <Reveal className="mx-auto max-w-4xl">
+            <QuickAnswerBlock>{quickAnswer}</QuickAnswerBlock>
+          </Reveal>
+        </div>
+      )}
+
       {/* Body — sticky TOC + article */}
       <Section className="!pt-12">
         <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
@@ -204,7 +219,7 @@ export default async function BlogPostPage({
           )}
 
           <div className="min-w-0">
-            {post.excerpt && <QuickAnswer>{post.excerpt}</QuickAnswer>}
+            {takeaways.length > 0 && <KeyTakeaways items={takeaways} />}
 
             <RichText
               html={html}

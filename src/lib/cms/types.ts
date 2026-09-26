@@ -87,6 +87,10 @@ export type BlogPost = {
   /** Last edit time (DB-managed); drives the Article `dateModified` JSON-LD. */
   updated_at?: string;
   reading_minutes?: number;
+  /** Highlighted direct answer at the top of the post (falls back to excerpt). */
+  quick_answer?: string | null;
+  /** Skimmable checklist of the post's main points. */
+  key_takeaways?: string[] | null;
   seo?: Seo | null;
 };
 
