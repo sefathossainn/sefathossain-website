@@ -241,10 +241,14 @@ function mapPost(row: Record<string, unknown>): BlogPost {
 
 export const getBlogPosts = cache(async (): Promise<BlogPost[]> => {
   return withSupabase(async (sb) => {
+    // Scheduling gate: a published post with a FUTURE published_at stays hidden
+    // until that time (posts with no date are treated as live for compat).
+    const now = new Date().toISOString();
     const { data, error } = await sb
       .from("blog_posts")
       .select("*, categories(name)")
       .eq("status", "published")
+      .or(`published_at.is.null,published_at.lte.${now}`)
       .order("published_at", { ascending: false });
     if (error || !data || data.length === 0) return defaultPosts;
     return (data as Record<string, unknown>[]).map(mapPost);
@@ -255,11 +259,14 @@ export const getBlogPost = cache(
   async (slug: string): Promise<BlogPost | null> => {
     const fallback = defaultPosts.find((p) => p.slug === slug) ?? null;
     return withSupabase(async (sb) => {
+      // Same scheduling gate — a not-yet-due post 404s publicly until its time.
+      const now = new Date().toISOString();
       const { data, error } = await sb
         .from("blog_posts")
         .select("*, categories(name)")
         .eq("slug", slug)
         .eq("status", "published")
+        .or(`published_at.is.null,published_at.lte.${now}`)
         .maybeSingle();
       if (error || !data) return fallback;
       return mapPost(data as Record<string, unknown>);

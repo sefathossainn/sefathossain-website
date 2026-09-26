@@ -18,7 +18,8 @@ import { AuthorBio } from "@/components/cms/author-bio";
 import { JsonLd } from "@/components/seo/json-ld";
 import { breadcrumbSchema } from "@/lib/schema";
 
-export const revalidate = 3600;
+// Short window so a scheduled post's own URL becomes reachable near its time.
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
