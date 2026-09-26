@@ -3,7 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { getBlogPosts, getBlogPost, getSiteSettings } from "@/lib/cms/queries";
+import {
+  getBlogPosts,
+  getBlogPost,
+  getSiteSettings,
+  getCaseStudies,
+} from "@/lib/cms/queries";
 import { absoluteUrl, formatDate } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
 import { siteConfig } from "@/lib/site-config";
@@ -23,7 +28,13 @@ import { TableOfContents } from "@/components/blog/table-of-contents";
 import { ShareButtons } from "@/components/blog/share-buttons";
 import { QuickAnswerBlock, KeyTakeaways } from "@/components/blog/callouts";
 import { PeopleAlsoAsk } from "@/components/blog/people-also-ask";
-import { getKeyTakeaways, getBlogFaqs } from "@/lib/cms/blog-extras";
+import { TakeItFurther } from "@/components/blog/take-it-further";
+import {
+  getKeyTakeaways,
+  getBlogFaqs,
+  getRelatedService,
+  pickRelatedCaseStudy,
+} from "@/lib/cms/blog-extras";
 import { breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 
 // Short window so a scheduled post's own URL becomes reachable near its time.
@@ -70,10 +81,11 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [post, all, settings] = await Promise.all([
+  const [post, all, settings, caseStudies] = await Promise.all([
     getBlogPost(slug),
     getBlogPosts(),
     getSiteSettings(),
+    getCaseStudies(),
   ]);
   if (!post) notFound();
 
@@ -85,6 +97,8 @@ export default async function BlogPostPage({
     ? post.key_takeaways
     : getKeyTakeaways(post.slug);
   const faqs = post.faqs?.length ? post.faqs : getBlogFaqs(post.slug);
+  const relatedCaseStudy = pickRelatedCaseStudy(caseStudies, post.slug);
+  const relatedService = getRelatedService(post.slug);
 
   const related = all
     .filter((p) => p.slug !== post.slug && p.category === post.category)
@@ -254,6 +268,14 @@ export default async function BlogPostPage({
                   Try the free checker
                 </Link>
               </div>
+            </div>
+
+            {/* Take it further — related case study + service */}
+            <div className="mt-16">
+              <TakeItFurther
+                caseStudy={relatedCaseStudy}
+                service={relatedService}
+              />
             </div>
 
             <AuthorBio name={post.author} />

@@ -1,3 +1,5 @@
+import { SERVICE_PAGES, type ServiceNavItem } from "@/lib/services-nav";
+
 /**
  * Per-post "key takeaways" keyed by slug. Rendered as a checklist box near the
  * top of each article (skimmable + strong for AI answer engines). Kept in code,
@@ -260,4 +262,62 @@ export const faqsBySlug: Record<string, BlogFaq[]> = {
 
 export function getBlogFaqs(slug: string): BlogFaq[] {
   return faqsBySlug[slug] ?? [];
+}
+
+/**
+ * Most-relevant service page for each post (internal linking — the "Take it
+ * further" card). Falls back to the flagship malware-removal service.
+ */
+export const relatedServiceBySlug: Record<string, string> = {
+  "what-to-do-when-your-wordpress-site-is-hacked":
+    "/services/hacked-wordpress-recovery",
+  "5-signs-your-website-has-malware": "/services/wordpress-malware-removal",
+  "why-your-website-is-slow-and-how-to-fix-it":
+    "/services/wordpress-security-audit",
+  "how-much-does-it-cost-to-remove-malware-from-a-wordpress-site":
+    "/services/wordpress-malware-removal-cost",
+  "how-to-remove-deceptive-site-ahead-warning-wordpress":
+    "/services/google-blacklist-removal",
+  "is-my-wordpress-site-hacked-how-to-check":
+    "/services/wordpress-security-audit",
+  "wordpress-security-checklist": "/services/wordpress-security-hardening",
+  "why-nulled-themes-and-plugins-get-you-hacked":
+    "/services/wp-vcd-malware-removal",
+};
+
+/** The related ServiceNavItem for a post (defaults to malware removal). */
+export function getRelatedService(slug: string): ServiceNavItem {
+  const path =
+    relatedServiceBySlug[slug] ?? "/services/wordpress-malware-removal";
+  return (
+    SERVICE_PAGES.find((s) => s.path === path) ??
+    SERVICE_PAGES.find((s) => s.path === "/services/wordpress-malware-removal") ??
+    SERVICE_PAGES[0]
+  );
+}
+
+/**
+ * Pick the most relevant published case study for a post: match the post's
+ * topic to a case-study category (performance vs. security), preferring a
+ * featured one, then fall back to any published case study.
+ */
+export function pickRelatedCaseStudy<
+  T extends {
+    category?: string;
+    featured?: boolean;
+    status?: string | null;
+  },
+>(caseStudies: T[], slug: string): T | null {
+  const published = caseStudies.filter(
+    (c) => (c.status ?? "published") === "published",
+  );
+  if (!published.length) return null;
+
+  const wantsPerformance = /slow|fast|speed|performance/.test(slug);
+  const targetCategory = wantsPerformance ? "performance" : "security";
+
+  const inCategory = published.filter((c) => c.category === targetCategory);
+  const pool = inCategory.length ? inCategory : published;
+
+  return pool.find((c) => c.featured) ?? pool[0];
 }
