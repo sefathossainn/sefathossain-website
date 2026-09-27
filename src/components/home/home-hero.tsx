@@ -106,8 +106,8 @@ export function HomeHero({
               : "max-w-3xl"
           }
         >
-          {/* Text column — nudged down on desktop to align with the portrait */}
-          <div className="order-2 max-w-xl md:order-1 md:mt-[7vh]">
+          {/* Text column */}
+          <div className="order-2 max-w-xl md:order-1">
             <Reveal delay={0.3}>
               <p className="kicker mb-6 flex items-center gap-3" style={content.style("hero.kicker")}>
                 <CmsIcon
