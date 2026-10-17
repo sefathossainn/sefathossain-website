@@ -117,7 +117,9 @@ export default async function CaseStudyPage({
                   src={study.hero_image}
                   alt={study.title}
                   fill
-                  priority
+                  preload
+                  loading="eager"
+                  fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 1024px"
                   className="scale-125 object-cover"
                 />

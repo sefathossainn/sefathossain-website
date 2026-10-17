@@ -56,7 +56,9 @@ export function ProfilePhoto({
         alt={alt}
         fill
         sizes={sizes}
-        priority={priority}
+        preload={priority}
+        loading={priority ? "eager" : undefined}
+        fetchPriority={priority ? "high" : undefined}
         className="object-cover [filter:saturate(0.92)_contrast(1.03)]"
         style={{ objectPosition }}
       />
