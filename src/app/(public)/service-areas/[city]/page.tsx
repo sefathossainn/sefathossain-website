@@ -263,7 +263,7 @@ export default async function ServiceAreaPage({
         </div>
       </section>
 
-      <RelatedServices currentPath="/services/wordpress-malware-removal" />
+      <RelatedServices currentPath={`/service-areas/${area.slug}`} />
 
       {/* CTA */}
       <section className="border-t border-line bg-obsidian px-6 py-20 md:px-10 md:py-28">

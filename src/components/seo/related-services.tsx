@@ -1,24 +1,83 @@
 import Link from "next/link";
 import { SERVICE_PAGES } from "@/lib/services-nav";
+import { getBlogPosts } from "@/lib/cms/queries";
+import { relatedServiceBySlug } from "@/lib/cms/blog-extras";
+
+/**
+ * Pick `limit` services to link from `currentPath`. Taking the first N of the
+ * list on every page left the later services (Japanese hack, pharma hack,
+ * WooCommerce, host suspension) with no contextual inbound links, so Google
+ * discovered but never indexed them. Instead, take the services that follow
+ * the current one in SERVICE_PAGES (grouped by topic), wrapping around;
+ * non-service pages start at a stable position derived from their path, so
+ * links spread across the whole set.
+ */
+function pickRelated(currentPath: string, limit: number) {
+  const n = SERVICE_PAGES.length;
+  const idx = SERVICE_PAGES.findIndex((s) => s.path === currentPath);
+  let start = idx + 1;
+  if (idx < 0) {
+    let h = 0;
+    for (const ch of currentPath) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    start = h % n;
+  }
+  const out: typeof SERVICE_PAGES = [];
+  for (let i = 0; i < n && out.length < limit; i++) {
+    const s = SERVICE_PAGES[(start + i) % n];
+    if (s.path !== currentPath) out.push(s);
+  }
+  return out;
+}
 
 /**
  * Contextual internal-linking block — surfaces other security services related
- * to the current page. Improves crawl depth, topical authority, and gives AI
- * engines the cluster of related pages. Excludes the current page.
+ * to the current page and, on a service page, the blog guides that point back
+ * to it. Improves crawl depth, topical authority, and gives AI engines the
+ * cluster of related pages. Excludes the current page.
  */
-export function RelatedServices({
+export async function RelatedServices({
   currentPath,
   limit = 4,
 }: {
   currentPath: string;
   limit?: number;
 }) {
-  const related = SERVICE_PAGES.filter((s) => s.path !== currentPath).slice(0, limit);
-  if (!related.length) return null;
+  const related = pickRelated(currentPath, limit);
+
+  // Service -> blog: guides whose "Take it further" card links to this page.
+  const isService = SERVICE_PAGES.some((s) => s.path === currentPath);
+  const guides = isService
+    ? (await getBlogPosts())
+        .filter((p) => relatedServiceBySlug[p.slug] === currentPath)
+        .slice(0, 4)
+    : [];
+
+  if (!related.length && !guides.length) return null;
 
   return (
     <section className="border-y border-line bg-obsidian px-6 py-16 md:px-10 md:py-20">
       <div className="mx-auto max-w-6xl">
+        {guides.length > 0 && (
+          <div className="mb-14">
+            <p className="kicker text-emerald">GUIDES</p>
+            <h2 className="mt-5 font-display text-2xl font-semibold text-mist md:text-3xl">
+              Read more on this topic
+            </h2>
+            <ul className="mt-6 space-y-3">
+              {guides.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    href={`/blog/${p.slug}`}
+                    className="text-sage underline decoration-line underline-offset-4 transition-colors hover:text-emerald hover:decoration-emerald"
+                  >
+                    {p.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <p className="kicker text-emerald">RELATED SERVICES</p>
         <h2 className="mt-5 font-display text-2xl font-semibold text-mist md:text-3xl">
           Explore related WordPress security services
