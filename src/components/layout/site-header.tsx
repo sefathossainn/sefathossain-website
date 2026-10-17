@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { Button } from "@/components/ui/button";
 import { primaryNav, primaryCta } from "@/lib/site-config";
@@ -136,11 +135,7 @@ export function SiteHeader({
                   {item.label}
                   <Chevron className="transition-transform duration-300 group-hover:rotate-180" />
                   {isActive(item.href) && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-x-3.5 -bottom-px h-px bg-emerald"
-                      transition={{ type: "spring", stiffness: 400, damping: 34 }}
-                    />
+                    <span className="absolute inset-x-3.5 -bottom-px h-px bg-emerald" />
                   )}
                 </Link>
 
@@ -213,11 +208,7 @@ export function SiteHeader({
               >
                 {item.label}
                 {isActive(item.href) && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute inset-x-3.5 -bottom-px h-px bg-emerald"
-                    transition={{ type: "spring", stiffness: 400, damping: 34 }}
-                  />
+                  <span className="absolute inset-x-3.5 -bottom-px h-px bg-emerald" />
                 )}
               </Link>
             ),
@@ -268,14 +259,10 @@ export function SiteHeader({
       </div>
 
       {/* Mobile drawer */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="container-brand max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-line/70 pb-8 pt-2 md:hidden"
+      {/* CSS enter animation — keeps framer-motion out of every page's JS */}
+      {open && (
+          <div
+            className="drawer-in container-brand max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-line/70 pb-8 pt-2 md:hidden"
           >
             <nav className="flex flex-col">
               {primaryNav.map((item) =>
@@ -327,9 +314,8 @@ export function SiteHeader({
             >
               {primaryCta.label}
             </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </header>
   );
 }

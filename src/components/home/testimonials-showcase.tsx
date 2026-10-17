@@ -1,11 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
-import { Sparkle } from "lucide-react";
+import { Sparkle, Sparkles } from "lucide-react";
 import type { Testimonial } from "@/lib/cms/types";
 import { ProfilePhoto } from "@/components/brand/profile-photo";
-import { CmsIcon } from "@/lib/icons";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
@@ -69,7 +67,8 @@ export function TestimonialsShowcase({
           className="kicker kicker-emerald inline-flex items-center gap-2 rounded-full border border-emerald/40 bg-emerald/5 px-4 py-2"
           style={kickerStyle}
         >
-          <CmsIcon name="sparkles" className="h-3.5 w-3.5 text-emerald" />
+          {/* direct import: CmsIcon's registry would ship all ~160 icons to the client */}
+          <Sparkles aria-hidden className="h-3.5 w-3.5 text-emerald" />
           {kicker}
         </span>
 
@@ -156,16 +155,15 @@ export function TestimonialsShowcase({
               {items.map((current, i) => {
                 const active = i === safeIndex;
                 return (
-              <motion.div
+              <div
                 key={i}
-                initial={false}
-                animate={{ opacity: active ? 1 : 0, x: active ? 0 : 24 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 aria-hidden={!active}
                 inert={!active}
                 className={cn(
-                  "relative [grid-area:1/1]",
-                  !active && "pointer-events-none",
+                  "relative transition-[opacity,transform] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] [grid-area:1/1] motion-reduce:transition-none",
+                  active
+                    ? "translate-x-0 opacity-100"
+                    : "pointer-events-none translate-x-6 opacity-0",
                 )}
               >
                 {current.company && (
@@ -214,7 +212,7 @@ export function TestimonialsShowcase({
                     </div>
                   )}
                 </div>
-              </motion.div>
+              </div>
                 );
               })}
             </div>

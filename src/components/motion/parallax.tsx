@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useLenis } from "lenis/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,9 @@ export function Parallax({
   className?: string;
 }) {
   const ref = React.useRef<HTMLDivElement>(null);
+
+  // Track Lenis' smoothed scroll (was a global GsapBridge in SmoothScroll).
+  useLenis(() => ScrollTrigger.update());
 
   React.useEffect(() => {
     const el = ref.current;

@@ -153,6 +153,64 @@ html.lenis body {
 }
 
 /* ============================================================================
+   Motion primitives (CSS, no framer-motion — keeps the animation library out
+   of the JS every page ships; see components/ui/reveal.tsx)
+   ========================================================================== */
+
+/* Reveal & settle: hidden until in view, then fades up once. */
+.reveal {
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s);
+}
+.reveal:not([data-shown]) {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 22px));
+}
+
+/* LCP-safe variant: painted from the first frame (opacity 1), only a
+   transform settle plays — no JS needed, starts before hydration. */
+.reveal-eager {
+  animation: reveal-settle 0.7s cubic-bezier(0.16, 1, 0.3, 1)
+    var(--reveal-delay, 0s) both;
+}
+@keyframes reveal-settle {
+  from {
+    transform: translateY(var(--reveal-y, 22px));
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Mobile nav drawer enter. */
+.drawer-in {
+  animation: drawer-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal:not([data-shown]),
+  .reveal-eager,
+  .drawer-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}
+
+/* ============================================================================
    Brand primitives
    ========================================================================== */
 
