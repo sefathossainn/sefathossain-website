@@ -30,9 +30,12 @@ const mono = JetBrains_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
-  // Favicon = a dedicated favicon if set, else the profile photo, else the
-  // bundled .ico — all CMS-swappable from /admin → Site Settings.
-  const favicon = settings.favicon_url || settings.profile_photo || "/favicon.ico";
+  // Favicon = the dedicated favicon from /admin → Site Settings, else the
+  // bundled square fallback in public/. The profile photo is deliberately NOT
+  // in this chain any more: it's a portrait crop, so swapping it used to change
+  // (and break) the browser-tab / Google-results icon as a side effect.
+  const favicon = settings.favicon_url || "/icon-192.png";
+  const appleIcon = settings.favicon_url || "/apple-touch-icon.png";
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
@@ -47,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: favicon,
       shortcut: favicon,
-      apple: favicon,
+      apple: appleIcon,
     },
     alternates: {
       canonical: "/",

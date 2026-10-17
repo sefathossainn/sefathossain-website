@@ -107,7 +107,12 @@ export function SettingsForm({
           </Field>
 
           <div className="grid gap-6 rounded-2xl border border-line/70 bg-forest/20 p-5">
-            <p className="kicker text-slate">Navbar logo &amp; favicon</p>
+            <div>
+              <p className="kicker text-slate">Navbar logo</p>
+              <p className="mt-1 text-xs text-slate">
+                What visitors see in the site header.
+              </p>
+            </div>
 
             <Field label="Logo image" htmlFor="logo">
               <div className="flex gap-2">
@@ -157,27 +162,50 @@ export function SettingsForm({
                 Small line under the name. Leave blank to hide it.
               </p>
             </Field>
+          </div>
 
-            <Field label="Favicon" htmlFor="favicon">
+          <div className="grid gap-6 rounded-2xl border border-line/70 bg-forest/20 p-5">
+            <div>
+              <p className="kicker text-slate">Favicon</p>
+              <p className="mt-1 text-xs text-slate">
+                The browser-tab icon, also shown beside your site in Google
+                results. Separate from the logo and profile photo, so changing
+                those never changes it.
+              </p>
+            </div>
+
+            <Field label="Favicon image" htmlFor="favicon">
               <div className="flex gap-2">
                 <Input
                   id="favicon"
-                  placeholder="Leave blank to use your profile photo"
+                  placeholder="Leave blank to use the bundled icon"
                   value={favicon}
                   onChange={(e) => setFavicon(e.target.value)}
                 />
                 <MediaPickerButton onPick={setFavicon} />
               </div>
-              <div className="mt-2 flex items-center gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={favicon || photo || "/favicon.ico"}
-                  alt="Favicon preview"
-                  className="h-8 w-8 rounded border border-line object-cover"
-                />
+              <div className="mt-3 flex items-center gap-5">
+                <div className="flex flex-col items-center gap-1">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={favicon || "/icon-192.png"}
+                    alt="Favicon preview, browser tab size"
+                    className="h-4 w-4 object-cover"
+                  />
+                  <span className="text-[10px] text-slate">Tab</span>
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={favicon || "/icon-192.png"}
+                    alt="Favicon preview, Google results crop"
+                    className="h-12 w-12 rounded-full border border-line object-cover"
+                  />
+                  <span className="text-[10px] text-slate">Google</span>
+                </div>
                 <p className="text-xs text-slate">
-                  The browser-tab icon. Defaults to your profile photo — for a
-                  crisp result upload a square image (512×512).
+                  Use a square image, at least 192×192 (512×512 is ideal). Google
+                  crops it to a circle, so keep the subject centred.
                 </p>
               </div>
             </Field>
