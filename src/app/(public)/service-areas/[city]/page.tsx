@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 import { RelatedServices } from "@/components/seo/related-services";
 import { serviceSchema, faqPageSchema, breadcrumbSchema } from "@/lib/schema";
 import { serviceAreas, getServiceArea } from "@/lib/service-areas";
+import { getStateBreachLaw } from "@/lib/state-breach-laws";
 
 export function generateStaticParams() {
   return serviceAreas.map((a) => ({ city: a.slug }));
@@ -94,6 +95,7 @@ export default async function ServiceAreaPage({
   ];
 
   const faqs = [area.faq, ...sharedFaqs];
+  const law = getStateBreachLaw(area.stateAbbr);
   const otherAreas = serviceAreas.filter((a) => a.slug !== area.slug);
 
   return (
@@ -191,6 +193,67 @@ export default async function ServiceAreaPage({
           </div>
         </div>
       </section>
+
+      {/* State breach-notification law — genuinely state-specific, useful
+          content for an owner whose site (and customer data) was exposed. */}
+      {law && (
+        <section className="border-t border-line bg-obsidian px-6 py-20 md:px-10 md:py-24">
+          <div className="mx-auto max-w-4xl">
+            <p className="kicker text-emerald">
+              {area.state.toUpperCase()} DATA BREACH LAW
+            </p>
+            <h2 className="mt-5 font-display text-3xl font-semibold text-mist md:text-4xl">
+              Hacked site in {area.city}? What {area.state} law expects of you
+            </h2>
+            <p className="mt-6 leading-relaxed text-sage">{law.summary}</p>
+
+            <dl className="mt-8 grid gap-5 sm:grid-cols-2">
+              {(
+                [
+                  ["The law", law.statute],
+                  ["What counts as personal information", law.personalInfo],
+                  ["Notifying affected people", law.residentDeadline],
+                  ["Notifying the state", law.regulatorNotice],
+                ] as const
+              )
+                // Rows we couldn't verify for a state are left out.
+                .filter(([, detail]) => !!detail)
+                .map(([term, detail]) => (
+                <div
+                  key={term}
+                  className="rounded-[var(--radius-xl)] border border-line bg-forest/30 p-6"
+                >
+                  <dt className="kicker text-emerald">{term}</dt>
+                  <dd className="mt-3 leading-relaxed text-mist/90">{detail}</dd>
+                </div>
+              ))}
+            </dl>
+
+            {law.extra && (
+              <p className="mt-6 leading-relaxed text-sage">{law.extra}</p>
+            )}
+
+            <p className="mt-6 text-sm leading-relaxed text-slate">
+              Sources:{" "}
+              {law.sources.map((s, i) => (
+                <span key={s.href}>
+                  {i > 0 && " · "}
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 hover:text-emerald"
+                  >
+                    {s.label}
+                  </a>
+                </span>
+              ))}
+              . This is a plain-English summary, not legal advice — confirm
+              your obligations with a {area.state} attorney.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Process */}
       <section className="border-y border-line bg-pine/50 px-6 py-20 md:px-10 md:py-24">
