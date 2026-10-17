@@ -10,8 +10,6 @@ import { Reveal } from "@/components/ui/reveal";
 import { Kicker } from "@/components/ui/kicker";
 import { Button } from "@/components/ui/button";
 import { ProfilePhoto } from "@/components/brand/profile-photo";
-import { JsonLd } from "@/components/seo/json-ld";
-import { personSchema } from "@/lib/schema";
 
 export const revalidate = 300;
 
@@ -31,7 +29,6 @@ export default async function AboutPage() {
 
   return (
     <>
-      <JsonLd data={personSchema()} />
       <PageHero
         kicker={content.text("hero.kicker")}
         title={content.text("hero.h1")}

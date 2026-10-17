@@ -20,7 +20,6 @@ import { TestimonialsShowcase } from "@/components/home/testimonials-showcase";
 import { CtaBand } from "@/components/cms/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
-  personSchema,
   professionalServiceSchema,
   reviewSchema,
 } from "@/lib/schema";
@@ -46,7 +45,6 @@ export default async function HomePage() {
     <>
       <JsonLd
         data={[
-          personSchema(),
           professionalServiceSchema(),
           ...(reviews ? [reviews] : []),
         ]}

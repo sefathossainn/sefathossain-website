@@ -1,18 +1,5 @@
 import { absoluteUrl } from "@/lib/utils";
-import { siteConfig, socialLinks } from "@/lib/site-config";
-
-/** Person schema — home + about. */
-export function personSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: siteConfig.name,
-    url: siteConfig.url,
-    jobTitle: "WordPress Security Expert",
-    description: siteConfig.description,
-    sameAs: socialLinks.map((s) => s.href),
-  };
-}
+import { siteConfig } from "@/lib/site-config";
 
 /** ProfessionalService schema — home. */
 export function professionalServiceSchema() {
