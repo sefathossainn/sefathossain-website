@@ -9,7 +9,7 @@ import {
   getSiteSettings,
   getCaseStudies,
 } from "@/lib/cms/queries";
-import { absoluteUrl, formatDate } from "@/lib/utils";
+import { absoluteUrl, formatDate, latestIso } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
 import { siteConfig } from "@/lib/site-config";
 import { withToc } from "@/lib/toc";
@@ -111,6 +111,13 @@ export default async function BlogPostPage({
     ...(post.category ? [{ name: post.category, path: "/blog" }] : []),
   ];
 
+  // A scheduled post's row is edited before it goes live, so updated_at can
+  // predate published_at — never let dateModified fall before datePublished.
+  const modifiedAt = latestIso(post.published_at, post.updated_at);
+  const showUpdated =
+    !!modifiedAt &&
+    modifiedAt.slice(0, 10) > (post.published_at ?? "").slice(0, 10);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -118,7 +125,7 @@ export default async function BlogPostPage({
     description: post.excerpt,
     image: post.featured_image ? [post.featured_image] : undefined,
     datePublished: post.published_at,
-    dateModified: post.updated_at ?? post.published_at,
+    dateModified: modifiedAt,
     author: {
       "@type": "Person",
       "@id": `${siteConfig.url}/#person`,
@@ -163,13 +170,11 @@ export default async function BlogPostPage({
 
             <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate">
               <span>{formatDate(post.published_at)}</span>
-              {post.updated_at &&
-                post.updated_at.slice(0, 10) !==
-                  (post.published_at ?? "").slice(0, 10) && (
+              {showUpdated && (
                   <>
                     <span aria-hidden>·</span>
                     <span className="text-emerald">
-                      Updated {formatDate(post.updated_at)}
+                      Updated {formatDate(modifiedAt)}
                     </span>
                   </>
                 )}

@@ -23,6 +23,8 @@ export type CaseStudy = {
   sort_order?: number;
   seo?: Seo | null;
   status?: "draft" | "published";
+  /** Row creation time (DB-managed); case studies have no updated_at. */
+  created_at?: string;
 };
 
 export type Project = {
