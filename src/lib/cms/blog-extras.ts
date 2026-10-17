@@ -283,6 +283,71 @@ export const relatedServiceBySlug: Record<string, string> = {
   "wordpress-security-checklist": "/services/wordpress-security-hardening",
   "why-nulled-themes-and-plugins-get-you-hacked":
     "/services/wp-vcd-malware-removal",
+
+  // Evergreen guides (Sep 2026)
+  "wordpress-site-hacked": "/services/hacked-wordpress-recovery",
+  "recover-hacked-wordpress-website": "/services/hacked-wordpress-recovery",
+  "wordpress-malware-removal": "/services/wordpress-malware-removal",
+  "check-wordpress-for-malware": "/services/wordpress-security-audit",
+  "wordpress-backdoor-malware": "/services/wordpress-malware-removal",
+  "wordpress-redirect-malware": "/services/wordpress-redirect-virus-removal",
+  "remove-seo-spam-wordpress": "/services/japanese-keyword-hack-removal",
+  "remove-google-security-warning-wordpress":
+    "/services/google-blacklist-removal",
+  "secure-wordpress-after-malware-removal":
+    "/services/wordpress-security-hardening",
+  "wordpress-security-hardening-checklist":
+    "/services/wordpress-security-hardening",
+
+  // USA batch (daily drip, Oct 2026)
+  "how-to-remove-malware-from-wordpress": "/services/wordpress-malware-removal",
+  "how-to-find-and-remove-a-wordpress-backdoor":
+    "/services/wordpress-malware-removal",
+  "how-to-remove-the-japanese-keyword-hack":
+    "/services/japanese-keyword-hack-removal",
+  "how-to-remove-the-pharma-hack": "/services/pharma-hack-removal",
+  "how-to-fix-a-wordpress-redirect-hack":
+    "/services/wordpress-redirect-virus-removal",
+  "how-to-remove-wp-vcd-malware": "/services/wp-vcd-malware-removal",
+  "how-to-clean-a-hacked-wordpress-database":
+    "/services/hacked-wordpress-recovery",
+  "how-to-remove-hacked-spam-pages-from-google":
+    "/services/japanese-keyword-hack-removal",
+  "how-to-request-a-google-security-review":
+    "/services/google-blacklist-removal",
+  "website-suspended-by-host-how-to-recover":
+    "/services/website-suspended-by-host-recovery",
+  "how-to-scan-wordpress-for-malware": "/services/wordpress-security-audit",
+  "how-to-secure-your-wordpress-login": "/services/wordpress-security-hardening",
+  "how-to-set-up-two-factor-authentication-wordpress":
+    "/services/wordpress-security-hardening",
+  "how-to-stop-brute-force-attacks-wordpress": "/services/cloudflare-security",
+  "best-wordpress-security-plugins": "/services/wordpress-security-hardening",
+  "do-you-need-a-web-application-firewall": "/services/cloudflare-security",
+  "how-to-set-up-cloudflare-for-wordpress": "/services/cloudflare-security",
+  "how-to-back-up-a-wordpress-site": "/services/wordpress-security-hardening",
+  "how-to-update-wordpress-without-breaking-your-site":
+    "/services/wordpress-security-audit",
+  "how-to-tell-if-a-wordpress-plugin-is-safe":
+    "/services/wordpress-security-audit",
+  "how-to-secure-a-woocommerce-store": "/services/woocommerce-malware-removal",
+  "how-to-remove-a-credit-card-skimmer-woocommerce":
+    "/services/woocommerce-malware-removal",
+  "wordpress-security-for-small-business":
+    "/services/wordpress-security-hardening",
+  "how-much-does-wordpress-maintenance-cost":
+    "/services/wordpress-malware-removal-cost",
+  "how-to-recover-seo-rankings-after-a-hack":
+    "/services/google-blacklist-removal",
+  "what-to-do-after-cleaning-a-hacked-wordpress-site":
+    "/services/wordpress-security-hardening",
+  "how-to-fix-mixed-content-warnings-wordpress":
+    "/services/wordpress-security-audit",
+  "how-to-choose-secure-wordpress-hosting":
+    "/services/website-suspended-by-host-recovery",
+  "why-wordpress-sites-get-hacked": "/services/hacked-wordpress-recovery",
+  "do-i-need-ongoing-wordpress-security-monitoring":
+    "/services/wordpress-security-audit",
 };
 
 /** The related ServiceNavItem for a post (defaults to malware removal). */
