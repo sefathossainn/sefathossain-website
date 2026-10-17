@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Sparkle } from "lucide-react";
 import type { Testimonial } from "@/lib/cms/types";
 import { ProfilePhoto } from "@/components/brand/profile-photo";
@@ -58,7 +58,6 @@ export function TestimonialsShowcase({
     return () => clearInterval(t);
   }, [autoplay, many, paused, interval, items.length]);
 
-  const current = items[safeIndex];
   const avatars = items.filter((t) => t.avatar).slice(0, 4);
   const stackSource = avatars.length ? avatars : items.slice(0, 4);
 
@@ -148,14 +147,26 @@ export function TestimonialsShowcase({
               </div>
             )}
 
-            <AnimatePresence mode="wait">
+            {/* Every slide stays in the HTML (stacked in one grid cell) so all
+                reviews in the homepage Review JSON-LD are present on the page,
+                as Google's review-snippet policy requires. Only the active
+                slide is visible; the stack also sizes to the tallest quote,
+                so the card height never jumps between slides. */}
+            <div className="grid">
+              {items.map((current, i) => {
+                const active = i === safeIndex;
+                return (
               <motion.div
-                key={safeIndex}
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -24 }}
+                key={i}
+                initial={false}
+                animate={{ opacity: active ? 1 : 0, x: active ? 0 : 24 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="relative"
+                aria-hidden={!active}
+                inert={!active}
+                className={cn(
+                  "relative [grid-area:1/1]",
+                  !active && "pointer-events-none",
+                )}
               >
                 {current.company && (
                   <p className="kicker mb-4 text-emerald">{current.company}</p>
@@ -204,7 +215,9 @@ export function TestimonialsShowcase({
                   )}
                 </div>
               </motion.div>
-            </AnimatePresence>
+                );
+              })}
+            </div>
 
             {/* bottom accent bar */}
             <div className="pointer-events-none absolute inset-x-8 bottom-0 h-1 rounded-t-full bg-gradient-to-r from-emerald to-signal" />
