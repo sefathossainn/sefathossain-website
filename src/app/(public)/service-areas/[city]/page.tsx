@@ -208,12 +208,17 @@ export default async function ServiceAreaPage({
             <p className="mt-6 leading-relaxed text-sage">{law.summary}</p>
 
             <dl className="mt-8 grid gap-5 sm:grid-cols-2">
-              {[
-                ["The law", law.statute],
-                ["What counts as personal information", law.personalInfo],
-                ["Notifying affected people", law.residentDeadline],
-                ["Notifying the state", law.regulatorNotice],
-              ].map(([term, detail]) => (
+              {(
+                [
+                  ["The law", law.statute],
+                  ["What counts as personal information", law.personalInfo],
+                  ["Notifying affected people", law.residentDeadline],
+                  ["Notifying the state", law.regulatorNotice],
+                ] as const
+              )
+                // Rows we couldn't verify for a state are left out.
+                .filter(([, detail]) => !!detail)
+                .map(([term, detail]) => (
                 <div
                   key={term}
                   className="rounded-[var(--radius-xl)] border border-line bg-forest/30 p-6"
