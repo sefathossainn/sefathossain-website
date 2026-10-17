@@ -205,12 +205,14 @@ export default async function BlogPostPage({
       {/* Featured image */}
       {post.featured_image && (
         <div className="container-brand mt-9">
-          <Reveal className="relative mx-auto aspect-[16/9] max-w-4xl overflow-hidden rounded-[var(--radius-xl)] border border-line">
+          <Reveal eager className="relative mx-auto aspect-[16/9] max-w-4xl overflow-hidden rounded-[var(--radius-xl)] border border-line">
             <Image
               src={post.featured_image}
               alt={post.title}
               fill
-              priority
+              preload
+              loading="eager"
+              fetchPriority="high"
               sizes="(max-width:1024px) 100vw, 1024px"
               className="object-cover"
             />

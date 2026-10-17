@@ -39,7 +39,7 @@ export default async function AboutPage() {
       {/* 01 · Story — the person anchors the page */}
       <Section className="!pt-10">
         <div className="grid items-start gap-10 md:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <Reveal className="md:sticky md:top-28">
+          <Reveal eager className="md:sticky md:top-28">
             <ProfilePhoto
               src={photo}
               alt={profile.alt}

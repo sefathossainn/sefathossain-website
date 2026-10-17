@@ -42,8 +42,13 @@ function HeroPortrait({
         src={src}
         alt={alt}
         fill
-        priority
-        sizes="(max-width: 768px) 92vw, 46vw"
+        // LCP element. Next 16 deprecated `priority` (it no longer sets
+        // fetchpriority), so preload and prioritise explicitly.
+        preload
+        loading="eager"
+        fetchPriority="high"
+        // The mobile frame is capped at max-w-sm (384px), not 92vw.
+        sizes="(max-width: 768px) min(92vw, 384px), 46vw"
         className="object-contain object-bottom [filter:drop-shadow(0_24px_50px_rgba(6,12,9,0.6))]"
       />
       {/* melt the base into the floor */}
