@@ -55,7 +55,14 @@ export async function generateMetadata({
   if (!post) return {};
   const title = post.seo?.title ?? post.title;
   const description = post.seo?.description ?? post.excerpt ?? "";
-  const image = post.seo?.og_image ?? post.featured_image ?? seedAssets.ogDefault;
+  // Prefer an image set in /admin; the shared blog template image and "no
+  // image" both fall back to a generated card titled with this post.
+  const ownImage =
+    post.featured_image && post.featured_image !== seedAssets.blogDefault
+      ? post.featured_image
+      : null;
+  const image =
+    post.seo?.og_image ?? ownImage ?? absoluteUrl(`/blog/${post.slug}/og`);
   const url = absoluteUrl(`/blog/${post.slug}`);
   return {
     title: { absolute: `${title} | Sefat Hossain` },

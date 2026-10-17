@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   // Pin the workspace root — a stray lockfile in $HOME otherwise confuses
   // Next's root inference (affects output tracing + env resolution).
   turbopack: { root: path.resolve() },
+  // OG cards read vendored fonts with fs at request time (blog /og route);
+  // make sure the files ship with every function.
+  outputFileTracingIncludes: {
+    "/**": ["./src/assets/og-fonts/*.woff"],
+  },
   images: {
     // Serve AVIF (then WebP) where the browser supports it — smaller hero and
     // content images, so LCP improves with no visual change.
