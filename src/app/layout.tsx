@@ -28,14 +28,32 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
+/** Hosts next.config `images.remotePatterns` allows the optimizer to fetch. */
+const OPTIMIZABLE = [
+  "https://dtbifbjsstuxudhoxrej.supabase.co/storage/v1/object/public/",
+  "https://d8j0ntlcm91z4.cloudfront.net/",
+];
+
+/** Icon-sized URL via /_next/image; leaves unknown hosts and local files as-is. */
+function optimizedIcon(src: string, width: 96 | 256) {
+  if (!OPTIMIZABLE.some((p) => src.startsWith(p))) return src;
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   // Favicon = the dedicated favicon from /admin → Site Settings, else the
   // bundled square fallback in public/. The profile photo is deliberately NOT
   // in this chain any more: it's a portrait crop, so swapping it used to change
   // (and break) the browser-tab / Google-results icon as a side effect.
-  const favicon = settings.favicon_url || "/icon-192.png";
-  const appleIcon = settings.favicon_url || "/apple-touch-icon.png";
+  //
+  // A CMS favicon is usually a full-size upload (the current one is a 343 KB
+  // 512px PNG) and browsers fetch it at high priority on every page, competing
+  // with the page itself on mobile. Route it through the image optimizer at
+  // icon size: browsers get AVIF/WebP (~1 KB), crawlers sending */* get PNG.
+  const cms = settings.favicon_url;
+  const favicon = cms ? optimizedIcon(cms, 96) : "/icon-192.png";
+  const appleIcon = cms ? optimizedIcon(cms, 256) : "/apple-touch-icon.png";
   return {
     metadataBase: new URL(siteConfig.url),
     title: {

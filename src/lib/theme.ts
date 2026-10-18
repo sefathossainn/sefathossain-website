@@ -28,7 +28,7 @@ export const THEME_COLOR_TOKENS: ThemeToken[] = [
   { key: "signal", cssVar: "--color-signal", label: "Buttons & highlights", group: "Core", default: "#27a165" },
   { key: "mist", cssVar: "--color-mist", label: "Heading text", group: "Core", default: "#e9f0eb" },
   { key: "sage", cssVar: "--color-sage", label: "Body text", group: "Core", default: "#a7b8ad" },
-  { key: "slate", cssVar: "--color-slate", label: "Muted text", group: "Core", default: "#5f7268" },
+  { key: "slate", cssVar: "--color-slate", label: "Muted text", group: "Core", default: "#7a8d82" },
   { key: "forest", cssVar: "--color-forest", label: "Section surface", group: "Surfaces & lines", default: "#0b1811" },
   { key: "pine", cssVar: "--color-pine", label: "Card / panel", group: "Surfaces & lines", default: "#10241a" },
   { key: "evergreen", cssVar: "--color-evergreen", label: "Structural green", group: "Surfaces & lines", default: "#17402b" },
