@@ -16,7 +16,7 @@
   --color-signal: #27a165; /* CTAs only, "secure / active" highlights */
   --color-mist: #e9f0eb; /* primary text */
   --color-sage: #a7b8ad; /* secondary text, captions */
-  --color-slate: #5f7268; /* tertiary / faint text */
+  --color-slate: #7a8d82; /* tertiary / faint text (≥4.5:1 on all dark surfaces, WCAG AA) */
   --color-line: #223a2e; /* hairline dividers */
 
   /* Signal, softened — for glows / washes so the accent never blows out */

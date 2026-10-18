@@ -41,6 +41,12 @@ export function GetShieldedFeature({
               <img
                 src={logo.url}
                 alt={logo.alt || "Get Shielded"}
+                // Intrinsic size of the current 6:1 logo — reserves the box
+                // before it loads (no layout shift); CSS sets the real height.
+                width={300}
+                height={50}
+                loading="lazy"
+                decoding="async"
                 className="h-8 w-auto md:h-9"
               />
             </a>
