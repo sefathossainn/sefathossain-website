@@ -11,6 +11,7 @@ import { pageMetadata } from "@/lib/seo";
 
 import { HomeHero } from "@/components/home/home-hero";
 import { BuildSecureGrow } from "@/components/home/build-secure-grow";
+import { WebDevPillar } from "@/components/home/web-dev-pillar";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { GetShieldedFeature } from "@/components/home/get-shielded-feature";
 import { Reveal } from "@/components/ui/reveal";
@@ -62,6 +63,9 @@ export default async function HomePage() {
 
       {/* 03 · Build · Secure · Grow */}
       <BuildSecureGrow content={content} />
+
+      {/* 03b · Web-development pillar */}
+      <WebDevPillar />
 
       {/* 04 · Featured work */}
       <Section>

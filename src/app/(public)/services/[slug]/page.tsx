@@ -113,6 +113,43 @@ export default async function DevServicePage({
         </div>
       </section>
 
+      {s.pricing && (
+        <section className="bg-obsidian px-6 pt-16 md:px-10">
+          <div className="mx-auto max-w-6xl">
+            <p className="kicker text-emerald">TYPICAL US PRICE RANGES</p>
+            <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold text-mist md:text-4xl">
+              What you can expect to pay
+            </h2>
+            <div className="mt-8 overflow-x-auto rounded-[var(--radius-xl)] border border-line">
+              <table className="w-full min-w-[36rem] text-left text-sm">
+                <thead className="bg-forest/60 text-mist">
+                  <tr>
+                    <th className="px-5 py-4 font-semibold">Type of site</th>
+                    <th className="px-5 py-4 font-semibold">Typical cost</th>
+                    <th className="px-5 py-4 font-semibold">What it usually covers</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-line text-sage">
+                  {s.pricing.map((row) => (
+                    <tr key={row.tier}>
+                      <td className="px-5 py-4 font-medium text-mist">{row.tier}</td>
+                      <td className="whitespace-nowrap px-5 py-4 text-emerald">
+                        {row.range}
+                      </td>
+                      <td className="px-5 py-4 leading-relaxed">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-sm text-slate">
+              Typical market ranges for professional work in the US, not a
+              quote. Every project is quoted individually.
+            </p>
+          </div>
+        </section>
+      )}
+
       <section className="bg-obsidian px-6 py-20 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-6xl gap-14 md:grid-cols-2">
           <div>
@@ -162,7 +199,7 @@ export default async function DevServicePage({
         <div className="mx-auto max-w-6xl">
           <p className="kicker text-emerald">WHAT&apos;S INCLUDED</p>
           <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold text-mist md:text-4xl">
-            What&apos;s included in {s.name}
+            {s.includedHeading ?? `What's included in ${s.name}`}
           </h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {s.included.map((item) => (

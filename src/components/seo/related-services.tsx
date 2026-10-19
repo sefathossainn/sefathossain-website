@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { SERVICE_PAGES, type ServiceNavItem } from "@/lib/services-nav";
+import {
+  SERVICE_PAGES,
+  DEV_SERVICE_PAGES,
+  type ServiceNavItem,
+} from "@/lib/services-nav";
 import { getBlogPosts } from "@/lib/cms/queries";
 import { relatedServiceBySlug } from "@/lib/cms/blog-extras";
 
@@ -54,7 +58,9 @@ export async function RelatedServices({
   const related = pickRelated(currentPath, limit, pool);
 
   // Service -> blog: guides whose "Take it further" card links to this page.
-  const isService = SERVICE_PAGES.some((s) => s.path === currentPath);
+  const isService = [...SERVICE_PAGES, ...DEV_SERVICE_PAGES].some(
+    (s) => s.path === currentPath,
+  );
   const guides = isService
     ? (await getBlogPosts())
         .filter((p) => relatedServiceBySlug[p.slug] === currentPath)

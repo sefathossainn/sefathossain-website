@@ -48,6 +48,9 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: "Elementor design", href: "/services/elementor-website-design" },
       { label: "Next.js & React", href: "/services/custom-web-development" },
       { label: "Speed optimization", href: "/services/website-speed-optimization" },
+      { label: "WooCommerce stores", href: "/services/woocommerce-development" },
+      { label: "Maintenance plans", href: "/services/wordpress-maintenance" },
+      { label: "Website cost guide", href: "/services/wordpress-website-cost" },
     ],
   },
   {

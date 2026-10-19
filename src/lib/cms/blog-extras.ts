@@ -309,7 +309,7 @@ export const relatedServiceBySlug: Record<string, string> = {
     "/services/hacked-wordpress-recovery",
   "5-signs-your-website-has-malware": "/services/wordpress-malware-removal",
   "why-your-website-is-slow-and-how-to-fix-it":
-    "/services/wordpress-security-audit",
+    "/services/website-speed-optimization",
   "how-much-does-it-cost-to-remove-malware-from-a-wordpress-site":
     "/services/wordpress-malware-removal-cost",
   "how-to-remove-deceptive-site-ahead-warning-wordpress":
@@ -361,9 +361,9 @@ export const relatedServiceBySlug: Record<string, string> = {
   "best-wordpress-security-plugins": "/services/wordpress-security-hardening",
   "do-you-need-a-web-application-firewall": "/services/cloudflare-security",
   "how-to-set-up-cloudflare-for-wordpress": "/services/cloudflare-security",
-  "how-to-back-up-a-wordpress-site": "/services/wordpress-security-hardening",
+  "how-to-back-up-a-wordpress-site": "/services/wordpress-maintenance",
   "how-to-update-wordpress-without-breaking-your-site":
-    "/services/wordpress-security-audit",
+    "/services/wordpress-maintenance",
   "how-to-tell-if-a-wordpress-plugin-is-safe":
     "/services/wordpress-security-audit",
   "how-to-secure-a-woocommerce-store": "/services/woocommerce-malware-removal",
@@ -372,7 +372,7 @@ export const relatedServiceBySlug: Record<string, string> = {
   "wordpress-security-for-small-business":
     "/services/wordpress-security-hardening",
   "how-much-does-wordpress-maintenance-cost":
-    "/services/wordpress-malware-removal-cost",
+    "/services/wordpress-maintenance",
   "how-to-recover-seo-rankings-after-a-hack":
     "/services/google-blacklist-removal",
   "what-to-do-after-cleaning-a-hacked-wordpress-site":
@@ -383,7 +383,7 @@ export const relatedServiceBySlug: Record<string, string> = {
     "/services/website-suspended-by-host-recovery",
   "why-wordpress-sites-get-hacked": "/services/hacked-wordpress-recovery",
   "do-i-need-ongoing-wordpress-security-monitoring":
-    "/services/wordpress-security-audit",
+    "/services/wordpress-maintenance",
 };
 
 /** The related ServiceNavItem for a post (defaults to malware removal). */
