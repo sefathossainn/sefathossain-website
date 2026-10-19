@@ -119,7 +119,7 @@ export const DEV_SERVICES: DevService[] = [
   },
   {
     slug: "shopify-store-development",
-    caseStudy: { slug: "shopify-store", label: "A Shopify store built to sell" },
+    caseStudy: { slug: "perfumegyaan-shopify-store", label: "Perfumegyaan: a fragrance store built from design to launch" },
     name: "Shopify Store Development",
     desc: "Shopify stores designed to convert — set up, customized and secured for US sellers.",
     metaTitle: "Shopify Store Development & Customization",
