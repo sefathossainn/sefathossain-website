@@ -382,6 +382,15 @@ export const relatedServiceBySlug: Record<string, string> = {
   "how-to-choose-secure-wordpress-hosting":
     "/services/website-suspended-by-host-recovery",
   "why-wordpress-sites-get-hacked": "/services/hacked-wordpress-recovery",
+  // Web-development cluster (drip from 31 Oct 2026)
+  "wordpress-vs-shopify-for-small-business":
+    "/services/wordpress-website-development",
+  "how-to-choose-a-wordpress-developer":
+    "/services/wordpress-website-development",
+  "nextjs-vs-wordpress": "/services/custom-web-development",
+  "website-redesign-checklist-seo": "/services/website-redesign",
+  "woocommerce-vs-shopify": "/services/woocommerce-development",
+  "is-elementor-good-for-seo-and-speed": "/services/elementor-website-design",
   "do-i-need-ongoing-wordpress-security-monitoring":
     "/services/wordpress-maintenance",
 };
