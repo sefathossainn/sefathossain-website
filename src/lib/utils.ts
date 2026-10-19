@@ -36,8 +36,15 @@ export function latestIso(...isos: (string | null | undefined)[]) {
  * Hossain" in search results; strip any trailing brand before adding it.
  */
 export function withBrand(title: string) {
-  return `${stripBrand(title)} | Sefat Hossain`;
+  const bare = stripBrand(title);
+  const branded = `${bare} | Sefat Hossain`;
+  // Google shows ~60 characters. When the brand would push the keyword part
+  // past that, drop the brand rather than let the keywords get truncated.
+  return branded.length > TITLE_MAX ? bare : branded;
 }
+
+/** Roughly what Google displays of a <title> before truncating. */
+export const TITLE_MAX = 60;
 
 /** A CMS title without any trailing "| Sefat Hossain"-style brand suffix. */
 export function stripBrand(title: string) {

@@ -9,6 +9,7 @@ import { RelatedServices } from "@/components/seo/related-services";
 import { serviceSchema, faqPageSchema, breadcrumbSchema } from "@/lib/schema";
 import { serviceAreas, getServiceArea } from "@/lib/service-areas";
 import { getStateBreachLaw } from "@/lib/state-breach-laws";
+import { withBrand } from "@/lib/utils";
 
 export function generateStaticParams() {
   return serviceAreas.map((a) => ({ city: a.slug }));
@@ -24,7 +25,11 @@ export async function generateMetadata({
   if (!area) return {};
   const path = `/service-areas/${area.slug}`;
   return {
-    title: { absolute: `WordPress Malware Removal in ${area.city}, ${area.stateAbbr} | Sefat Hossain` },
+    title: {
+      absolute: withBrand(
+        `WordPress Malware Removal in ${area.city}, ${area.stateAbbr}`,
+      ),
+    },
     // blurb (~100 chars) + a short tail keeps this under ~160 so Google doesn't truncate it.
     description: `${area.blurb} Fast, remote cleanup and hardening in ${area.city}, ${area.stateAbbr}.`,
     alternates: { canonical: path },
