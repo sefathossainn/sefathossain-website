@@ -8,6 +8,13 @@ import { SERVICE_PAGES, type ServiceNavItem } from "@/lib/services-nav";
  * when takeaways exist).
  */
 export const keyTakeawaysBySlug: Record<string, string[]> = {
+  "wordpress-site-hacked": [
+    "First 15 minutes: back up the hacked site as-is, then put it in maintenance mode if it is harming visitors.",
+    "Change every password (WordPress admins, hosting, database, FTP/SFTP) and regenerate the security keys in wp-config.php.",
+    "Cleaning a hacked WordPress site means files AND database: injected code, rogue admin users and backdoors.",
+    "Find and close the entry point (usually an outdated plugin or a stolen password), or the hack comes back.",
+    "After cleanup, request a review in Google Search Console to remove any security warning.",
+  ],
   "what-to-do-when-your-wordpress-site-is-hacked": [
     "Don't panic-delete — random deletions destroy the evidence you need to find how they got in.",
     "Back up the hacked site first, then take it offline if it's harming visitors.",
@@ -72,6 +79,35 @@ export type BlogFaq = { question: string; answer: string };
  * this when set.
  */
 export const faqsBySlug: Record<string, BlogFaq[]> = {
+  // Questions mirror the real Search Console queries this post ranks for
+  // ("my wordpress has been hacked", "hacked wordpress site", …).
+  "wordpress-site-hacked": [
+    {
+      question: "My WordPress site has been hacked. What is the very first thing to do?",
+      answer:
+        "Take a full backup of the site exactly as it is (files and database), so nothing is lost and the evidence is preserved. Then change your WordPress, hosting and database passwords. Don't start deleting files at random — that is how backdoors get missed.",
+    },
+    {
+      question: "How do I clean a hacked WordPress site?",
+      answer:
+        "Scan files and the database, replace WordPress core with fresh copies, remove injected code and unknown admin users, reinstall plugins and themes from official sources, and regenerate the security keys. Then find how the attacker got in and close it. The step-by-step checklist above covers each stage.",
+    },
+    {
+      question: "Why does my WordPress site keep getting hacked again?",
+      answer:
+        "Almost always because a backdoor was left behind or the original entry point was never closed — an outdated or nulled plugin, a reused password, or a vulnerable theme. Cleaning only the visible symptoms lets the attacker walk straight back in.",
+    },
+    {
+      question: "How much does it cost to fix a hacked WordPress site?",
+      answer:
+        "In the US, simple cleanups typically cost about $100–300, deeper infections $300–800, and severe or repeated compromises $800–2,500+. See the WordPress malware removal cost guide for what drives the price.",
+    },
+    {
+      question: "Will my hosting company fix a hacked WordPress site?",
+      answer:
+        "Most hosts will detect malware and may suspend the account, but few do a full cleanup and root-cause fix. They usually ask you to clean the site yourself or hire someone, then confirm it is clean before reactivating it.",
+    },
+  ],
   "what-to-do-when-your-wordpress-site-is-hacked": [
     {
       question: "Should I delete my WordPress files if my site is hacked?",

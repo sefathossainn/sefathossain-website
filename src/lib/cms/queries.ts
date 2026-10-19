@@ -1,4 +1,5 @@
 import "server-only";
+import { stripBrand } from "@/lib/utils";
 import { cache } from "react";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { isSupabaseConfigured } from "@/lib/env";
@@ -99,6 +100,15 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
 
 // ── Case studies ────────────────────────────────────────────────────────────
 
+/**
+ * Some case-study titles were saved in /admin with a "| Sefat Hossain" suffix,
+ * which then showed in the H1, cards, breadcrumbs and page title ("… | Sefat
+ * Hossain | Sefat Hossain"). The brand belongs only in <title>; strip it here.
+ */
+function cleanStudy(s: CaseStudy): CaseStudy {
+  return { ...s, title: stripBrand(s.title) };
+}
+
 export const getCaseStudies = cache(async (): Promise<CaseStudy[]> => {
   return withSupabase(async (sb) => {
     const { data, error } = await sb
@@ -107,7 +117,7 @@ export const getCaseStudies = cache(async (): Promise<CaseStudy[]> => {
       .eq("status", "published")
       .order("sort_order", { ascending: true });
     if (error || !data || data.length === 0) return defaultCaseStudies;
-    return data as CaseStudy[];
+    return (data as CaseStudy[]).map(cleanStudy);
   }, defaultCaseStudies);
 });
 
@@ -130,7 +140,7 @@ export const getCaseStudy = cache(
         .eq("status", "published")
         .maybeSingle();
       if (error || !data) return fallback;
-      return data as CaseStudy;
+      return cleanStudy(data as CaseStudy);
     }, fallback);
   },
 );

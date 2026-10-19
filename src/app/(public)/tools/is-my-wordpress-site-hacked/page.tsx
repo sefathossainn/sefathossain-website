@@ -138,6 +138,15 @@ export default function HackCheckerPage() {
               Read: Is my WordPress site hacked? How to check →
             </Link>
           </p>
+          <p className="mt-3 text-sm text-slate">
+            Already confirmed it?{" "}
+            <Link
+              href="/blog/wordpress-site-hacked"
+              className="text-emerald hover:underline"
+            >
+              Read: How to clean a hacked WordPress site →
+            </Link>
+          </p>
         </div>
       </section>
 

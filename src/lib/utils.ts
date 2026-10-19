@@ -36,8 +36,12 @@ export function latestIso(...isos: (string | null | undefined)[]) {
  * Hossain" in search results; strip any trailing brand before adding it.
  */
 export function withBrand(title: string) {
-  const bare = title.replace(/\s*[|\-–—]\s*Sefat(\s+Hossain)?\s*$/i, "").trim();
-  return `${bare} | Sefat Hossain`;
+  return `${stripBrand(title)} | Sefat Hossain`;
+}
+
+/** A CMS title without any trailing "| Sefat Hossain"-style brand suffix. */
+export function stripBrand(title: string) {
+  return title.replace(/\s*[|\-–—]\s*Sefat(\s+Hossain)?\s*$/i, "").trim();
 }
 
 /** Human date, e.g. "24 Jun 2026". Falls back gracefully on bad input. */
