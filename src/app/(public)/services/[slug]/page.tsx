@@ -131,6 +131,17 @@ export default async function DevServicePage({
               </Link>{" "}
               before building on it.
             </p>
+            {s.caseStudy && (
+              <p className="mt-4 leading-relaxed text-sage">
+                Case study:{" "}
+                <Link
+                  href={`/work/${s.caseStudy.slug}`}
+                  className="text-emerald underline-offset-4 hover:underline"
+                >
+                  {s.caseStudy.label}
+                </Link>
+              </p>
+            )}
           </div>
 
           <div className="rounded-[var(--radius-xl)] border border-line bg-forest/40 p-7 md:p-9">
