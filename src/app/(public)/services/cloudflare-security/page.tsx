@@ -14,9 +14,9 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Cloudflare Security Setup for WordPress | Sefat Hossain",
+  title: { absolute: "Cloudflare Security Setup for WordPress | Sefat Hossain" },
   description:
-    "Strengthen your WordPress website with Cloudflare security configuration, DNS protection, firewall rules, bot protection, rate limiting, and traffic filtering.",
+    "Cloudflare security setup for WordPress: DNS protection, firewall rules, bot protection, rate limiting and traffic filtering to block attacks at the edge.",
   alternates: {
     canonical: "/services/cloudflare-security",
   },

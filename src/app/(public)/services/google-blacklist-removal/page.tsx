@@ -14,7 +14,7 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Google Blacklist Removal for WordPress | Sefat Hossain",
+  title: { absolute: "Google Blacklist Removal for WordPress | Sefat Hossain" },
   description:
     "Get help removing malware and security issues behind Google blacklist warnings on WordPress websites, followed by cleanup, verification, and recovery steps.",
   alternates: {

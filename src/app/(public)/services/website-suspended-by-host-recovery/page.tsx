@@ -14,9 +14,9 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Website Suspended by Host — Malware Recovery | Sefat Hossain",
+  title: { absolute: "Website Suspended by Host — Malware Recovery | Sefat Hossain" },
   description:
-    "Did your host suspend your WordPress site for malware or outbound spam? I clean the infection to the host's satisfaction, prepare what they need to lift the suspension, and harden the site so it stays online.",
+    "Host suspended your WordPress site for malware or spam? I clean it to the host's standard, get the suspension lifted and harden it so it stays online.",
   alternates: {
     canonical: "/services/website-suspended-by-host-recovery",
   },

@@ -9,7 +9,7 @@ import {
   getSiteSettings,
   getCaseStudies,
 } from "@/lib/cms/queries";
-import { absoluteUrl, formatDate, latestIso } from "@/lib/utils";
+import { absoluteUrl, formatDate, latestIso, withBrand } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
 import { siteConfig } from "@/lib/site-config";
 import { withToc } from "@/lib/toc";
@@ -65,7 +65,7 @@ export async function generateMetadata({
     post.seo?.og_image ?? ownImage ?? absoluteUrl(`/blog/${post.slug}/og`);
   const url = absoluteUrl(`/blog/${post.slug}`);
   return {
-    title: { absolute: `${title} | Sefat Hossain` },
+    title: { absolute: withBrand(title) },
     description,
     alternates: { canonical: post.seo?.canonical || url },
     robots: post.seo?.noindex ? { index: false, follow: false } : undefined,

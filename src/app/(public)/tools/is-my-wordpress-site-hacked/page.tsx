@@ -13,9 +13,9 @@ import { siteConfig } from "@/lib/site-config";
 const PATH = "/tools/is-my-wordpress-site-hacked";
 
 export const metadata: Metadata = {
-  title: "Is My WordPress Site Hacked? Free Checker | Sefat Hossain",
+  title: { absolute: "Is My WordPress Site Hacked? Free Checker | Sefat Hossain" },
   description:
-    "A free, no-signup checker: answer a few questions about what your WordPress site is doing and get an instant read on whether it's likely hacked — plus exactly what to do next.",
+    "Free, no-signup checker: answer a few questions about your WordPress site and get an instant read on whether it's hacked, plus what to do next.",
   alternates: { canonical: PATH },
   openGraph: {
     type: "website",

@@ -14,9 +14,9 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "WordPress Redirect Virus Removal | Sefat Hossain",
+  title: { absolute: "WordPress Redirect Virus Removal | Sefat Hossain" },
   description:
-    "Is your WordPress site redirecting visitors to spam or scam pages? I find and remove the redirect malware, clean infected files and the database, close the entry point, and stop the reinfection.",
+    "WordPress site redirecting visitors to spam or scam pages? I remove the redirect malware from files and database, close the entry point and stop reinfection.",
   alternates: {
     canonical: "/services/wordpress-redirect-virus-removal",
   },

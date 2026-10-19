@@ -10,7 +10,7 @@ import {
   getTestimonialById,
 } from "@/lib/cms/queries";
 import type { CaseCategory } from "@/lib/cms/types";
-import { absoluteUrl } from "@/lib/utils";
+import { absoluteUrl, withBrand } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
 
 import { Section } from "@/components/ui/section";
@@ -51,7 +51,7 @@ export async function generateMetadata({
   const image = study.seo?.og_image ?? study.hero_image ?? seedAssets.ogDefault;
   const url = absoluteUrl(`/work/${study.slug}`);
   return {
-    title: { absolute: `${title} | Sefat Hossain` },
+    title: { absolute: withBrand(title) },
     description,
     alternates: { canonical: study.seo?.canonical || url },
     robots: study.seo?.noindex ? { index: false, follow: false } : undefined,

@@ -14,9 +14,9 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Japanese Keyword Hack Removal (WordPress) | Sefat Hossain",
+  title: { absolute: "Japanese Keyword Hack Removal (WordPress) | Sefat Hossain" },
   description:
-    "Seeing Japanese text in your Google results and spam pages you never created? I remove the WordPress Japanese keyword hack, clean the injected content, close the entry point, and help restore your search listings.",
+    "Japanese text in your Google results? I remove the WordPress Japanese keyword hack, clean the spam pages, close the entry point and restore your listings.",
   alternates: {
     canonical: "/services/japanese-keyword-hack-removal",
   },

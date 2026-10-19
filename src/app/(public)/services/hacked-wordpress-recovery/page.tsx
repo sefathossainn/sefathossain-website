@@ -26,7 +26,7 @@ const CRUMBS = [
 export function generateMetadata(): Metadata {
   const title = "Hacked WordPress Website Recovery | Sefat Hossain";
   const description =
-    "Recover a hacked WordPress website with a structured investigation, malicious access removal, malware cleanup, security hardening, and post-recovery verification.";
+    "Recover a hacked WordPress website: find how attackers got in, remove malicious access and malware, harden the site and verify it stays clean.";
   const url = absoluteUrl(PATH);
 
   return {
@@ -130,7 +130,7 @@ export default function HackedWordPressRecoveryPage() {
           serviceSchema({
             name: "Hacked WordPress Website Recovery",
             description:
-              "Recover a hacked WordPress website with a structured investigation, malicious access removal, malware cleanup, security hardening, and post-recovery verification.",
+              "Recover a hacked WordPress website: find how attackers got in, remove malicious access and malware, harden the site and verify it stays clean.",
             path: PATH,
             serviceType: "Hacked WordPress website recovery",
           }),

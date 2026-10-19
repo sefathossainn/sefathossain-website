@@ -26,7 +26,7 @@ const CRUMBS = [
 export function generateMetadata(): Metadata {
   const title = "WordPress Security Hardening | Sefat Hossain";
   const description =
-    "Strengthen your WordPress website with security hardening, access protection, firewall configuration, secure settings, backups, and measures designed to reduce common attack risks.";
+    "WordPress security hardening: lock down logins and user access, configure a firewall, secure settings and backups, and cut the risk of common attacks.";
   const url = absoluteUrl(PATH);
 
   return {
@@ -133,7 +133,7 @@ export default function WordPressSecurityHardeningPage() {
           serviceSchema({
             name: "WordPress Security Hardening",
             description:
-              "Strengthen your WordPress website with security hardening, access protection, firewall configuration, secure settings, backups, and measures designed to reduce common attack risks.",
+              "WordPress security hardening: lock down logins and user access, configure a firewall, secure settings and backups, and cut the risk of common attacks.",
             path: PATH,
             serviceType: "WordPress security hardening",
           }),

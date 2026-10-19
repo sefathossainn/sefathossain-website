@@ -14,7 +14,7 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "WordPress Security Audit | Sefat Hossain",
+  title: { absolute: "WordPress Security Audit | Sefat Hossain" },
   description:
     "A practical WordPress security audit covering vulnerabilities, users, plugins, themes, configuration, malware indicators, access controls, and security risks.",
   alternates: {

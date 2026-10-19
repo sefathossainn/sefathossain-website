@@ -30,6 +30,16 @@ export function latestIso(...isos: (string | null | undefined)[]) {
   return best?.toISOString();
 }
 
+/**
+ * Append the brand once. CMS SEO titles are often typed with their own
+ * "| Sefat" / "| Sefat Hossain" suffix, which produced "… | Sefat | Sefat
+ * Hossain" in search results; strip any trailing brand before adding it.
+ */
+export function withBrand(title: string) {
+  const bare = title.replace(/\s*[|\-–—]\s*Sefat(\s+Hossain)?\s*$/i, "").trim();
+  return `${bare} | Sefat Hossain`;
+}
+
 /** Human date, e.g. "24 Jun 2026". Falls back gracefully on bad input. */
 export function formatDate(iso?: string | null) {
   if (!iso) return "";
