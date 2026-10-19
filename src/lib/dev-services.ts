@@ -27,6 +27,8 @@ export type DevService = {
   process: { title: string; body: string }[];
   faqs: { question: string; answer: string }[];
   serviceType: string;
+  /** Slug of a related published case study in /work, if there is one. */
+  caseStudy?: { slug: string; label: string };
 };
 
 const SHARED_PROCESS_TAIL = {
@@ -37,6 +39,7 @@ const SHARED_PROCESS_TAIL = {
 export const DEV_SERVICES: DevService[] = [
   {
     slug: "wordpress-website-development",
+    caseStudy: { slug: "elementor-business-website", label: "A premium business website build" },
     name: "WordPress Website Development",
     desc: "Custom WordPress websites for US businesses — fast, easy to manage, and secure from day one.",
     metaTitle: "Custom WordPress Website Development",
@@ -109,6 +112,7 @@ export const DEV_SERVICES: DevService[] = [
   },
   {
     slug: "shopify-store-development",
+    caseStudy: { slug: "shopify-store", label: "A Shopify store built to sell" },
     name: "Shopify Store Development",
     desc: "Shopify stores designed to convert — set up, customized and secured for US sellers.",
     metaTitle: "Shopify Store Development & Customization",
@@ -176,6 +180,7 @@ export const DEV_SERVICES: DevService[] = [
   },
   {
     slug: "elementor-website-design",
+    caseStudy: { slug: "elementor-business-website", label: "A premium Elementor business website" },
     name: "Elementor Website Design",
     desc: "Premium, custom Elementor websites — not cookie-cutter templates — that you can edit yourself.",
     metaTitle: "Elementor Website Design & Development",
@@ -308,6 +313,7 @@ export const DEV_SERVICES: DevService[] = [
   },
   {
     slug: "website-speed-optimization",
+    caseStudy: { slug: "performance-optimization", label: "Making a slow website fast" },
     name: "Website Speed Optimization",
     desc: "Make a slow WordPress site fast — Core Web Vitals, caching, images and hosting tuned.",
     metaTitle: "WordPress Speed Optimization Service",
