@@ -36,6 +36,8 @@ export default async function WorkPage() {
 
       {/* Case study grid — security stories foregrounded */}
       <Section className="!pt-12">
+        {/* Keeps the heading outline H1 → H2 → H3 (cards use h3). */}
+        <h2 className="sr-only">Case studies</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {studies.map((study, i) => (
             <Reveal key={study.slug} delay={(i % 2) * 0.08}>

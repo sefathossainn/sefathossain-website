@@ -38,6 +38,9 @@ export default async function BlogPage() {
         introStyle={content.style("intro.text")}
       />
 
+      {/* Keeps the heading outline H1 → H2 → H3 (cards use h3). */}
+      <h2 className="sr-only">Articles</h2>
+
       {featured && (
         <Section className="!pt-10">
           <Reveal>
