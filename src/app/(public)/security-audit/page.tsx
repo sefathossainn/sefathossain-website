@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { getPageContent, getSiteSettings } from "@/lib/cms/queries";
 import { pageMetadata } from "@/lib/seo";
@@ -49,6 +50,19 @@ export default async function SecurityAuditPage() {
                 </li>
               ))}
             </ul>
+            {/* Distinguish this free lead form from the paid audit service so
+                the two pages stop competing for "wordpress security audit". */}
+            <p className="mt-8 text-sm leading-relaxed text-slate">
+              This is a free first look. For a full, documented review of
+              users, plugins, configuration and malware indicators, see the{" "}
+              <Link
+                href="/services/wordpress-security-audit"
+                className="text-emerald hover:underline"
+              >
+                WordPress security audit service
+              </Link>
+              .
+            </p>
           </Reveal>
 
           {/* Form — the one bright moment */}
