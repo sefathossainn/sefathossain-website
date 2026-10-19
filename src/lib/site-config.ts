@@ -15,10 +15,6 @@ export const siteConfig = {
   email: "contact@sefathossain.com",
   /** Booking / calendar embed (Calendly or similar) — set in CMS. */
   calendarUrl: "",
-  credit: {
-    label: "Designed and Developed by Mohammad Emmon",
-    href: "https://mohammademmon.com",
-  },
 } as const;
 
 export type NavItem = { label: string; href: string };

@@ -78,19 +78,6 @@ export async function SiteFooter() {
           <p className="text-xs text-slate">
             © {year} {siteConfig.name}. All rights reserved.
           </p>
-
-          {/* Baked-in design credit (Brief §13) — intentional, tasteful */}
-          <p className="flex items-center gap-1.5 text-xs">
-            <span className="kicker text-sage">Site by</span>
-            <Link
-              href={siteConfig.credit.href}
-              target="_blank"
-              rel="noreferrer"
-              className="font-mono text-[0.82rem] font-semibold tracking-wide text-white underline decoration-white/40 underline-offset-4 transition-colors hover:text-emerald hover:decoration-emerald"
-            >
-              Mohammad Emmon
-            </Link>
-          </p>
         </div>
       </div>
     </footer>

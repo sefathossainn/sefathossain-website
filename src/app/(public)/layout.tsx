@@ -5,7 +5,7 @@ import { Atmosphere } from "@/components/layout/atmosphere";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { getSiteSettings } from "@/lib/cms/queries";
 
-/** Public site chrome — momentum scroll, atmosphere, nav, footer credit. */
+/** Public site chrome — momentum scroll, atmosphere, nav, footer. */
 export default async function PublicLayout({
   children,
 }: {
