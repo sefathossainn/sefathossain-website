@@ -14,6 +14,7 @@ import {
 } from "@/lib/schema";
 import { DEV_SERVICES, getDevService } from "@/lib/dev-services";
 import { DEV_SERVICE_PAGES } from "@/lib/services-nav";
+import { withBrand } from "@/lib/utils";
 
 /**
  * Web-development service pages. Only the slugs in DEV_SERVICES exist here;
@@ -34,7 +35,7 @@ export async function generateMetadata({
   const s = getDevService(slug);
   if (!s) return {};
   return {
-    title: { absolute: `${s.metaTitle} | Sefat Hossain` },
+    title: { absolute: withBrand(s.metaTitle) },
     description: s.metaDescription,
     alternates: { canonical: `/services/${s.slug}` },
   };
