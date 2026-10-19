@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/brand/wordmark";
 
@@ -29,18 +28,6 @@ export default function NotFound() {
           View the work
         </Button>
       </div>
-
-      <p className="absolute bottom-8 text-xs text-slate">
-        <span className="kicker text-slate">Site by </span>
-        <Link
-          href="https://mohammademmon.com"
-          target="_blank"
-          rel="noreferrer"
-          className="font-mono text-xs text-sage hover:text-emerald"
-        >
-          Mohammad Emmon
-        </Link>
-      </p>
     </div>
   );
 }
