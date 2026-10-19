@@ -9,7 +9,7 @@ export const siteConfig = {
   wordmark: "Sefat Hossain",
   domain: "sefathossain.com",
   url: "https://sefathossain.com",
-  tagline: "WordPress Security Expert",
+  tagline: "WordPress Security Expert & Web Developer",
   description:
     "I build and protect high-performance WordPress, Elementor, and Shopify websites — secure from day one and looked after long after launch.",
   email: "contact@sefathossain.com",
@@ -44,16 +44,22 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     ],
   },
   {
+    // Sitewide links to the web-development pillar (internal linking).
+    title: "Web development",
+    items: [
+      { label: "WordPress websites", href: "/services/wordpress-website-development" },
+      { label: "Shopify stores", href: "/services/shopify-store-development" },
+      { label: "Elementor design", href: "/services/elementor-website-design" },
+      { label: "Next.js & React", href: "/services/custom-web-development" },
+      { label: "Speed optimization", href: "/services/website-speed-optimization" },
+    ],
+  },
+  {
     title: "Start here",
     items: [
       { label: "Free security audit", href: "/security-audit" },
       { label: "Hacked site checker", href: "/tools/is-my-wordpress-site-hacked" },
       { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Legal",
-    items: [
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
     ],

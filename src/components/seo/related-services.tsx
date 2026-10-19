@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SERVICE_PAGES } from "@/lib/services-nav";
+import { SERVICE_PAGES, type ServiceNavItem } from "@/lib/services-nav";
 import { getBlogPosts } from "@/lib/cms/queries";
 import { relatedServiceBySlug } from "@/lib/cms/blog-extras";
 
@@ -12,18 +12,22 @@ import { relatedServiceBySlug } from "@/lib/cms/blog-extras";
  * non-service pages start at a stable position derived from their path, so
  * links spread across the whole set.
  */
-function pickRelated(currentPath: string, limit: number) {
-  const n = SERVICE_PAGES.length;
-  const idx = SERVICE_PAGES.findIndex((s) => s.path === currentPath);
+function pickRelated(
+  currentPath: string,
+  limit: number,
+  pool: ServiceNavItem[],
+) {
+  const n = pool.length;
+  const idx = pool.findIndex((s) => s.path === currentPath);
   let start = idx + 1;
   if (idx < 0) {
     let h = 0;
     for (const ch of currentPath) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
     start = h % n;
   }
-  const out: typeof SERVICE_PAGES = [];
+  const out: ServiceNavItem[] = [];
   for (let i = 0; i < n && out.length < limit; i++) {
-    const s = SERVICE_PAGES[(start + i) % n];
+    const s = pool[(start + i) % n];
     if (s.path !== currentPath) out.push(s);
   }
   return out;
@@ -38,11 +42,16 @@ function pickRelated(currentPath: string, limit: number) {
 export async function RelatedServices({
   currentPath,
   limit = 4,
+  pool = SERVICE_PAGES,
+  heading = "Explore related WordPress security services",
 }: {
   currentPath: string;
   limit?: number;
+  /** Which service cluster to link within (security by default). */
+  pool?: ServiceNavItem[];
+  heading?: string;
 }) {
-  const related = pickRelated(currentPath, limit);
+  const related = pickRelated(currentPath, limit, pool);
 
   // Service -> blog: guides whose "Take it further" card links to this page.
   const isService = SERVICE_PAGES.some((s) => s.path === currentPath);
@@ -80,7 +89,7 @@ export async function RelatedServices({
 
         <p className="kicker text-emerald">RELATED SERVICES</p>
         <h2 className="mt-5 font-display text-2xl font-semibold text-mist md:text-3xl">
-          Explore related WordPress security services
+          {heading}
         </h2>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">

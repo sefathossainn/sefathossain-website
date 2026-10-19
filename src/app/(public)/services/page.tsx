@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { getPageContent, getServicesGrouped, getFaqs } from "@/lib/cms/queries";
 import { pageMetadata } from "@/lib/seo";
+import { DEV_SERVICE_PAGES } from "@/lib/services-nav";
 
 import { PageHero } from "@/components/layout/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
@@ -33,6 +34,11 @@ const SECURITY_SERVICE_LINKS: ServiceLink[] = [
   { href: "/services/cloudflare-security", label: "Explore Cloudflare Security" },
   { href: "/services/wordpress-security-audit", label: "Explore WordPress Security Audit" },
 ];
+
+const DEV_SERVICE_LINKS: ServiceLink[] = DEV_SERVICE_PAGES.map((s) => ({
+  href: s.path,
+  label: s.name,
+}));
 
 export default async function ServicesPage() {
   const [content, groups, faqs] = await Promise.all([
@@ -67,7 +73,13 @@ export default async function ServicesPage() {
                   index={i + 1}
                   service={service}
                   highlight={isGrow}
-                  links={isMalwareRemovalService ? SECURITY_SERVICE_LINKS : undefined}
+                  links={
+                    isMalwareRemovalService
+                      ? SECURITY_SERVICE_LINKS
+                      : g.group === "Build" && service === g.services[0]
+                        ? DEV_SERVICE_LINKS
+                        : undefined
+                  }
                 />
               );
             });

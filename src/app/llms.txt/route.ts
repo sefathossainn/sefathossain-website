@@ -1,7 +1,7 @@
 import { getBlogPosts } from "@/lib/cms/queries";
 import { absoluteUrl } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
-import { SERVICE_PAGES } from "@/lib/services-nav";
+import { SERVICE_PAGES, DEV_SERVICE_PAGES } from "@/lib/services-nav";
 import { serviceAreas } from "@/lib/service-areas";
 
 export const revalidate = 3600;
@@ -17,10 +17,15 @@ export async function GET() {
   const lines: string[] = [
     `# ${siteConfig.name} — WordPress Security Expert`,
     "",
-    `> ${siteConfig.name} is a WordPress security specialist helping businesses across the United States recover hacked websites, remove malware, and harden WordPress against future attacks. Based on ${siteConfig.url}.`,
+    `> ${siteConfig.name} is a WordPress security specialist helping businesses across the United States recover hacked websites, remove malware, and harden WordPress against future attacks — and a web developer building secure WordPress, Shopify, Elementor and Next.js websites. Based on ${siteConfig.url}.`,
     "",
-    "## Services",
+    "## Security services",
     ...SERVICE_PAGES.map(
+      (s) => `- [${s.name}](${absoluteUrl(s.path)}): ${s.desc}`,
+    ),
+    "",
+    "## Web development services",
+    ...DEV_SERVICE_PAGES.map(
       (s) => `- [${s.name}](${absoluteUrl(s.path)}): ${s.desc}`,
     ),
     "",
