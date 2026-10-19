@@ -16,9 +16,11 @@ export function professionalServiceSchema() {
     serviceType: [
       "WordPress security",
       "Malware removal",
-      "Website development",
+      "WordPress website development",
       "Shopify store development",
-      "Performance optimization",
+      "Elementor website design",
+      "Custom web development (Next.js, React)",
+      "Website speed optimization",
     ],
     provider: { "@type": "Person", name: siteConfig.name },
   };

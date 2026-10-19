@@ -104,9 +104,9 @@ const personSchema = {
   "@type": "Person",
   "@id": "https://sefathossain.com/#person",
   name: "Sefat Hossain",
-  jobTitle: "WordPress Security Expert & Malware Removal Specialist",
+  jobTitle: "WordPress Security Expert & Web Developer",
   description:
-    "WordPress Security Expert specializing in WordPress malware investigation, hacked website recovery, database cleanup, and server security hardening.",
+    "WordPress Security Expert and web developer specializing in WordPress malware removal, hacked website recovery and security hardening, and in building secure WordPress, Shopify and Next.js websites.",
   url: "https://sefathossain.com",
   image: "https://avatars.githubusercontent.com/u/241861940?v=4",
   email: "admin@sefathossain.com",

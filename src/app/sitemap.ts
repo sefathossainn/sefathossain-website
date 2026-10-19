@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getCaseStudies, getBlogPosts } from "@/lib/cms/queries";
 import { serviceAreas } from "@/lib/service-areas";
+import { DEV_SERVICES } from "@/lib/dev-services";
 import { absoluteUrl, latestIso } from "@/lib/utils";
 
 // Render per request. As an ISR route (revalidate = 3600) the production
@@ -18,6 +19,7 @@ const STATIC_LASTMOD = {
   home: "2026-09-26",
   services: "2026-09-25",
   servicePages: "2026-09-26",
+  devServicePages: "2026-10-19",
   serviceAreas: "2026-09-26",
   about: "2026-08-09",
   contact: "2026-08-10",
@@ -104,6 +106,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_LASTMOD.servicePages,
       changeFrequency: "monthly" as const,
       priority: slug === "wordpress-security-audit" ? 0.9 : 0.8,
+    })),
+
+    // Web-development service pages
+    ...DEV_SERVICES.map((d) => ({
+      url: absoluteUrl(`/services/${d.slug}`),
+      lastModified: STATIC_LASTMOD.devServicePages,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
 
     // Service-area landing pages (USA cities)

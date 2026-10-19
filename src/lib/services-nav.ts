@@ -1,3 +1,4 @@
+import { DEV_SERVICES } from "@/lib/dev-services";
 /**
  * Canonical list of security service pages — single source of truth for
  * internal linking (RelatedServices), the /llms.txt map, and anywhere else the
@@ -77,3 +78,14 @@ export const SERVICE_PAGES: ServiceNavItem[] = [
     desc: "DNS protection, firewall rules, bot protection and rate limiting for WordPress.",
   },
 ];
+
+/**
+ * Web-development service pages (second pillar). Derived from DEV_SERVICES so
+ * there is one source of truth for their copy; used by nav, footer, the
+ * /services hub and the dev pages' related-services block.
+ */
+export const DEV_SERVICE_PAGES: ServiceNavItem[] = DEV_SERVICES.map((s) => ({
+  name: s.name,
+  path: `/services/${s.slug}`,
+  desc: s.desc,
+}));
