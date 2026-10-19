@@ -24,8 +24,9 @@ export async function generateMetadata({
   if (!area) return {};
   const path = `/service-areas/${area.slug}`;
   return {
-    title: `WordPress Malware Removal in ${area.city}, ${area.stateAbbr} | Sefat Hossain`,
-    description: `${area.blurb} Fast, remote WordPress malware removal, hacked-site recovery, and security hardening for ${area.city}, ${area.state} businesses.`,
+    title: { absolute: `WordPress Malware Removal in ${area.city}, ${area.stateAbbr} | Sefat Hossain` },
+    // blurb (~100 chars) + a short tail keeps this under ~160 so Google doesn't truncate it.
+    description: `${area.blurb} Fast, remote cleanup and hardening in ${area.city}, ${area.stateAbbr}.`,
     alternates: { canonical: path },
   };
 }

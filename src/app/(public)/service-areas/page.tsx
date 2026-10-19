@@ -13,9 +13,9 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "WordPress Malware Removal Across the USA | Service Areas | Sefat Hossain",
+  title: { absolute: "WordPress Malware Removal Across the USA | Sefat Hossain" },
   description:
-    "Remote WordPress malware removal, hacked-site recovery, and security hardening for businesses across the United States — New York, Los Angeles, Chicago, Houston, Miami, and more.",
+    "Remote WordPress malware removal and hacked-site recovery for US businesses: New York, Los Angeles, Chicago, Houston, Miami, Dallas and more.",
   alternates: { canonical: PATH },
 };
 

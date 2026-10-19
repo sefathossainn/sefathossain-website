@@ -14,9 +14,9 @@ const CRUMBS = [
 ];
 
 export const metadata: Metadata = {
-  title: "Pharma Hack Removal (WordPress) | Sefat Hossain",
+  title: { absolute: "Pharma Hack Removal (WordPress) | Sefat Hossain" },
   description:
-    "Google showing pharmacy spam — Viagra, Cialis — in your WordPress site's titles and pages? I remove the pharma hack, clean the cloaked spam, close the entry point, and help restore your search listings.",
+    "Viagra or pharmacy spam in your Google results? I remove the WordPress pharma hack, clean the cloaked spam, close the entry point and restore your listings.",
   alternates: {
     canonical: "/services/pharma-hack-removal",
   },
