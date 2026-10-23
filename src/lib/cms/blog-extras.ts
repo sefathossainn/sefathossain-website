@@ -382,6 +382,20 @@ export const relatedServiceBySlug: Record<string, string> = {
   "how-to-choose-secure-wordpress-hosting":
     "/services/website-suspended-by-host-recovery",
   "why-wordpress-sites-get-hacked": "/services/hacked-wordpress-recovery",
+  // Cost & how-to batch (twice weekly, 9 Nov – 3 Dec 2026)
+  "how-much-does-it-cost-to-fix-a-hacked-website":
+    "/services/wordpress-malware-removal-cost",
+  "how-much-does-a-website-redesign-cost": "/services/website-redesign",
+  "shopify-store-setup-cost": "/services/shopify-store-development",
+  "how-much-does-a-shopify-developer-cost":
+    "/services/shopify-store-development",
+  "error-establishing-a-database-connection-wordpress":
+    "/services/wordpress-maintenance",
+  "hacked-website-rebuild-or-clean": "/services/hacked-wordpress-recovery",
+  "migrate-wix-squarespace-to-wordpress-without-losing-seo":
+    "/services/wordpress-website-development",
+  "what-is-included-in-a-wordpress-security-audit":
+    "/services/wordpress-security-audit",
   // Web-development cluster (drip from 31 Oct 2026)
   "wordpress-vs-shopify-for-small-business":
     "/services/wordpress-website-development",
