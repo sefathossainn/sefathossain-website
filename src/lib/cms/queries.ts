@@ -139,7 +139,11 @@ export const getCaseStudy = cache(
         .eq("slug", slug)
         .eq("status", "published")
         .maybeSingle();
-      if (error || !data) return fallback;
+      // Bundled demo content only when the DB can't be read. A missing row
+      // means it was deleted or unpublished in /admin; serving the demo copy
+      // kept "ghost" duplicate pages live and indexed by Google.
+      if (error) return fallback;
+      if (!data) return null;
       return cleanStudy(data as CaseStudy);
     }, fallback);
   },
@@ -278,7 +282,11 @@ export const getBlogPost = cache(
         .eq("status", "published")
         .or(`published_at.is.null,published_at.lte.${now}`)
         .maybeSingle();
-      if (error || !data) return fallback;
+      // Bundled demo content only when the DB can't be read. A missing row
+      // means it was deleted or unpublished in /admin; serving the demo copy
+      // kept "ghost" duplicate pages live and indexed by Google.
+      if (error) return fallback;
+      if (!data) return null;
       return mapPost(data as Record<string, unknown>);
     }, fallback);
   },

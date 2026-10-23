@@ -59,6 +59,24 @@ const nextConfig: NextConfig = {
         destination: "/blog/remove-google-security-warning-wordpress",
         permanent: true,
       },
+      // Former demo/seed pages that stayed live (and got indexed) after the
+      // real content replaced them in the CMS. Point each at its live
+      // equivalent so the duplicate stops competing with it.
+      {
+        source: "/blog/what-to-do-when-your-wordpress-site-is-hacked",
+        destination: "/blog/wordpress-site-hacked",
+        permanent: true,
+      },
+      {
+        source: "/work/malware-recovery",
+        destination: "/work/wordpress-malware-removal",
+        permanent: true,
+      },
+      {
+        source: "/work/security-hardening",
+        destination: "/services/wordpress-security-hardening",
+        permanent: true,
+      },
     ];
   },
   // Pin the workspace root — a stray lockfile in $HOME otherwise confuses
