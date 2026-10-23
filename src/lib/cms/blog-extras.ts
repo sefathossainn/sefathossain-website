@@ -1,4 +1,8 @@
-import { SERVICE_PAGES, type ServiceNavItem } from "@/lib/services-nav";
+import {
+  DEV_SERVICE_PAGES,
+  SERVICE_PAGES,
+  type ServiceNavItem,
+} from "@/lib/services-nav";
 
 /**
  * Per-post "key takeaways" keyed by slug. Rendered as a checklist box near the
@@ -406,7 +410,80 @@ export const relatedServiceBySlug: Record<string, string> = {
   "woocommerce-vs-shopify": "/services/woocommerce-development",
   "is-elementor-good-for-seo-and-speed": "/services/elementor-website-design",
   "do-i-need-ongoing-wordpress-security-monitoring":
-    "/services/wordpress-maintenance",
+    "/services/wordpress-maintenance",  // Twice-weekly drip, 7 Dec 2026 – 3 Jun 2027
+  "common-types-of-wordpress-malware": "/services/wordpress-malware-removal",
+  "how-long-does-it-take-to-build-a-wordpress-website":
+    "/services/wordpress-website-development",
+  "fake-captcha-malware-wordpress": "/services/wordpress-malware-removal",
+  "what-to-prepare-before-hiring-a-web-developer":
+    "/services/wordpress-website-development",
+  "wordpress-site-redirects-only-on-mobile":
+    "/services/wordpress-redirect-virus-removal",
+  "custom-wordpress-theme-vs-premium-theme":
+    "/services/wordpress-website-development",
+  "unknown-admin-user-in-wordpress": "/services/hacked-wordpress-recovery",
+  "gutenberg-vs-elementor": "/services/elementor-website-design",
+  "wordpress-site-sending-spam-emails": "/services/wordpress-malware-removal",
+  "is-elementor-pro-worth-it": "/services/elementor-website-design",
+  "google-ads-suspended-malicious-software":
+    "/services/google-blacklist-removal",
+  "improve-core-web-vitals-wordpress": "/services/website-speed-optimization",
+  "how-to-check-if-your-website-is-blacklisted":
+    "/services/google-blacklist-removal",
+  "optimize-images-wordpress": "/services/website-speed-optimization",
+  "monitor-wordpress-file-changes": "/services/wordpress-maintenance",
+  "wordpress-caching-explained": "/services/website-speed-optimization",
+  "wordpress-user-roles-security": "/services/wordpress-security-hardening",
+  "why-is-my-woocommerce-store-slow": "/services/website-speed-optimization",
+  "should-you-disable-xml-rpc-wordpress":
+    "/services/wordpress-security-hardening",
+  "how-to-speed-up-a-shopify-store": "/services/shopify-store-development",
+  "how-to-add-security-headers-wordpress":
+    "/services/wordpress-security-hardening",
+  "shopify-theme-customization-vs-custom-theme":
+    "/services/shopify-store-development",
+  "wordpress-file-permissions": "/services/wordpress-security-hardening",
+  "essential-shopify-apps-for-new-stores":
+    "/services/shopify-store-development",
+  "how-to-secure-wp-config-php": "/services/wordpress-security-hardening",
+  "migrate-woocommerce-to-shopify": "/services/shopify-store-development",
+  "php-version-wordpress-security": "/services/wordpress-maintenance",
+  "migrate-shopify-to-woocommerce": "/services/woocommerce-development",
+  "wordpress-plugin-supply-chain-attacks": "/services/wordpress-maintenance",
+  "how-to-set-up-a-woocommerce-store": "/services/woocommerce-development",
+  "check-wordpress-plugins-for-vulnerabilities":
+    "/services/wordpress-security-audit",
+  "woocommerce-checkout-optimization": "/services/woocommerce-development",
+  "stop-card-testing-attacks-woocommerce":
+    "/services/woocommerce-malware-removal",
+  "what-is-headless-wordpress": "/services/custom-web-development",
+  "woocommerce-pci-compliance": "/services/woocommerce-malware-removal",
+  "how-much-does-a-nextjs-website-cost": "/services/custom-web-development",
+  "website-hacked-what-to-tell-customers":
+    "/services/hacked-wordpress-recovery",
+  "ada-website-compliance-small-business": "/services/website-redesign",
+  "why-wordpress-malware-keeps-coming-back":
+    "/services/wordpress-malware-removal",
+  "signs-your-website-needs-a-redesign": "/services/website-redesign",
+  "shared-hosting-cross-site-infection": "/services/wordpress-malware-removal",
+  "small-business-website-must-haves":
+    "/services/wordpress-website-development",
+  "wordpress-security-for-law-firms": "/services/wordpress-security-audit",
+  "build-a-website-that-ranks-locally":
+    "/services/wordpress-website-development",
+  "website-security-for-medical-dental-practices":
+    "/services/wordpress-security-audit",
+  "seo-setup-for-a-new-wordpress-site":
+    "/services/wordpress-website-development",
+  "google-search-console-security-issues-report":
+    "/services/google-blacklist-removal",
+  "monthly-website-maintenance-checklist": "/services/wordpress-maintenance",
+  "wordpress-staging-site-security": "/services/wordpress-security-hardening",
+  "freelance-web-developer-vs-agency":
+    "/services/wordpress-website-development",
+  "wordpress-security-myths": "/services/wordpress-security-hardening",
+  "how-to-build-a-landing-page-that-converts":
+    "/services/elementor-website-design",
 };
 
 /** The related ServiceNavItem for a post (defaults to malware removal). */
@@ -414,7 +491,7 @@ export function getRelatedService(slug: string): ServiceNavItem {
   const path =
     relatedServiceBySlug[slug] ?? "/services/wordpress-malware-removal";
   return (
-    SERVICE_PAGES.find((s) => s.path === path) ??
+    [...SERVICE_PAGES, ...DEV_SERVICE_PAGES].find((s) => s.path === path) ??
     SERVICE_PAGES.find((s) => s.path === "/services/wordpress-malware-removal") ??
     SERVICE_PAGES[0]
   );
