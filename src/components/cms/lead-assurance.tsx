@@ -28,7 +28,7 @@ export function LeadAssurance({
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald" />
           {leadAssurance.responseTime}
         </span>
-        <span aria-hidden className="text-slate">·</span>
+        <span aria-hidden className="hidden text-slate sm:inline">·</span>
         <Link
           href={leadAssurance.priceHref}
           className="underline decoration-line underline-offset-4 transition-colors hover:text-mist hover:decoration-emerald"

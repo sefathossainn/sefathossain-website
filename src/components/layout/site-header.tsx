@@ -114,7 +114,7 @@ export function SiteHeader({
         <BrandLogo photo={profilePhoto} name={brandName} title={brandTitle} />
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-1 lg:flex">
           {primaryNav.map((item) =>
             item.href === "/service-areas" ? (
               <div
@@ -220,7 +220,7 @@ export function SiteHeader({
             href={primaryCta.href}
             variant="secondary"
             size="sm"
-            className="hidden lg:inline-flex"
+            className="hidden xl:inline-flex"
           >
             Free audit
           </Button>
@@ -234,7 +234,7 @@ export function SiteHeader({
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="relative grid h-11 w-11 place-items-center rounded-full border border-line text-mist md:hidden"
+            className="relative grid h-11 w-11 place-items-center rounded-full border border-line text-mist lg:hidden"
           >
             <span className="sr-only">Menu</span>
             <div className="flex flex-col gap-[5px]">
@@ -265,7 +265,7 @@ export function SiteHeader({
       {/* CSS enter animation — keeps framer-motion out of every page's JS */}
       {open && (
           <div
-            className="drawer-in container-brand max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-line/70 pb-8 pt-2 md:hidden"
+            className="drawer-in container-brand max-h-[calc(100dvh-5rem)] overflow-y-auto border-t border-line/70 pb-8 pt-2 lg:hidden"
           >
             <nav className="flex flex-col">
               {primaryNav.map((item) =>
