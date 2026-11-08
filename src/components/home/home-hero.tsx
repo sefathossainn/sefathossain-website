@@ -3,7 +3,8 @@ import { HeroBackdrop } from "@/components/hero/hero-backdrop";
 import { Hero3D } from "@/components/hero/hero-3d";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
-import { profile } from "@/lib/site-config";
+import { profile, hackedCta } from "@/lib/site-config";
+import { LeadAssurance } from "@/components/cms/lead-assurance";
 import { CmsIcon } from "@/lib/icons";
 import type { PageContent } from "@/lib/cms/queries";
 
@@ -136,14 +137,17 @@ export function HomeHero({
             </Reveal>
 
             <Reveal delay={0.6}>
+              {/* Emergency CTA first: a hacked-site owner is the highest-intent
+                  visitor. The free audit stays as the calmer second option. */}
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <Button href="/security-audit" variant="primary" size="lg">
+                <Button href={hackedCta.href} variant="primary" size="lg">
+                  {hackedCta.label}
+                </Button>
+                <Button href="/security-audit" variant="secondary" size="lg">
                   {content.text("hero.cta_primary")}
                 </Button>
-                <Button href="/work" variant="secondary" size="lg">
-                  {content.text("hero.cta_secondary")}
-                </Button>
               </div>
+              <LeadAssurance className="mt-5" showChecker />
             </Reveal>
           </div>
 

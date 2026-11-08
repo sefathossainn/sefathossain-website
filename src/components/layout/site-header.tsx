@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { Button } from "@/components/ui/button";
-import { primaryNav, primaryCta } from "@/lib/site-config";
+import { primaryNav, primaryCta, hackedCta } from "@/lib/site-config";
 import { serviceAreas } from "@/lib/service-areas";
 import { cn } from "@/lib/utils";
 
@@ -220,9 +220,12 @@ export function SiteHeader({
             href={primaryCta.href}
             variant="secondary"
             size="sm"
-            className="hidden sm:inline-flex"
+            className="hidden lg:inline-flex"
           >
             Free audit
+          </Button>
+          <Button href={hackedCta.href} variant="primary" size="sm">
+            {hackedCta.shortLabel}
           </Button>
 
           {/* Mobile toggle */}
@@ -307,10 +310,18 @@ export function SiteHeader({
               )}
             </nav>
             <Button
-              href={primaryCta.href}
+              href={hackedCta.href}
               variant="primary"
               size="lg"
               className="mt-6 w-full"
+            >
+              {hackedCta.label}
+            </Button>
+            <Button
+              href={primaryCta.href}
+              variant="secondary"
+              size="lg"
+              className="mt-3 w-full"
             >
               {primaryCta.label}
             </Button>

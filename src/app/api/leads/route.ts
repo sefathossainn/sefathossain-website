@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { leadSchema } from "@/lib/validation";
+import { leadSchema, HACKED_NEED } from "@/lib/validation";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getSiteSettings } from "@/lib/cms/queries";
@@ -62,8 +62,11 @@ export async function POST(req: Request) {
   }
 
   const settings = await getSiteSettings();
+  // Hacked-site leads get a subject that stands out in the inbox.
   await notifyOwner(
-    "New enquiry — sefathossain.com",
+    data.need === HACKED_NEED
+      ? "URGENT: hacked site enquiry — sefathossain.com"
+      : "New enquiry — sefathossain.com",
     `${data.name} <${data.email}> — ${data.need ?? "—"}\n\n${data.message}`,
     settings.lead_email,
     data.email,

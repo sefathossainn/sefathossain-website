@@ -6,7 +6,9 @@ import { z } from "zod";
  * `company` is a honeypot — real users never see it; bots fill it.
  */
 
-export const NEEDS = ["Build", "Secure", "Grow", "Not sure"] as const;
+/** First option is the emergency path; `/contact?type=hacked` preselects it. */
+export const HACKED_NEED = "Hacked site (emergency)";
+export const NEEDS = [HACKED_NEED, "Build", "Secure", "Grow", "Not sure"] as const;
 
 export const leadSchema = z.object({
   name: z.string().trim().min(1, "Your name helps me reply.").max(120),
