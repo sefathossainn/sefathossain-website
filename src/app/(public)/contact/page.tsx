@@ -11,6 +11,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { Kicker } from "@/components/ui/kicker";
 import { ContactForm } from "@/components/forms/contact-form";
 import { ProfilePhoto } from "@/components/brand/profile-photo";
+import { LeadAssurance } from "@/components/cms/lead-assurance";
 
 export const revalidate = 300;
 
@@ -68,6 +69,8 @@ export default async function ContactPage() {
               </div>
             </div>
 
+            <LeadAssurance showChecker />
+
             <div>
               <Kicker className="mb-4">Prefer to talk?</Kicker>
               <div className="grid gap-3">
@@ -81,12 +84,7 @@ export default async function ContactPage() {
                     <span className="text-mist">Book a call</span>
                     <span aria-hidden className="text-emerald">↗</span>
                   </Link>
-                ) : (
-                  <p className="text-sm text-slate">
-                    Booking link coming soon — send a message and we&rsquo;ll
-                    find a time.
-                  </p>
-                )}
+                ) : null}
 
                 {whatsappNumber && (
                   <Link

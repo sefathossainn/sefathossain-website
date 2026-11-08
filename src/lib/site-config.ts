@@ -77,6 +77,29 @@ export const primaryCta = {
   href: "/security-audit",
 } as const;
 
+/**
+ * Emergency CTA for owners whose site is hacked right now — the highest-intent
+ * visitor. Lands on the contact form with "Hacked site (emergency)" preselected.
+ */
+export const hackedCta = {
+  label: "My site is hacked — get help now",
+  shortLabel: "Site hacked?",
+  href: "/contact?type=hacked",
+} as const;
+
+/**
+ * Trust line shown beside CTAs. Keep these TRUE: the reply window matches what
+ * the contact form already promises, and the price matches the cheapest tier
+ * on /services/wordpress-malware-removal-cost. Update both places together.
+ */
+export const leadAssurance = {
+  responseTime: "I usually reply within 24 hours",
+  priceFrom: "Cleanups from $100",
+  priceHref: "/services/wordpress-malware-removal-cost",
+  checkerLabel: "Not sure? Run the free hacked-site checker",
+  checkerHref: "/tools/is-my-wordpress-site-hacked",
+} as const;
+
 /** The person — used for photo trust signals across the site. */
 export const profile = {
   name: "Sefat Hossain",

@@ -11,7 +11,10 @@ import {
 } from "@/lib/cms/queries";
 import { absoluteUrl, formatDate, latestIso, withBrand } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, hackedCta, leadAssurance } from "@/lib/site-config";
+
+/** Highest-impression post; every other post links to it. */
+const PILLAR_SLUG = "wordpress-site-hacked";
 import { withToc } from "@/lib/toc";
 
 import { Section } from "@/components/ui/section";
@@ -282,7 +285,34 @@ export default async function BlogPostPage({
                   Try the free checker
                 </Link>
               </div>
+              <p className="mt-5 text-sm text-sage">
+                Already hacked?{" "}
+                <Link
+                  href={hackedCta.href}
+                  className="font-medium text-emerald underline-offset-4 hover:underline"
+                >
+                  Get emergency help now
+                </Link>{" "}
+                · {leadAssurance.responseTime}
+              </p>
             </div>
+
+            {/* Every post links to the hacked-site pillar guide with a
+                descriptive anchor, concentrating internal links on the page
+                that earns the most impressions. */}
+            {post.slug !== PILLAR_SLUG && (
+              <p className="mt-8 rounded-[var(--radius-xl)] border border-line bg-forest/30 p-6 leading-relaxed text-sage">
+                Think your site is already compromised? Follow my step-by-step
+                guide:{" "}
+                <Link
+                  href={`/blog/${PILLAR_SLUG}`}
+                  className="font-medium text-mist underline decoration-emerald underline-offset-4 hover:text-emerald"
+                >
+                  how to clean and recover a hacked WordPress site
+                </Link>
+                .
+              </p>
+            )}
 
             {/* Take it further — related case study + service */}
             <div className="mt-16">
@@ -321,7 +351,7 @@ export default async function BlogPostPage({
       <CtaBand
         title="Worried about your own site?"
         primary={{ label: "Get a free security audit", href: "/security-audit" }}
-        secondary={{ label: "Talk to me", href: "/contact" }}
+        secondary={{ label: hackedCta.shortLabel + " Get help", href: hackedCta.href }}
       />
     </article>
   );

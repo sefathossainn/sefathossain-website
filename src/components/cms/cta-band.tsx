@@ -2,6 +2,7 @@ import { Section } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { LeadAssurance } from "@/components/cms/lead-assurance";
 
 type CtaLink = { label: string; href: string };
 
@@ -49,6 +50,7 @@ export function CtaBand({
             </Button>
           )}
         </div>
+        <LeadAssurance className="relative mt-6" align="center" />
       </Reveal>
     </Section>
   );

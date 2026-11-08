@@ -1,9 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { leadSchema, NEEDS, type LeadInput } from "@/lib/validation";
+import { leadSchema, NEEDS, HACKED_NEED, type LeadInput } from "@/lib/validation";
+import { leadAssurance } from "@/lib/site-config";
 import { Field, Input, Textarea, Select, Honeypot } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +12,8 @@ export function ContactForm() {
   const {
     register,
     handleSubmit,
+    setValue,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<LeadInput>({
     resolver: zodResolver(leadSchema),
@@ -18,6 +21,19 @@ export function ContactForm() {
   });
   const [done, setDone] = React.useState(false);
   const [serverError, setServerError] = React.useState<string | null>(null);
+
+  // `/contact?type=hacked` (the emergency CTA) preselects the hacked option.
+  // Read from window.location rather than useSearchParams so the page stays
+  // prerendered with the form in the initial HTML (no Suspense bailout).
+  React.useEffect(() => {
+    const type = new URLSearchParams(window.location.search).get("type");
+    if (type === "hacked") {
+      setValue("need", HACKED_NEED);
+      setValue("source_page", "contact?type=hacked");
+    }
+  }, [setValue]);
+
+  const isHacked = useWatch({ control, name: "need" }) === HACKED_NEED;
 
   const onSubmit = async (values: LeadInput) => {
     setServerError(null);
@@ -80,11 +96,26 @@ export function ContactForm() {
         </Select>
       </Field>
 
+      {isHacked && (
+        <div className="rounded-xl border border-[#e88c7d]/40 bg-[#e88c7d]/10 p-4 text-sm text-mist">
+          <p className="font-medium">Hacked site — I&rsquo;ll prioritise this.</p>
+          <p className="mt-1 text-sage">
+            Include your site URL, what you&rsquo;re seeing (redirects, Google
+            warning, host suspension) and who hosts it. Don&rsquo;t delete files
+            yet; they help find how the attacker got in.
+          </p>
+        </div>
+      )}
+
       <Field label="Message" htmlFor="message" error={errors.message?.message}>
         <Textarea
           id="message"
           rows={5}
-          placeholder="Tell me what's going on — a new build, a hacked site, or ongoing care."
+          placeholder={
+            isHacked
+              ? "Site URL, what you see, when it started, and your host."
+              : "Tell me what's going on — a new build, a hacked site, or ongoing care."
+          }
           {...register("message")}
         />
       </Field>
@@ -99,7 +130,9 @@ export function ContactForm() {
         <Button type="submit" variant="primary" size="lg" disabled={isSubmitting}>
           {isSubmitting ? "Sending…" : "Send message"}
         </Button>
-        <p className="text-xs text-slate">I reply personally — no bots.</p>
+        <p className="text-xs text-slate">
+          I reply personally — no bots. {leadAssurance.responseTime}.
+        </p>
       </div>
     </form>
   );

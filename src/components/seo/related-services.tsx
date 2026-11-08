@@ -6,6 +6,7 @@ import {
 } from "@/lib/services-nav";
 import { getBlogPosts } from "@/lib/cms/queries";
 import { relatedServiceBySlug } from "@/lib/cms/blog-extras";
+import { serviceAreas } from "@/lib/service-areas";
 
 /**
  * Pick `limit` services to link from `currentPath`. Taking the first N of the
@@ -67,6 +68,9 @@ export async function RelatedServices({
         .slice(0, 4)
     : [];
 
+  // City links only on security service pages (where the US pages are relevant).
+  const showCities = SERVICE_PAGES.some((s) => s.path === currentPath);
+
   if (!related.length && !guides.length) return null;
 
   return (
@@ -119,6 +123,29 @@ export async function RelatedServices({
         >
           View all services →
         </Link>
+
+        {/* Service -> city: contextual links to every US service-area page,
+            so the city pages are not reachable only from the header menu. */}
+        {showCities && (
+          <div className="mt-14">
+            <p className="kicker text-emerald">UNITED STATES</p>
+            <h2 className="mt-5 font-display text-2xl font-semibold text-mist md:text-3xl">
+              Hacked-site help in your city
+            </h2>
+            <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+              {serviceAreas.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    href={`/service-areas/${a.slug}`}
+                    className="text-sage underline decoration-line underline-offset-4 transition-colors hover:text-emerald hover:decoration-emerald"
+                  >
+                    WordPress malware removal in {a.city}, {a.stateAbbr}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   );
