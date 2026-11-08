@@ -10,6 +10,9 @@ import { serviceSchema, faqPageSchema, breadcrumbSchema } from "@/lib/schema";
 import { serviceAreas, getServiceArea } from "@/lib/service-areas";
 import { getStateBreachLaw } from "@/lib/state-breach-laws";
 import { withBrand } from "@/lib/utils";
+import { hackedCta } from "@/lib/site-config";
+import { MALWARE_PRICE_TIERS } from "@/lib/pricing";
+import { LeadAssurance } from "@/components/cms/lead-assurance";
 
 export function generateStaticParams() {
   return serviceAreas.map((a) => ({ city: a.slug }));
@@ -27,7 +30,7 @@ export async function generateMetadata({
   return {
     title: {
       absolute: withBrand(
-        `WordPress Malware Removal in ${area.city}, ${area.stateAbbr}`,
+        `WordPress Malware Removal Services in ${area.city}, ${area.stateAbbr}`,
       ),
     },
     // blurb (~100 chars) + a short tail keeps this under ~160 so Google doesn't truncate it.
@@ -136,7 +139,7 @@ export default async function ServiceAreaPage({
           </p>
 
           <h1 className="mt-6 max-w-4xl font-display text-4xl font-semibold leading-tight text-mist md:text-6xl">
-            WordPress Malware Removal in {area.city}
+            WordPress Malware Removal Services in {area.city}
           </h1>
 
           <p className="mt-7 max-w-3xl text-lg leading-relaxed text-sage md:text-xl">
@@ -145,18 +148,19 @@ export default async function ServiceAreaPage({
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/security-audit"
+              href={hackedCta.href}
               className="inline-flex items-center justify-center rounded-full bg-emerald px-6 py-3.5 font-medium text-obsidian transition hover:opacity-90"
+            >
+              {hackedCta.label}
+            </Link>
+            <Link
+              href="/security-audit"
+              className="inline-flex items-center justify-center rounded-full border border-line px-6 py-3.5 font-medium text-mist transition hover:border-emerald hover:text-emerald"
             >
               Get a Free Assessment
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-full border border-line px-6 py-3.5 font-medium text-mist transition hover:border-emerald hover:text-emerald"
-            >
-              Get a Quote
-            </Link>
           </div>
+          <LeadAssurance className="mt-5" showChecker />
         </div>
       </section>
 
@@ -196,6 +200,65 @@ export default async function ServiceAreaPage({
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing — answers "how much" before the visitor has to ask, and
+          links the cost guide. Tiers come from lib/pricing (shared). */}
+      <section className="border-t border-line bg-obsidian px-6 py-20 md:px-10 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <p className="kicker text-emerald">PRICING</p>
+          <h2 className="mt-5 font-display text-3xl font-semibold text-mist md:text-4xl">
+            What WordPress malware removal costs in {area.city}
+          </h2>
+          <p className="mt-6 max-w-3xl leading-relaxed text-sage">
+            Same fixed-price tiers for every US client. You get the exact price
+            after a free look at your site, before any work starts.
+          </p>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {MALWARE_PRICE_TIERS.map((tier) => (
+              <div
+                key={tier.name}
+                className="rounded-[var(--radius-xl)] border border-line bg-forest/30 p-7"
+              >
+                <h3 className="font-display text-lg font-semibold text-mist">
+                  {tier.name}
+                </h3>
+                <p className="mt-2 font-display text-2xl font-semibold text-emerald">
+                  {tier.price}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-sage">
+                  {tier.summary}
+                </p>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/services/wordpress-malware-removal-cost"
+            className="mt-8 inline-flex text-sm text-emerald hover:underline"
+          >
+            What drives the cost of a WordPress malware cleanup →
+          </Link>
+
+          {/* Ongoing care — "wordpress maintenance <city>" searches land here. */}
+          <div className="mt-14 rounded-[var(--radius-xl)] border border-line bg-forest/30 p-7 md:p-9">
+            <h3 className="font-display text-xl font-semibold text-mist">
+              After the cleanup: WordPress maintenance for {area.city} businesses
+            </h3>
+            <p className="mt-3 leading-relaxed text-sage">
+              Most reinfections come from plugins nobody updated. A monthly
+              care plan keeps your {area.city} site updated, backed up and
+              monitored, so the next problem is caught before Google or your
+              customers see it.{" "}
+              <Link
+                href="/services/wordpress-maintenance"
+                className="text-emerald underline-offset-4 hover:underline"
+              >
+                See WordPress maintenance plans
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </section>
@@ -351,10 +414,10 @@ export default async function ServiceAreaPage({
 
           <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              href="/security-audit"
+              href={hackedCta.href}
               className="inline-flex items-center justify-center rounded-full bg-emerald px-7 py-3.5 font-medium text-obsidian transition hover:opacity-90"
             >
-              Get a Free Assessment
+              {hackedCta.label}
             </Link>
             <Link
               href="/services/wordpress-malware-removal-cost"

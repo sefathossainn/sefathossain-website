@@ -24,7 +24,7 @@ const CRUMBS = [
 ];
 
 export function generateMetadata(): Metadata {
-  const title = "Hacked WordPress Website Recovery | Sefat Hossain";
+  const title = "Hacked WordPress Website Recovery Service | Sefat Hossain";
   const description =
     "Recover a hacked WordPress website: find how attackers got in, remove malicious access and malware, harden the site and verify it stays clean.";
   const url = absoluteUrl(PATH);
@@ -155,7 +155,7 @@ export default function HackedWordPressRecoveryPage() {
           <Button href="/security-audit" variant="primary" size="lg">
             Get a Security Assessment
           </Button>
-          <Button href="/contact" variant="secondary" size="lg">
+          <Button href="/contact?type=hacked" variant="secondary" size="lg">
             Contact Me
           </Button>
         </div>
