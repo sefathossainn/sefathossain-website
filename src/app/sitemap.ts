@@ -16,13 +16,13 @@ export const dynamic = "force-dynamic";
  * when that page's copy meaningfully changes.
  */
 const STATIC_LASTMOD = {
-  home: "2026-09-26",
+  home: "2026-11-09",
   services: "2026-09-25",
-  servicePages: "2026-09-26",
+  servicePages: "2026-11-09",
   devServicePages: "2026-10-19",
-  serviceAreas: "2026-09-26",
+  serviceAreas: "2026-11-09",
   about: "2026-08-09",
-  contact: "2026-08-10",
+  contact: "2026-11-09",
   securityAudit: "2026-08-09",
   hackedChecker: "2026-09-26",
   legal: "2026-08-09",
