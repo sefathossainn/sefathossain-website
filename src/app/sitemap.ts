@@ -25,6 +25,7 @@ const STATIC_LASTMOD = {
   contact: "2026-11-09",
   securityAudit: "2026-08-09",
   hackedChecker: "2026-09-26",
+  breachLaws: "2026-11-09",
   legal: "2026-08-09",
 } as const;
 
@@ -142,6 +143,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: absoluteUrl("/tools/is-my-wordpress-site-hacked"),
       lastModified: STATIC_LASTMOD.hackedChecker,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/resources/data-breach-notification-laws"),
+      lastModified: STATIC_LASTMOD.breachLaws,
       changeFrequency: "monthly",
       priority: 0.8,
     },
