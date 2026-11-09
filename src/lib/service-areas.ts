@@ -227,6 +227,59 @@ export const serviceAreas: ServiceArea[] = [
         "Yes — all of this work is done remotely, coordinated around Pacific Time. Distance doesn't change the cleanup; what matters is server access and a methodical process, both of which work the same whether you're in SF or anywhere else.",
     },
   },
+  // Added Nov 2026: Search Console showed searches for these cities
+  // ("wordpress malware removal cincinnati" and similar) with no page to match.
+  {
+    slug: "cincinnati",
+    city: "Cincinnati",
+    state: "Ohio",
+    stateAbbr: "OH",
+    blurb:
+      "WordPress malware removal and security for Cincinnati small businesses, agencies, and B2B suppliers.",
+    intro:
+      "Cincinnati has a deep bench of B2B companies, marketing agencies and family-run businesses, many of them selling to bigger brands that expect a professional web presence. A hacked site or a Google warning puts that trust at risk. I clean infected WordPress sites for Cincinnati businesses and close the hole so it stays clean.",
+    localAngle:
+      "A lot of Cincinnati WordPress sites were built by a local agency years ago and have been quietly running since, with plugins nobody has touched in a while. That is the most common way in for attackers. Ohio also gives you a hard deadline if customer data was exposed, so finding out what the attacker actually reached matters as much as removing the malware.",
+    faq: {
+      question: "My Cincinnati site was hacked. Do I have to tell my customers?",
+      answer:
+        "Only if personal information covered by Ohio law was likely exposed, and then within 45 days of discovering it (see the Ohio section below). Part of my cleanup is working out what the attacker could reach, so you and your attorney can decide with facts rather than guesses.",
+    },
+  },
+  {
+    slug: "minneapolis",
+    city: "Minneapolis",
+    state: "Minnesota",
+    stateAbbr: "MN",
+    blurb:
+      "WordPress malware removal and hardening for Minneapolis–St. Paul businesses, nonprofits, and online stores.",
+    intro:
+      "Across Minneapolis and St. Paul, WordPress runs everything from retail and restaurant sites to nonprofit and membership sites. When one gets hacked, redirected or flagged by Google, donations and orders stop with it. I remove the malware, close the entry point and get Twin Cities sites back online, working around Central Time.",
+    localAngle:
+      "Twin Cities nonprofits and small organizations often run WordPress with donation, event or membership plugins managed by volunteers or a part-time staffer. Those plugins handle personal data and are frequent targets when they fall behind on updates. A cleanup here should end with simple, automatic protection that doesn't depend on one busy person remembering to log in.",
+    faq: {
+      question: "We're a Minneapolis nonprofit with a small budget. Can you help?",
+      answer:
+        "Yes. Cleanup is fixed-price, so you know the cost before any work starts, and after it I can set up low-maintenance protection (backups, updates and monitoring) that fits a small team.",
+    },
+  },
+  {
+    slug: "san-antonio",
+    city: "San Antonio",
+    state: "Texas",
+    stateAbbr: "TX",
+    blurb:
+      "WordPress malware removal and security for San Antonio small businesses, contractors, and hospitality sites.",
+    intro:
+      "San Antonio's economy leans on tourism, healthcare and a large military community, and plenty of the businesses serving them run on WordPress. A hacked site that redirects visitors or shows a Google warning costs bookings and trust fast. I clean infected San Antonio WordPress sites and harden them so the same hole can't be used twice.",
+    localAngle:
+      "Many San Antonio sites belong to hotels, restaurants, contractors and service businesses that depend on booking forms, quote forms and payment plugins. Those are exactly the parts attackers like to tamper with, because they touch customer data. Cleanup has to cover the forms and database, not just the files, and Texas law sets a 60-day notice deadline if personal information was exposed.",
+    faq: {
+      question: "My San Antonio site's booking form was hacked. Is customer data at risk?",
+      answer:
+        "Possibly, so it's worth checking properly rather than guessing. I look at what the attacker changed in the forms, files and database to establish what could have been reached, then clean and lock it down. If personal information was exposed, Texas law has notice rules, summarized in the Texas section below.",
+    },
+  },
 ];
 
 export function getServiceArea(slug: string): ServiceArea | undefined {

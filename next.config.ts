@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import path from "node:path";
+import { CONSOLIDATED_POSTS } from "./src/lib/consolidated-posts";
 
 const SUPABASE = "https://dtbifbjsstuxudhoxrej.supabase.co";
 
@@ -77,6 +78,12 @@ const nextConfig: NextConfig = {
         destination: "/services/wordpress-security-hardening",
         permanent: true,
       },
+      // Overlapping posts merged into the stronger page (see the module).
+      ...CONSOLIDATED_POSTS.map((p) => ({
+        source: `/blog/${p.from}`,
+        destination: p.to,
+        permanent: true,
+      })),
     ];
   },
   // Pin the workspace root — a stray lockfile in $HOME otherwise confuses
