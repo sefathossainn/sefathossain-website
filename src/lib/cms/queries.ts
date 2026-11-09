@@ -16,6 +16,7 @@ import type {
 } from "@/lib/cms/types";
 
 import { resolveTextStyle } from "@/lib/cms/text-style";
+import { CONSOLIDATED_SLUGS } from "@/lib/consolidated-posts";
 import { defaultBlocks } from "@/lib/cms/defaults/blocks";
 import { defaultCaseStudies } from "@/lib/cms/defaults/case-studies";
 import { defaultServices } from "@/lib/cms/defaults/services";
@@ -265,7 +266,11 @@ export const getBlogPosts = cache(async (): Promise<BlogPost[]> => {
       .or(`published_at.is.null,published_at.lte.${now}`)
       .order("published_at", { ascending: false });
     if (error || !data || data.length === 0) return defaultPosts;
-    return (data as Record<string, unknown>[]).map(mapPost);
+    // Posts merged into another page are 301-redirected; keep them out of
+    // the blog index, related lists and the sitemap.
+    return (data as Record<string, unknown>[])
+      .map(mapPost)
+      .filter((p) => !CONSOLIDATED_SLUGS.has(p.slug));
   }, defaultPosts);
 });
 
