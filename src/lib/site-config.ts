@@ -58,6 +58,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     items: [
       { label: "Free security audit", href: "/security-audit" },
       { label: "Hacked site checker", href: "/tools/is-my-wordpress-site-hacked" },
+      { label: "Breach laws by state", href: "/resources/data-breach-notification-laws" },
       { label: "Contact", href: "/contact" },
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },

@@ -320,6 +320,12 @@ export default async function ServiceAreaPage({
               . This is a plain-English summary, not legal advice — confirm
               your obligations with a {area.state} attorney.
             </p>
+            <Link
+              href="/resources/data-breach-notification-laws"
+              className="mt-4 inline-flex text-sm text-emerald hover:underline"
+            >
+              Data breach notification laws in other states →
+            </Link>
           </div>
         </section>
       )}
