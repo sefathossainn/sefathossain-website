@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteSettings } from "@/lib/cms/queries";
@@ -10,22 +10,29 @@ import {
 } from "@/lib/env";
 import { Analytics } from "@/components/seo/analytics";
 
-const display = Space_Grotesk({
-  subsets: ["latin"],
+// Self-hosted from @fontsource-variable (same Google Fonts files, latin
+// subset). next/font/google downloads fonts at build time, and Vercel builds
+// failed twice in Nov 2026 when that download timed out; local files remove
+// the network dependency. Variable fonts, so one file covers every weight.
+const display = localFont({
+  src: "../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2",
   variable: "--font-space-grotesk",
-  weight: ["500", "600", "700"],
+  weight: "300 700",
   display: "swap",
 });
-const sans = Inter({
-  subsets: ["latin"],
+const sans = localFont({
+  src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   variable: "--font-inter",
+  weight: "100 900",
   display: "swap",
 });
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
+const mono = localFont({
+  src: "../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2",
   variable: "--font-jetbrains-mono",
-  weight: ["400", "500"],
+  weight: "100 800",
   display: "swap",
+  // Only small labels use it; don't compete with the hero image for bandwidth.
+  preload: false,
 });
 
 /** Hosts next.config `images.remotePatterns` allows the optimizer to fetch. */
