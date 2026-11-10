@@ -6,6 +6,7 @@ import {
   getSiteSettings,
   getCaseStudies,
   getBlogPosts,
+  getProjects,
 } from "@/lib/cms/queries";
 import { signatureQuote } from "@/lib/cms/defaults/testimonials";
 import { pageMetadata } from "@/lib/seo";
@@ -37,10 +38,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [content, studies, posts, testimonials, settings] = await Promise.all([
+  const [content, studies, posts, projects, testimonials, settings] = await Promise.all([
     getPageContent("home"),
     getCaseStudies(),
     getBlogPosts(),
+    getProjects(),
     getTestimonials(),
     getSiteSettings(),
   ]);
@@ -89,7 +91,7 @@ export default async function HomePage() {
       />
 
       {/* 04b · Web-development pillar — services, work, guides */}
-      <WebDevPillar studies={devStudies} posts={devPosts} />
+      <WebDevPillar studies={devStudies} posts={devPosts} projects={projects.slice(0, 4)} />
 
       {/* 05 · The belief — motion calms, type-forward */}
       <Section surface className="text-center">

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 
 import { getPageContent, getCaseStudies, getProjects } from "@/lib/cms/queries";
 import { pageMetadata } from "@/lib/seo";
@@ -10,6 +8,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
 import { CaseStudyCard } from "@/components/cms/case-study-card";
 import { CtaBand } from "@/components/cms/cta-band";
+import { ConceptCard } from "@/components/cms/concept-card";
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getPageContent("work");
@@ -48,7 +47,7 @@ export default async function WorkPage() {
       </Section>
 
       {/* Build gallery */}
-      <Section surface>
+      <Section surface id="builds" className="scroll-mt-24">
         <SectionHeader
           kicker={content.text("projects.kicker")}
           title="Selected builds"
@@ -58,37 +57,7 @@ export default async function WorkPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
               <Reveal key={project.slug ?? project.title} delay={i * 0.06}>
-                <div className="panel group overflow-hidden">
-                  {project.images?.[0] && (
-                    <div className="relative aspect-[4/3] w-full overflow-hidden">
-                      <Image
-                        src={project.images[0]}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width:768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <h3 className="font-display text-lg font-semibold text-mist">
-                      {project.title}
-                    </h3>
-                    {project.summary && (
-                      <p className="mt-2 text-sm text-sage">{project.summary}</p>
-                    )}
-                    {project.live_url && (
-                      <Link
-                        href={project.live_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-4 inline-flex items-center gap-2 text-sm text-emerald"
-                      >
-                        Visit live site <span aria-hidden>↗</span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
+                <ConceptCard project={project} />
               </Reveal>
             ))}
           </div>

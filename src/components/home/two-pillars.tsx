@@ -1,9 +1,10 @@
 import Link from "next/link";
-import type { BlogPost, CaseStudy } from "@/lib/cms/types";
+import type { BlogPost, CaseStudy, Project } from "@/lib/cms/types";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
 import { PortfolioCard } from "@/components/cms/portfolio-card";
+import { ConceptCard } from "@/components/cms/concept-card";
 import { LeadAssurance } from "@/components/cms/lead-assurance";
 import { SERVICE_PAGES, DEV_SERVICE_PAGES } from "@/lib/services-nav";
 import { hackedCta, buildCta } from "@/lib/site-config";
@@ -229,7 +230,15 @@ export function SecurityPillar({
  * Web development pillar. Keeps the original homepage copy and links for the
  * build services (they rank partly because the homepage links them).
  */
-export function WebDevPillar({ studies, posts }: { studies: CaseStudy[]; posts: BlogPost[] }) {
+export function WebDevPillar({
+  studies,
+  posts,
+  projects = [],
+}: {
+  studies: CaseStudy[];
+  posts: BlogPost[];
+  projects?: Project[];
+}) {
   const services = DEV_SERVICE_PAGES.filter((s) => s.path !== "/services/wordpress-website-cost");
   return (
     <Section id="web-development" surface className="scroll-mt-24">
@@ -253,6 +262,28 @@ export function WebDevPillar({ studies, posts }: { studies: CaseStudy[]; posts: 
         guidesTitle="Web development guides"
         workHref="/work"
       />
+      {projects.length > 0 && (
+        <div className="mt-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h3 className="font-display text-2xl font-semibold text-mist">Industry website concepts</h3>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-sage">
+                Live demo sites I designed and built in WordPress for common US business types. Click through and use them like a real visitor.
+              </p>
+            </div>
+            <Link href="/work#builds" className="text-sm font-medium text-emerald hover:underline">
+              All builds →
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {projects.map((p, i) => (
+              <Reveal key={p.slug ?? p.title} delay={i * 0.05}>
+                <ConceptCard project={p} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      )}
       <div className="mt-12">
         <Button href={buildCta.href} variant="secondary" size="lg">{buildCta.label}</Button>
       </div>
