@@ -9,6 +9,7 @@ import { LeadAssurance } from "@/components/cms/lead-assurance";
 import { SERVICE_PAGES, DEV_SERVICE_PAGES } from "@/lib/services-nav";
 import { hackedCta, buildCta } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+import { INDUSTRY_WEBSITES } from "@/lib/industry-websites";
 
 /**
  * Two clear doors on the homepage: WordPress security (malware removal) and
@@ -52,7 +53,7 @@ const doors = [
     body: "WordPress, Shopify, WooCommerce and Next.js websites for US businesses, built fast and secure from day one.",
     points: ["Custom design, mobile-first", "Speed and SEO built in", "Security and care included"],
     cta: { label: buildCta.label, href: buildCta.href },
-    accent: false,
+    accent: true,
   },
 ] as const;
 
@@ -76,7 +77,13 @@ export function PillarChooser() {
               )}
             >
               {d.accent && (
-                <div aria-hidden className="glow-core pointer-events-none absolute -right-20 -top-20 h-64 w-64 opacity-70" />
+                <div
+                  aria-hidden
+                  className={cn(
+                    "glow-core pointer-events-none absolute -top-20 h-64 w-64 opacity-70",
+                    i === 0 ? "-right-20" : "-left-20",
+                  )}
+                />
               )}
               <div className="relative flex items-center gap-3">
                 <span className={cn("grid h-11 w-11 place-items-center rounded-xl border", d.accent ? "border-emerald/40 bg-emerald/10 text-emerald" : "border-line bg-forest/60 text-mist")}>
@@ -248,7 +255,19 @@ export function WebDevPillar({
         intro="I don't only clean up hacked sites — I build WordPress, Shopify, WooCommerce and Next.js websites for US businesses, with the security most builds skip already in place."
       />
       <ServiceLinks items={services} />
-      <p className="mt-8 text-sm text-slate">
+      <div className="mt-8 flex flex-wrap items-center gap-3">
+        <span className="text-sm text-slate">Website design for:</span>
+        {INDUSTRY_WEBSITES.map((i) => (
+          <Link
+            key={i.slug}
+            href={`/website-design/${i.slug}`}
+            className="rounded-full border border-line px-4 py-1.5 text-sm text-sage transition hover:border-emerald hover:text-emerald"
+          >
+            {i.plural.charAt(0).toUpperCase() + i.plural.slice(1)}
+          </Link>
+        ))}
+      </div>
+      <p className="mt-6 text-sm text-slate">
         Budgeting a new site? See{" "}
         <Link href="/services/wordpress-website-cost" className="text-emerald hover:underline">
           how much a WordPress website costs

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getCaseStudies, getBlogPosts } from "@/lib/cms/queries";
 import { serviceAreas } from "@/lib/service-areas";
 import { DEV_SERVICES } from "@/lib/dev-services";
+import { INDUSTRY_WEBSITES } from "@/lib/industry-websites";
 import { absoluteUrl, latestIso } from "@/lib/utils";
 
 // Render per request. As an ISR route (revalidate = 3600) the production
@@ -26,6 +27,7 @@ const STATIC_LASTMOD = {
   securityAudit: "2026-08-09",
   hackedChecker: "2026-09-26",
   breachLaws: "2026-11-09",
+  industryPages: "2026-11-11",
   legal: "2026-08-09",
 } as const;
 
@@ -113,6 +115,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...DEV_SERVICES.map((d) => ({
       url: absoluteUrl(`/services/${d.slug}`),
       lastModified: STATIC_LASTMOD.devServicePages,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+
+    // Website design by industry (web-development pillar)
+    {
+      url: absoluteUrl("/website-design"),
+      lastModified: STATIC_LASTMOD.industryPages,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    ...INDUSTRY_WEBSITES.map((i) => ({
+      url: absoluteUrl(`/website-design/${i.slug}`),
+      lastModified: STATIC_LASTMOD.industryPages,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
