@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getCaseStudies, getBlogPosts } from "@/lib/cms/queries";
 import { serviceAreas } from "@/lib/service-areas";
 import { DEV_SERVICES } from "@/lib/dev-services";
+import { BLOG_TOPICS } from "@/lib/blog-topics";
 import { absoluteUrl, latestIso } from "@/lib/utils";
 
 // Render per request. As an ISR route (revalidate = 3600) the production
@@ -94,6 +95,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.7,
     },
+    ...BLOG_TOPICS.map((t) => ({
+      url: absoluteUrl(`/blog/topic/${t.slug}`),
+      lastModified: newestPost,
+      changeFrequency: "daily" as const,
+      priority: 0.6,
+    })),
     {
       url: absoluteUrl("/contact"),
       lastModified: STATIC_LASTMOD.contact,
