@@ -88,6 +88,12 @@ export const hackedCta = {
   href: "/contact?type=hacked",
 } as const;
 
+/** Web-development CTA: contact form with "Build" preselected. */
+export const buildCta = {
+  label: "Start a website project",
+  href: "/contact?type=build",
+} as const;
+
 /**
  * Trust line shown beside CTAs. Keep these TRUE: the reply window matches what
  * the contact form already promises, and the price matches the cheapest tier

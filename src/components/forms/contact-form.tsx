@@ -30,6 +30,9 @@ export function ContactForm() {
     if (type === "hacked") {
       setValue("need", HACKED_NEED);
       setValue("source_page", "contact?type=hacked");
+    } else if (type === "build") {
+      setValue("need", "Build");
+      setValue("source_page", "contact?type=build");
     }
   }, [setValue]);
 

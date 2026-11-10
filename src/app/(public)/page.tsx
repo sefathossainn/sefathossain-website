@@ -2,21 +2,25 @@ import type { Metadata } from "next";
 
 import {
   getPageContent,
-  getFeaturedCaseStudies,
   getTestimonials,
   getSiteSettings,
+  getCaseStudies,
+  getBlogPosts,
 } from "@/lib/cms/queries";
 import { signatureQuote } from "@/lib/cms/defaults/testimonials";
 import { pageMetadata } from "@/lib/seo";
 
 import { HomeHero } from "@/components/home/home-hero";
 import { BuildSecureGrow } from "@/components/home/build-secure-grow";
-import { WebDevPillar } from "@/components/home/web-dev-pillar";
-import { Section, SectionHeader } from "@/components/ui/section";
+import {
+  PillarChooser,
+  SecurityPillar,
+  WebDevPillar,
+} from "@/components/home/two-pillars";
+import { Section } from "@/components/ui/section";
 import { GetShieldedFeature } from "@/components/home/get-shielded-feature";
 import { Reveal } from "@/components/ui/reveal";
 import { Button } from "@/components/ui/button";
-import { CaseStudyCard } from "@/components/cms/case-study-card";
 import { TestimonialsShowcase } from "@/components/home/testimonials-showcase";
 import { CtaBand } from "@/components/cms/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -33,12 +37,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const [content, featured, testimonials, settings] = await Promise.all([
+  const [content, studies, posts, testimonials, settings] = await Promise.all([
     getPageContent("home"),
-    getFeaturedCaseStudies(3),
+    getCaseStudies(),
+    getBlogPosts(),
     getTestimonials(),
     getSiteSettings(),
   ]);
+  // Split work and guides into the two pillars (security vs web development).
+  const securityStudies = studies.filter((s) => s.category === "security").slice(0, 3);
+  const devStudies = studies.filter((s) => s.category !== "security").slice(0, 3);
+  const SECURITY_CATS = ["Security", "Malware Removal"];
+  const securityPosts = posts.filter((p) => SECURITY_CATS.includes(p.category ?? "")).slice(0, 3);
+  const devPosts = posts.filter((p) => p.category && !SECURITY_CATS.includes(p.category)).slice(0, 3);
   const photo = settings.profile_photo;
   const reviews = reviewSchema(testimonials);
 
@@ -52,6 +63,9 @@ export default async function HomePage() {
       />
       <HomeHero content={content} photo={photo} />
 
+      {/* 01b · Two doors: security or web development */}
+      <PillarChooser />
+
       {/* 02 · Trust strip */}
       <Section className="!py-14">
         <Reveal>
@@ -64,35 +78,18 @@ export default async function HomePage() {
       {/* 03 · Build · Secure · Grow */}
       <BuildSecureGrow content={content} />
 
-      {/* 03b · Web-development pillar */}
-      <WebDevPillar />
+      {/* 04 · Security pillar — services, work, guides (keeps the CMS
+          "work" heading copy that used to title the featured-work grid) */}
+      <SecurityPillar
+        studies={securityStudies}
+        posts={securityPosts}
+        workKicker={content.text("work.kicker")}
+        workTitle={content.text("work.headline")}
+        workIntro={content.text("work.subhead")}
+      />
 
-      {/* 04 · Featured work */}
-      <Section>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeader
-            kicker={content.text("work.kicker")}
-            title={content.text("work.headline")}
-            intro={content.text("work.subhead")}
-            kickerStyle={content.style("work.kicker")}
-            titleStyle={content.style("work.headline")}
-            introStyle={content.style("work.subhead")}
-          />
-          <Reveal delay={0.1}>
-            <Button href="/work" variant="secondary">
-              {content.text("work.cta")}
-            </Button>
-          </Reveal>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {featured.map((study, i) => (
-            <Reveal key={study.slug} delay={i * 0.08}>
-              <CaseStudyCard study={study} priority={i === 0} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/* 04b · Web-development pillar — services, work, guides */}
+      <WebDevPillar studies={devStudies} posts={devPosts} />
 
       {/* 05 · The belief — motion calms, type-forward */}
       <Section surface className="text-center">
