@@ -10,6 +10,10 @@ import { CaseStudyCard } from "@/components/cms/case-study-card";
 import { CtaBand } from "@/components/cms/cta-band";
 import { ConceptCard } from "@/components/cms/concept-card";
 
+// Refresh within ~5 minutes of a CMS change (new case study or build),
+// like the blog index. Without this the page stayed frozen at build time.
+export const revalidate = 300;
+
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getPageContent("work");
   return pageMetadata({ content, path: "/work" });
