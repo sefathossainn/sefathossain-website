@@ -78,6 +78,18 @@ const nextConfig: NextConfig = {
         destination: "/services/wordpress-security-hardening",
         permanent: true,
       },
+      // Placeholder case studies with no real client behind them, retired
+      // Nov 2026. Each points at the closest real page.
+      {
+        source: "/work/elementor-business-website",
+        destination: "/services/elementor-website-design",
+        permanent: true,
+      },
+      {
+        source: "/work/shopify-store",
+        destination: "/work/perfumegyaan-shopify-store",
+        permanent: true,
+      },
       // Overlapping posts merged into the stronger page (see the module).
       ...CONSOLIDATED_POSTS.map((p) => ({
         source: `/blog/${p.from}`,
