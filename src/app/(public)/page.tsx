@@ -47,8 +47,10 @@ export default async function HomePage() {
     getSiteSettings(),
   ]);
   // Split work and guides into the two pillars (security vs web development).
-  const securityStudies = studies.filter((s) => s.category === "security").slice(0, 3);
-  const devStudies = studies.filter((s) => s.category !== "security").slice(0, 3);
+  // Homepage shows only case studies with a real screenshot; the rest stay on /work.
+  const withImage = studies.filter((s) => Boolean(s.hero_image));
+  const securityStudies = withImage.filter((s) => s.category === "security").slice(0, 3);
+  const devStudies = withImage.filter((s) => s.category !== "security").slice(0, 3);
   const SECURITY_CATS = ["Security", "Malware Removal"];
   const securityPosts = posts.filter((p) => SECURITY_CATS.includes(p.category ?? "")).slice(0, 3);
   const devPosts = posts.filter((p) => p.category && !SECURITY_CATS.includes(p.category)).slice(0, 3);
