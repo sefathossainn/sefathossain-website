@@ -46,7 +46,6 @@ const SHARED_PROCESS_TAIL = {
 export const DEV_SERVICES: DevService[] = [
   {
     slug: "wordpress-website-development",
-    caseStudy: { slug: "elementor-business-website", label: "A premium business website build" },
     name: "WordPress Website Development",
     desc: "Custom WordPress websites for US businesses — fast, easy to manage, and secure from day one.",
     metaTitle: "Custom WordPress Website Development",
@@ -187,7 +186,6 @@ export const DEV_SERVICES: DevService[] = [
   },
   {
     slug: "elementor-website-design",
-    caseStudy: { slug: "elementor-business-website", label: "A premium Elementor business website" },
     name: "Elementor Website Design",
     desc: "Premium, custom Elementor websites — not cookie-cutter templates — that you can edit yourself.",
     metaTitle: "Elementor Website Design & Development",
