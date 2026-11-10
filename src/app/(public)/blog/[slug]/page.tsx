@@ -11,7 +11,9 @@ import {
 } from "@/lib/cms/queries";
 import { absoluteUrl, formatDate, latestIso, withBrand } from "@/lib/utils";
 import { seedAssets } from "@/lib/cms/defaults/media";
-import { siteConfig, hackedCta, leadAssurance } from "@/lib/site-config";
+import { siteConfig, hackedCta, leadAssurance, buildCta } from "@/lib/site-config";
+import { BLOG_TOPICS } from "@/lib/blog-topics";
+import { INDUSTRY_WEBSITES } from "@/lib/industry-websites";
 
 /** Highest-impression post; every other post links to it. */
 const PILLAR_SLUG = "wordpress-site-hacked";
@@ -109,6 +111,9 @@ export default async function BlogPostPage({
   const faqs = post.faqs?.length ? post.faqs : getBlogFaqs(post.slug);
   const relatedCaseStudy = pickRelatedCaseStudy(caseStudies, post.slug);
   const relatedService = getRelatedService(post.slug);
+  // Web-development posts get build CTAs instead of hacked-site ones.
+  const devTopic = BLOG_TOPICS.find((t) => t.slug === "web-development")!;
+  const isDevPost = (devTopic.categories as readonly string[]).includes(post.category ?? "");
 
   const related = all
     .filter((p) => p.slug !== post.slug && p.category === post.category)
@@ -260,6 +265,53 @@ export default async function BlogPostPage({
               className="mt-10 [&_h2]:scroll-mt-28 [&_h3]:scroll-mt-28"
             />
 
+            {isDevPost ? (
+              <>
+            {/* In-content CTA for web-development posts: readers here are
+                planning or improving a site, not cleaning up a hack. */}
+            <div className="mt-14 rounded-[var(--radius-xl)] border border-emerald/30 bg-emerald/[0.06] p-7 md:p-8">
+              <p className="kicker text-emerald">Web development</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-mist">
+                Planning a new website?
+              </h2>
+              <p className="mt-3 leading-relaxed text-sage">
+                I build fast, secure WordPress, Shopify and Next.js websites for
+                US businesses. Tell me what you need and you&apos;ll get a plan and
+                a fixed quote before any work starts.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href={buildCta.href}
+                  className="inline-flex items-center justify-center rounded-full bg-emerald px-6 py-3 font-medium text-obsidian transition hover:opacity-90"
+                >
+                  {buildCta.label}
+                </Link>
+                <Link
+                  href="/services/wordpress-website-cost"
+                  className="inline-flex items-center justify-center rounded-full border border-line px-6 py-3 font-medium text-mist transition hover:border-emerald hover:text-emerald"
+                >
+                  What a website costs
+                </Link>
+              </div>
+              <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-sage">
+                Website design for:
+                {INDUSTRY_WEBSITES.map((i, n) => (
+                  <span key={i.slug}>
+                    <Link
+                      href={`/website-design/${i.slug}`}
+                      className="font-medium text-emerald underline-offset-4 hover:underline"
+                    >
+                      {i.plural}
+                    </Link>
+                    {n < INDUSTRY_WEBSITES.length - 1 ? " ·" : ""}
+                  </span>
+                ))}
+              </p>
+            </div>
+
+              </>
+            ) : (
+              <>
             {/* In-content CTA */}
             <div className="mt-14 rounded-[var(--radius-xl)] border border-emerald/30 bg-emerald/[0.06] p-7 md:p-8">
               <p className="kicker text-emerald">Free security check</p>
@@ -314,6 +366,9 @@ export default async function BlogPostPage({
               </p>
             )}
 
+              </>
+            )}
+
             {/* Take it further — related case study + service */}
             <div className="mt-16">
               <TakeItFurther
@@ -348,11 +403,19 @@ export default async function BlogPostPage({
         </Section>
       )}
 
-      <CtaBand
-        title="Worried about your own site?"
-        primary={{ label: "Get a free security audit", href: "/security-audit" }}
-        secondary={{ label: hackedCta.shortLabel + " Get help", href: hackedCta.href }}
-      />
+      {isDevPost ? (
+        <CtaBand
+          title="Want a website built like this?"
+          primary={{ label: buildCta.label, href: buildCta.href }}
+          secondary={{ label: "Website design by industry", href: "/website-design" }}
+        />
+      ) : (
+        <CtaBand
+          title="Worried about your own site?"
+          primary={{ label: "Get a free security audit", href: "/security-audit" }}
+          secondary={{ label: hackedCta.shortLabel + " Get help", href: hackedCta.href }}
+        />
+      )}
     </article>
   );
 }

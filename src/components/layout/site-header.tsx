@@ -7,6 +7,7 @@ import { BrandLogo } from "@/components/brand/brand-logo";
 import { Button } from "@/components/ui/button";
 import { primaryNav, primaryCta, hackedCta } from "@/lib/site-config";
 import { serviceAreas } from "@/lib/service-areas";
+import { SERVICE_PAGES, DEV_SERVICE_PAGES } from "@/lib/services-nav";
 import { cn } from "@/lib/utils";
 
 /** Top services surfaced in the Service Areas mega-menu (left column). */
@@ -26,6 +27,30 @@ const areaServices = [
     href: "/services/wordpress-security-hardening",
     desc: "Close the doors before anyone finds them.",
   },
+];
+
+/** Services mega-menu: the two pillars side by side. */
+const securityMenu = SERVICE_PAGES.filter((s) =>
+  [
+    "/services/wordpress-malware-removal",
+    "/services/emergency-wordpress-malware-removal",
+    "/services/hacked-wordpress-recovery",
+    "/services/google-blacklist-removal",
+    "/services/wordpress-security-hardening",
+    "/services/wordpress-malware-removal-cost",
+  ].includes(s.path),
+);
+const devMenu = [
+  ...DEV_SERVICE_PAGES.filter((s) =>
+    [
+      "/services/wordpress-website-development",
+      "/services/shopify-store-development",
+      "/services/woocommerce-development",
+      "/services/custom-web-development",
+      "/services/website-speed-optimization",
+    ].includes(s.path),
+  ),
+  { name: "Website design by industry", path: "/website-design", desc: "" },
 ];
 
 function ShieldIcon() {
@@ -114,9 +139,49 @@ export function SiteHeader({
         <BrandLogo photo={profilePhoto} name={brandName} title={brandTitle} />
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1">
           {primaryNav.map((item) =>
-            item.href === "/service-areas" ? (
+            item.href === "/services" ? (
+              <div key={item.href} className="group relative">
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "relative flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-sm xl:px-3.5 transition-colors duration-300",
+                    isActive(item.href) ? "text-mist" : "text-sage hover:text-mist",
+                  )}
+                >
+                  {item.label}
+                  <Chevron className="transition-transform duration-300 group-hover:rotate-180" />
+                  {isActive(item.href) && (
+                    <span className="absolute inset-x-3.5 -bottom-px h-px bg-emerald" />
+                  )}
+                </Link>
+                <div className="invisible absolute left-1/2 top-full z-50 w-[min(92vw,40rem)] -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <div className="grid gap-6 rounded-[var(--radius-xl)] border border-line/80 bg-obsidian/95 p-6 shadow-2xl backdrop-blur-xl md:grid-cols-2">
+                    {[
+                      { title: "WordPress security", items: securityMenu },
+                      { title: "Web development", items: devMenu },
+                    ].map((col) => (
+                      <div key={col.title}>
+                        <p className="kicker text-slate">{col.title}</p>
+                        <ul className="mt-3 grid gap-0.5">
+                          {col.items.map((s) => (
+                            <li key={s.path}>
+                              <Link
+                                href={s.path}
+                                className="block rounded-md px-2 py-1.5 text-sm text-sage transition-colors hover:bg-forest/40 hover:text-emerald"
+                              >
+                                {s.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : item.href === "/service-areas" ? (
               <div
                 key={item.href}
                 className="group relative"
@@ -126,7 +191,7 @@ export function SiteHeader({
                 <Link
                   href={item.href}
                   className={cn(
-                    "relative flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm transition-colors duration-300",
+                    "relative flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-sm xl:px-3.5 transition-colors duration-300",
                     isActive(item.href)
                       ? "text-mist"
                       : "text-sage hover:text-mist",
@@ -200,7 +265,7 @@ export function SiteHeader({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative rounded-full px-3.5 py-2 text-sm transition-colors duration-300",
+                  "relative whitespace-nowrap rounded-full px-2.5 py-2 text-sm xl:px-3.5 transition-colors duration-300",
                   isActive(item.href)
                     ? "text-mist"
                     : "text-sage hover:text-mist",
