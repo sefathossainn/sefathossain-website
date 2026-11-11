@@ -36,7 +36,9 @@ export function ContactForm() {
     }
   }, [setValue]);
 
-  const isHacked = useWatch({ control, name: "need" }) === HACKED_NEED;
+  const need = useWatch({ control, name: "need" });
+  const isHacked = need === HACKED_NEED;
+  const isBuild = need === "Build";
 
   const onSubmit = async (values: LeadInput) => {
     setServerError(null);
@@ -110,6 +112,17 @@ export function ContactForm() {
         </div>
       )}
 
+      {isBuild && (
+        <div className="rounded-xl border border-emerald/30 bg-emerald/[0.06] p-4 text-sm text-mist">
+          <p className="font-medium">Free website review and fixed quote</p>
+          <p className="mt-1 text-sage">
+            Share your current site URL (or describe the new one), the pages
+            or features you need, and any deadline. I&rsquo;ll reply with a short
+            review and a fixed price.
+          </p>
+        </div>
+      )}
+
       <Field label="Message" htmlFor="message" error={errors.message?.message}>
         <Textarea
           id="message"
@@ -117,7 +130,9 @@ export function ContactForm() {
           placeholder={
             isHacked
               ? "Site URL, what you see, when it started, and your host."
-              : "Tell me what's going on — a new build, a hacked site, or ongoing care."
+              : isBuild
+                ? "Current site URL or your idea, pages/features needed, deadline."
+                : "Tell me what's going on — a new build, a hacked site, or ongoing care."
           }
           {...register("message")}
         />

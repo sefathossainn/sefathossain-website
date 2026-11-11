@@ -10,6 +10,7 @@ import {
 } from "@/lib/cms/queries";
 import { signatureQuote } from "@/lib/cms/defaults/testimonials";
 import { pageMetadata } from "@/lib/seo";
+import { buildCta } from "@/lib/site-config";
 
 import { HomeHero } from "@/components/home/home-hero";
 import { BuildSecureGrow } from "@/components/home/build-secure-grow";
@@ -132,33 +133,65 @@ export default async function HomePage() {
         />
       </Section>
 
-      {/* 07 · Lead magnet — the one bright moment */}
+      {/* 07 · Lead magnets — one free first step per pillar. The security
+          card keeps its CMS copy; the build card offers a website review. */}
       <Section className="overflow-hidden">
-        <Reveal className="panel relative overflow-hidden p-10 md:p-16">
-          <div
-            aria-hidden
-            className="glow-core pointer-events-none absolute -right-24 -top-24 h-[30rem] w-[30rem]"
-          />
-          <div className="relative max-w-2xl">
-            <p className="kicker kicker-emerald mb-6" style={content.style("audit.kicker")}>
-              {content.text("audit.kicker")}
-            </p>
-            <h2 className="text-display font-display font-semibold text-mist" style={content.style("audit.headline")}>
-              {content.text("audit.headline")}
-            </h2>
-            <p className="mt-6 max-w-xl leading-relaxed text-sage" style={content.style("audit.body")}>
-              {content.text("audit.body")}
-            </p>
-            <Button
-              href="/security-audit"
-              variant="primary"
-              size="lg"
-              className="mt-9"
-            >
-              {content.text("audit.cta")}
-            </Button>
-          </div>
-        </Reveal>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Reveal className="panel relative h-full overflow-hidden border-emerald/40 p-9 md:p-12">
+            <div
+              aria-hidden
+              className="glow-core pointer-events-none absolute -right-24 -top-24 h-[26rem] w-[26rem]"
+            />
+            <div className="relative flex h-full flex-col">
+              <p className="kicker kicker-emerald mb-6" style={content.style("audit.kicker")}>
+                {content.text("audit.kicker")}
+              </p>
+              <h2 className="font-display text-3xl font-semibold leading-tight text-mist md:text-4xl" style={content.style("audit.headline")}>
+                {content.text("audit.headline")}
+              </h2>
+              <p className="mt-6 leading-relaxed text-sage" style={content.style("audit.body")}>
+                {content.text("audit.body")}
+              </p>
+              <div className="mt-auto pt-9">
+                <Button href="/security-audit" variant="primary" size="lg">
+                  {content.text("audit.cta")}
+                </Button>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08} className="panel relative h-full overflow-hidden border-emerald/40 p-9 md:p-12">
+            <div
+              aria-hidden
+              className="glow-core pointer-events-none absolute -left-24 -top-24 h-[26rem] w-[26rem]"
+            />
+            <div className="relative flex h-full flex-col">
+              <p className="kicker kicker-emerald mb-6">Free website review</p>
+              <h2 className="font-display text-3xl font-semibold leading-tight text-mist md:text-4xl">
+                Planning a new site? Get a free review and a fixed quote.
+              </h2>
+              <p className="mt-6 leading-relaxed text-sage">
+                Send me your current site or your idea. I&apos;ll look at speed,
+                mobile, SEO and what&apos;s holding it back, then reply with a
+                short plain-language review and a fixed price for the work. No
+                obligation.
+              </p>
+              <ul className="mt-6 grid gap-2.5 text-sm text-mist/90">
+                {["Speed, mobile and SEO check", "What to keep, fix or rebuild", "Fixed quote, no hourly surprises"].map((p) => (
+                  <li key={p} className="flex gap-3">
+                    <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-emerald" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto pt-9">
+                <Button href={buildCta.href} variant="primary" size="lg">
+                  Get my free website review
+                </Button>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </Section>
 
       {/* 08 · Final CTA */}
