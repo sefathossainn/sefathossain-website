@@ -16,6 +16,7 @@ type Audit = {
   email: string;
   website_url: string;
   status?: string;
+  source_page?: string | null;
   created_at: string;
 };
 
@@ -46,6 +47,7 @@ export default async function AuditPage() {
               <Th>Email</Th>
               <Th>Website</Th>
               <Th>Status</Th>
+              <Th>Source</Th>
             </tr>
           </thead>
           <tbody>
@@ -78,6 +80,9 @@ export default async function AuditPage() {
                     value={a.status ?? "new"}
                     options={STATUSES}
                   />
+                </Td>
+                <Td className="max-w-xs break-words text-xs text-slate">
+                  {a.source_page ?? "—"}
                 </Td>
               </tr>
             ))}

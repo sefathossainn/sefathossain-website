@@ -4,6 +4,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { auditSchema, type AuditInput } from "@/lib/validation";
+import { getFirstLanding } from "@/lib/first-landing";
 import { Field, Input, Honeypot } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 
@@ -22,7 +23,7 @@ export function AuditForm({ calendarUrl }: { calendarUrl?: string | null }) {
       const res = await fetch("/api/audit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, landing: getFirstLanding() }),
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {

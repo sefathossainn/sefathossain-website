@@ -5,6 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { leadSchema, NEEDS, HACKED_NEED, type LeadInput } from "@/lib/validation";
 import { leadAssurance } from "@/lib/site-config";
+import { getFirstLanding } from "@/lib/first-landing";
 import { Field, Input, Textarea, Select, Honeypot } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 
@@ -46,7 +47,7 @@ export function ContactForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, landing: getFirstLanding() }),
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {

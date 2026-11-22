@@ -154,6 +154,7 @@ create table if not exists public.audit_requests (
   email text,
   website_url text,
   status text default 'new',
+  source_page text,
   created_at timestamptz default now()
 );
 
