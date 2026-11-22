@@ -4,6 +4,7 @@ import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getSiteSettings } from "@/lib/cms/queries";
 import { notifyOwner } from "@/lib/notify";
+import { describeLanding } from "@/lib/first-landing";
 
 export const runtime = "nodejs";
 
@@ -40,6 +41,9 @@ export async function POST(req: Request) {
   // Honeypot tripped — pretend success, save nothing.
   if (company) return NextResponse.json({ ok: true });
 
+  const landing = describeLanding((payload as { landing?: unknown }).landing);
+  const sourcePage = [data.source_page, landing].filter(Boolean).join(" | ");
+
   try {
     const sb = createSupabaseAdminClient();
     const { error } = await sb.from("leads").insert({
@@ -47,7 +51,7 @@ export async function POST(req: Request) {
       email: data.email,
       need: data.need ?? null,
       message: data.message,
-      source_page: data.source_page ?? null,
+      source_page: sourcePage || null,
     });
     if (error) throw error;
   } catch {
@@ -67,7 +71,7 @@ export async function POST(req: Request) {
     data.need === HACKED_NEED
       ? "URGENT: hacked site enquiry — sefathossain.com"
       : "New enquiry — sefathossain.com",
-    `${data.name} <${data.email}> — ${data.need ?? "—"}\n\n${data.message}`,
+    `${data.name} <${data.email}> — ${data.need ?? "—"}\n\n${data.message}${landing ? `\n\n[${landing}]` : ""}`,
     settings.lead_email,
     data.email,
   );

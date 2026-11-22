@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { captureFirstLanding } from "@/lib/first-landing";
 
 /** Persistent first-party visitor id (localStorage, not a cross-site cookie). */
 function getVisitorId(): string {
@@ -57,6 +58,7 @@ export function PageViewTracker() {
     if (!pathname || last.current === pathname) return;
     const isFirst = last.current === null;
     last.current = pathname;
+    if (isFirst) captureFirstLanding(pathname);
 
     const body = JSON.stringify({
       path: pathname,

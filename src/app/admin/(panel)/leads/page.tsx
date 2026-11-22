@@ -44,6 +44,7 @@ export default async function LeadsPage() {
               <Th>Email</Th>
               <Th>Need</Th>
               <Th>Message</Th>
+              <Th>Source</Th>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +62,9 @@ export default async function LeadsPage() {
                 </Td>
                 <Td className="whitespace-nowrap">{l.need ?? "—"}</Td>
                 <Td className="max-w-md text-sage">{l.message}</Td>
+                <Td className="max-w-xs break-words text-xs text-slate">
+                  {l.source_page ?? "—"}
+                </Td>
               </tr>
             ))}
           </tbody>

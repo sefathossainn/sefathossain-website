@@ -16,9 +16,11 @@ const body = `
 <p>This site is run by ${siteConfig.name}. This policy explains, in plain language, what information is collected and how it is used. It's a starting template — review and adapt it to your jurisdiction before launch.</p>
 <h2>What I collect</h2>
 <p>Only what you choose to send me. When you submit the contact or security-audit form, that means your name, email address, website URL (for audits), and any message you write. The site does not sell data or run invasive tracking.</p>
+<p>To learn which pages bring enquiries, the site saves the first page you landed on, the domain that referred you, any campaign source and the date in your browser's local storage, and treats them as expired after 90 days. These are only added to your details if you submit a form.</p>
 <h2>How I use it</h2>
 <ul>
 <li>To reply to your enquiry and, for audit requests, to run your audit and send your report.</li>
+<li>To see which pages and referring sites lead to enquiries.</li>
 <li>Nothing else. Your details aren't sold, rented, or shared for marketing.</li>
 </ul>
 <h2>Where it's stored</h2>

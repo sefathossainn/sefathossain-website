@@ -15,7 +15,7 @@ const CONFIG: Record<
   },
   audit: {
     table: "audit_requests",
-    columns: ["created_at", "name", "email", "website_url", "status"],
+    columns: ["created_at", "name", "email", "website_url", "status", "source_page"],
     section: "audit",
   },
 };
@@ -38,7 +38,8 @@ export async function GET(req: Request) {
 
   const { data, error } = await sb
     .from(cfg.table)
-    .select(cfg.columns.join(","))
+    // "*" rather than the column list, so the export works before migration 0009.
+    .select("*")
     .order("created_at", { ascending: false });
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
